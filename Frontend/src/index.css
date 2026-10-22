@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Gilroy", "Avenir Next", "Montserrat", "Segoe UI", sans-serif;
+}
+
+:root {
+  --app-page-title-size: clamp(1.5rem, 2vw, 1.875rem);
+  --app-section-title-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  --app-body-size: 0.8125rem;
+  --app-small-size: 0.6875rem;
+  --app-table-size: 0.75rem;
+}
+
+body {
+  font-family: "Gilroy", "Avenir Next", "Montserrat", "Segoe UI", sans-serif;
+  font-size: var(--app-body-size);
+}
+
+@layer components {
+  .app-page-title {
+    font-size: var(--app-page-title-size);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.04em;
+  }
+
+  .app-section-title {
+    font-size: var(--app-section-title-size);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+  }
+
+  .app-description {
+    font-size: var(--app-body-size);
+    line-height: 1.5;
+  }
+
+  .app-table-heading {
+    font-size: var(--app-small-size);
+    font-weight: 800;
+  }
+
+  .app-table-cell {
+    font-size: var(--app-table-size);
+  }
+}
