@@ -4,6 +4,7 @@ import {
   MapPin,
   CalendarDays,
   ChevronDown,
+  ChevronUp,
   ChevronLeft,
   ChevronRight,
   ArrowUpDown,
@@ -19,11 +20,7 @@ import {
   Calendar,
   UserRound,
   ReceiptText,
-  TrendingUp,
-  Wallet,
-  ChartNoAxesCombined,
   Boxes,
-  RotateCcw,
 } from "lucide-react";
 
 const reportTabs = [
@@ -37,90 +34,18 @@ const reportTabs = [
   { name: "Profit by day", icon: CalendarDays },
 ];
 
-const stockLeft = [
-  { label: "Opening Stock", detail: "(By purchase price)", value: "₹ 723,712.00" },
-  { label: "Opening Stock", detail: "(By sale price)", value: "₹ 904,625.75" },
-  { label: "Total purchase", detail: "(Exc. tax, Discount)", value: "₹ 0.00" },
-  { label: "Total Stock Adjustment", value: "₹ 0.00" },
-  { label: "Total Expense", value: "₹ 0.00" },
-  { label: "Total purchase shipping charge", value: "₹ 0.00" },
-  { label: "Purchase additional expenses", value: "₹ 0.00" },
-  { label: "Total transfer shipping charge", value: "₹ 100.00" },
-  { label: "Total Sell discount", value: "₹ 23.17" },
-  { label: "Total customer reward", value: "₹ 0.00" },
-  { label: "Total Sell Return", value: "₹ 0.00" },
-];
-
-const stockRight = [
-  { label: "Closing stock", detail: "(By purchase price)", value: "₹ 723,051.00" },
-  { label: "Closing stock", detail: "(By sale price)", value: "₹ 903,799.50" },
-  { label: "Total Sales", detail: "(Exc. tax, Discount)", value: "₹ 1,869.90" },
-  { label: "Total sell shipping charge", value: "₹ 320.00" },
-  { label: "Sell additional expenses", value: "₹ 0.00" },
-  { label: "Total Stock Recovered", value: "₹ 0.00" },
-  { label: "Total Purchase Return", value: "₹ 0.00" },
-  { label: "Total Purchase discount", value: "₹ 0.00" },
-  { label: "Total sell round off", value: "₹ 5.52" },
-];
-
 const initialProducts = [
-  { product: "Amlodipine (0045)", profit: 9.0 },
-  { product: "Amoxicillin (0038)", profit: 22.5 },
-  { product: "Amoxicillin (0050)", profit: 22.5 },
-  { product: "Amoxicillin (0056)", profit: 4.5 },
-  { product: "Atorvastatin (Lipitor) (0047)", profit: 22.5 },
-  { product: "Azithromycin (0057)", profit: 9.0 },
-  { product: "Budesonide (0054)", profit: 4.5 },
-  { product: "Dolo 650 (0001)", profit: 39.38 },
-  { product: "Fluoxetine (Prozac) (0041)", profit: 13.5 },
-  { product: "Fluoxetine (Prozac) (0051)", profit: 4.5 },
-  { product: "Metformin (0055)", profit: 0 },
-  { product: "Oxycodone (0043)", profit: 9.0 },
-  { product: "Oxycodone (0081)", profit: 0 },
-  { product: "Sertraline (Zoloft) (0040)", profit: 4.5 },
-  { product: "Sertraline (Zoloft) (0049)", profit: 9.0 },
+  { product: "Ac Repair (0060)", profit: 3856 },
+  { product: "CPU (0073)", profit: 6250 },
+  { product: "jan (12)", profit: 1404 },
 ];
-
-const categoryData = [
-  { product: "Medicines", profit: 103.5 },
-  { product: "Tablets", profit: 36.0 },
-  { product: "Capsules", profit: 22.5 },
-  { product: "Syrups", profit: 12.38 },
-];
-
-const brandData = [
-  { product: "Dolo", profit: 39.38 },
-  { product: "Amoxicillin", profit: 49.5 },
-  { product: "Atorvastatin", profit: 22.5 },
-  { product: "Sertraline", profit: 13.5 },
-];
-
-const locationData = [{ product: "Pharmacy", profit: 174.38 }];
-
-const invoiceData = [
-  { product: "Invoice #0004", profit: 72.0 },
-  { product: "Invoice #0005", profit: 56.88 },
-  { product: "Invoice #0006", profit: 45.5 },
-];
-
-const customerData = [
-  { product: "Walk-In Customer", profit: 124.38 },
-  { product: "Demo Customer", profit: 50.0 },
-];
-
-const dateData = [
-  { product: "19/10/2026", profit: 45.0 },
-  { product: "18/10/2026", profit: 64.38 },
-  { product: "17/10/2026", profit: 65.0 },
-];
-
-const dayData = [
-  { product: "Monday", profit: 24.5 },
-  { product: "Tuesday", profit: 32.0 },
-  { product: "Wednesday", profit: 18.0 },
-  { product: "Thursday", profit: 27.5 },
-  { product: "Friday", profit: 38.0 },
-];
+const categoryData = [];
+const brandData = [];
+const locationData = [];
+const invoiceData = [];
+const customerData = [];
+const dateData = [];
+const dayData = [];
 
 const tabData = {
   "Profit by products": initialProducts,
@@ -133,70 +58,43 @@ const tabData = {
   "Profit by day": dayData,
 };
 
+const profitSummary = {
+  cogs: 37240,
+  grossProfit: 11510,
+  netProfit: 9337,
+};
+
+const openingStockRows = [
+  { label: "Opening Stock", detail: "(By purchase price):", value: 37240 },
+  { label: "Opening Stock", detail: "(By sale price):", value: 50370 },
+  { label: "Total purchase:", detail: "(Exc. tax, Discount)", value: 0 },
+  { label: "Total Stock Adjustment:", value: 0 },
+  { label: "Total Expense:", value: 0 },
+  { label: "Total purchase shipping charge:", value: 0 },
+  { label: "Purchase additional expenses:", value: 0 },
+  { label: "Total transfer shipping charge:", value: 0 },
+  { label: "Total Sell discount:", value: 2273 },
+  { label: "Total customer reward:", value: 0 },
+  { label: "Total Sell Return:", value: 0 },
+];
+
+const closingStockRows = [
+  { label: "Closing stock", detail: "(By purchase price):", value: 0 },
+  { label: "Closing stock", detail: "(By sale price):", value: 0 },
+  { label: "Total Sales:", detail: "(Exc. tax, Discount)", value: 48750 },
+  { label: "Total sell shipping charge:", value: 100 },
+  { label: "Sell additional expenses:", value: 0 },
+  { label: "Total Stock Recovered:", value: 0 },
+  { label: "Total Purchase Return:", value: 0 },
+  { label: "Total Purchase discount:", value: 0 },
+  { label: "Total sell round off:", value: 0 },
+];
+
 const money = (value) =>
   `₹ ${Number(value).toLocaleString("en-IN", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })}`;
-
-function SectionHeading({ icon: Icon, title, subtitle }) {
-  return (
-    <div className="mb-4 flex items-center gap-3">
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
-        <Icon size={19} />
-      </div>
-      <div className="min-w-0">
-        <h2 className="app-section-title text-[#10234F]">
-          {title}
-        </h2>
-        {subtitle && (
-          <p className="app-description mt-0.5 text-[#577B9F]">{subtitle}</p>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function SummaryCard({ title, rows, icon: Icon }) {
-  return (
-    <section className="min-w-0 overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
-      <div className="flex items-center gap-3 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] to-white px-4 py-4 sm:px-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
-          <Icon size={18} />
-        </div>
-        <h2 className="text-sm font-extrabold text-[#10234F]">{title}</h2>
-        <span className="ml-auto rounded-full bg-[#FFF1E5] px-2.5 py-1 text-[10px] font-bold text-[#E96B10]">
-          {rows.length} items
-        </span>
-      </div>
-
-      <div className="p-2 sm:p-3">
-        {rows.map((row, index) => (
-          <div
-            key={`${row.label}-${index}`}
-            className={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-lg px-3 py-2.5 ${
-              index % 2 === 0 ? "bg-[#FFFCF8]" : "bg-white"
-            }`}
-          >
-            <div className="min-w-0">
-              <p className="text-xs font-semibold leading-4 text-[#19366F]">
-                {row.label}
-              </p>
-              {row.detail && (
-                <p className="mt-0.5 text-[10px] leading-4 text-[#577B9F]">
-                  {row.detail}
-                </p>
-              )}
-            </div>
-            <span className="whitespace-nowrap text-xs font-semibold tabular-nums text-[#10234F]">
-              {row.value}
-            </span>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 function ExportButton({ icon: Icon, children, onClick }) {
   return (
@@ -208,34 +106,6 @@ function ExportButton({ icon: Icon, children, onClick }) {
       <Icon size={15} />
       <span>{children}</span>
     </button>
-  );
-}
-
-function FilterSelect({ icon: Icon, value, onChange, children, accent = false }) {
-  return (
-    <label
-      className={`relative flex h-10 min-w-0 items-center gap-2 rounded-xl border px-3 transition focus-within:ring-2 ${
-        accent
-          ? "border-[#FF8A37]/35 bg-[#FFF7EF] focus-within:ring-[#FF8A37]/15"
-          : "border-[#E8EDF4] bg-white focus-within:ring-[#1475F8]/10"
-      }`}
-    >
-      <Icon
-        size={16}
-        className={accent ? "shrink-0 text-[#F04A13]" : "shrink-0 text-[#577B9F]"}
-      />
-      <select
-        value={value}
-        onChange={onChange}
-        className="h-full w-full min-w-0 appearance-none bg-transparent pr-5 text-xs font-semibold text-[#19366F] outline-none"
-      >
-        {children}
-      </select>
-      <ChevronDown
-        size={14}
-        className="pointer-events-none absolute right-2.5 text-[#577B9F]"
-      />
-    </label>
   );
 }
 
@@ -321,155 +191,135 @@ export default function ProfitLoss() {
   };
 
   return (
-    <main className="min-h-full min-w-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
-      {/* Page header */}
-      <header className="mb-6 flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-        <div className="flex items-start gap-3">
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
-            <ChartNoAxesCombined size={23} />
-          </div>
-          <div>
-            <p className="mb-2 inline-flex rounded-lg bg-[#FFE9D9] px-3 py-2 text-[11px] font-extrabold uppercase tracking-wide text-[#F04A13]">
-              Pharmacy · Reports
-            </p>
-            <h1 className="app-page-title text-[#10234F]">
-              Profit / Loss Report
-            </h1>
-            <p className="app-description mt-1 text-[#577B9F]">
-              Review stock valuation, sales and profit breakdowns.
-            </p>
-          </div>
-        </div>
+    <main className="min-h-full min-w-0 flex-1 overflow-x-hidden bg-[#F7F7F7] px-3 py-4 font-sans text-[#4B4B4B] sm:px-4">
+      <header className="mb-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-bold text-black">Profit / Loss Report</h1>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <label className="flex h-10 min-w-[260px] items-center rounded-md border border-[#D1D5DB] bg-white">
+            <span className="flex h-full w-11 shrink-0 items-center justify-center bg-[#1475E8] text-white">
+              <MapPin size={18} fill="currentColor" />
+            </span>
+            <select
+              aria-label="Business location"
+              value={location}
+              onChange={(event) => setLocation(event.target.value)}
+              className="h-full min-w-0 flex-1 bg-white px-3 text-sm text-[#555555] outline-none"
+            >
+              <option value="all">All locations</option>
+              <option value="msc">Multi-Service Center</option>
+            </select>
+          </label>
 
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:w-[430px]">
-          <FilterSelect
-            icon={MapPin}
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-          >
-            <option value="all">All locations</option>
-            <option value="main">Main Pharmacy</option>
-            <option value="branch">Branch Pharmacy</option>
-          </FilterSelect>
-
-          <FilterSelect
-            icon={CalendarDays}
-            value={dateFilter}
-            onChange={(e) => setDateFilter(e.target.value)}
-            accent
-          >
-            <option value="all">Filter by date</option>
-            <option value="today">Today</option>
-            <option value="week">This week</option>
-            <option value="month">This month</option>
-            <option value="year">This year</option>
-          </FilterSelect>
+          <label className="relative flex h-10 min-w-[180px] items-center rounded-lg bg-[#7377FF] pl-3 pr-2 text-sm font-semibold text-white sm:ml-5">
+            <CalendarDays size={17} className="mr-1.5 shrink-0" />
+            <select
+              aria-label="Filter by date"
+              value={dateFilter}
+              onChange={(event) => setDateFilter(event.target.value)}
+              className="h-full min-w-0 flex-1 appearance-none bg-transparent pr-5 text-white outline-none"
+            >
+              <option value="all" className="text-[#333333]">Filter by date</option>
+              <option value="today" className="text-[#333333]">Today</option>
+              <option value="week" className="text-[#333333]">This week</option>
+              <option value="month" className="text-[#333333]">This month</option>
+              <option value="year" className="text-[#333333]">This year</option>
+            </select>
+            <ChevronDown size={14} className="pointer-events-none absolute right-3" />
+          </label>
         </div>
       </header>
 
-      {/* Stock overview */}
-      <section className="mb-6 grid grid-cols-1 items-start gap-3 xl:grid-cols-2">
-        <SummaryCard
-          title="Opening Stock & Expenses"
-          rows={stockLeft}
-          icon={Boxes}
-        />
-        <SummaryCard
-          title="Closing Stock & Sales"
-          rows={stockRight}
-          icon={Package}
-        />
+      <section className="mb-4 grid grid-cols-1 items-stretch gap-4 xl:grid-cols-2">
+        {[
+          { title: "Opening Stock", rows: openingStockRows },
+          { title: "Closing stock", rows: closingStockRows },
+        ].map(({ title, rows }) => (
+          <article
+            key={title}
+            className="rounded-[22px] border border-[#E8E8E8] bg-white px-5 py-5 shadow-[0_8px_20px_rgba(0,0,0,0.07)] sm:px-10"
+          >
+            <div>
+              {rows.map((row, index) => (
+                <div
+                  key={`${row.label}-${index}`}
+                  className={`grid min-h-[43px] grid-cols-[minmax(0,1fr)_minmax(120px,28%)] items-center gap-3 px-2.5 py-2 text-sm ${
+                    index % 2 === 0 ? "bg-[#F7F7F7]" : "bg-white"
+                  }`}
+                >
+                  <div>
+                    <p className="font-bold text-[#1F2937]">{row.label}</p>
+                    {row.detail && (
+                      <p className="mt-0.5 text-xs font-semibold text-[#7A7A7A]">
+                        {row.detail}
+                      </p>
+                    )}
+                  </div>
+                  <span className="whitespace-nowrap text-[#1F2937]">
+                    {money(row.value)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
       </section>
 
-      {/* Profit summary */}
-      <section className="mb-6">
-        <SectionHeading
-          icon={Wallet}
-          title="Profit Calculation Summary"
-          subtitle="A breakdown of the key values in your profit and loss report."
-        />
-
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <article className="relative overflow-hidden rounded-xl border border-[#F8EBDD] bg-white p-4 shadow-[0_3px_8px_rgba(25,43,80,0.04)]">
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#FFF1E4]" />
-            <div className="relative">
-              <div className="flex items-center gap-2 text-[11px] font-bold text-[#526D8D]">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FFE5AD] text-[#F47700]">
-                  <Boxes size={17} />
-                </div>
-                Cost of Goods Sold
-              </div>
-              <p className="mt-3 text-xl font-extrabold tracking-tight text-[#F47700] sm:text-2xl">
-                ₹ 1,446,763.00
+      <section className="rounded-2xl border border-[#ECECEC] bg-white px-5 py-6 shadow-[0_10px_24px_rgba(0,0,0,0.08)] sm:px-8">
+        <div className="space-y-2">
+          <div>
+            <h1 className="text-lg font-bold text-[#FF9418]">
+              COGS: {money(profitSummary.cogs)}
+            </h1>
+            <p className="text-xs text-[#929292]">
+              Cost of Goods Sold = Starting inventory(opening stock) +
+              purchases − ending inventory(closing stock)
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-[#FF9418]">
+              Gross Profit: {money(profitSummary.grossProfit)}
+            </h2>
+            <p className="text-xs text-[#929292]">
+              (Total sell price - Total purchase price)
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold text-[#FF9418]">
+              Net Profit: {money(profitSummary.netProfit)}
+            </h2>
+            <div className="text-xs leading-4 text-[#929292]">
+              <p>
+                Gross Profit + (Total sell shipping charge + Sell additional
+                expenses + Total Stock Recovered + Total Purchase discount +
+                Total sell round off)
               </p>
-              <p className="mt-2 text-xs leading-5 text-[#577B9F]">
-                Cost of Goods Sold = Starting inventory (opening stock) +
-                purchases − ending inventory (closing stock)
-              </p>
-            </div>
-          </article>
-
-          <article className="relative overflow-hidden rounded-xl border border-[#E6EDF5] bg-white p-4 shadow-[0_3px_8px_rgba(25,43,80,0.04)]">
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#EFF5FF]" />
-            <div className="relative">
-              <div className="flex items-center gap-2 text-[11px] font-bold text-[#526D8D]">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#CDE6FF] text-[#087AF0]">
-                  <TrendingUp size={17} />
-                </div>
-                Gross Profit
-              </div>
-              <p className="mt-3 text-xl font-extrabold tracking-tight text-[#087AF0] sm:text-2xl">
-                ₹ 174.38
-              </p>
-              <p className="mt-2 text-xs leading-5 text-[#577B9F]">
-                (Total sell price − Total purchase price)
+              <p>
+                - (Total Stock Adjustment + Total Expense + Total purchase
+                shipping charge + Total transfer shipping charge + Purchase
+                additional expenses + Total Sell discount + Total customer
+                reward)
               </p>
             </div>
-          </article>
-
-          <article className="relative overflow-hidden rounded-xl border border-[#E6EDF5] bg-white p-4 shadow-[0_3px_8px_rgba(25,43,80,0.04)]">
-            <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-full bg-[#EAF8F0]" />
-            <div className="relative">
-              <div className="flex items-center gap-2 text-[11px] font-bold text-[#526D8D]">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D1FBD1] text-[#13A52E]">
-                  <ChartNoAxesCombined size={17} />
-                </div>
-                Net Profit
-              </div>
-              <p className="mt-3 text-xl font-extrabold tracking-tight text-[#13A52E] sm:text-2xl">
-                ₹ 376.73
-              </p>
-              <div className="mt-2 space-y-1 text-[11px] leading-5 text-[#577B9F]">
-                <p>
-                  Gross Profit + (Total sell shipping charge + Sell additional
-                  expenses + Total Stock Recovered + Total Purchase discount +
-                  Total sell round off)
-                </p>
-                <p>
-                  − (Total Stock Adjustment + Total Expense + Total purchase
-                  shipping charge + Total transfer shipping charge + Purchase
-                  additional expenses + Total Sell discount + Total customer
-                  reward)
-                </p>
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
       </section>
+
+      <div className="mt-4 flex justify-end">
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="inline-flex h-12 items-center gap-2 rounded-lg bg-[#7377FF] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#6266EB] print:hidden"
+        >
+          <Printer size={16} />
+          Print
+        </button>
+      </div>
 
       {/* Detailed report */}
-      <section className="overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
-        <div className="border-b border-[#F2E8DE] px-4 py-4 sm:px-5">
-          <SectionHeading
-            icon={FileSpreadsheet}
-            title="Detailed Profit Report"
-            subtitle="Switch between report views to review your profit breakdown."
-          />
-        </div>
-
+      <section className="overflow-hidden rounded-2xl border border-[#E8E8E8] bg-white shadow-[0_6px_18px_rgba(0,0,0,0.04)]">
         {/* Report tabs */}
-        <div className="border-b border-[#F2E8DE] bg-[#FFFCF8]">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-8">
+        <div className="border-b border-[#E8E8E8] bg-white">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
             {reportTabs.map(({ name, icon: Icon }) => {
               const active = activeTab === name;
 
@@ -478,21 +328,13 @@ export default function ProfitLoss() {
                   type="button"
                   key={name}
                   onClick={() => handleTabChange(name)}
-                  className={`relative flex min-h-[58px] items-center gap-2 border-b-2 px-3 py-3 text-left text-xs font-semibold transition ${
+                  className={`relative flex min-h-[48px] items-center gap-1.5 border-t-2 px-3 py-2 text-left text-xs font-semibold transition ${
                     active
-                      ? "border-[#FF711A] bg-[#FFF1E5] text-[#10234F]"
-                      : "border-transparent text-[#577B9F] hover:bg-[#FFF7EF] hover:text-[#10234F]"
+                      ? "border-[#3F91C7] text-[#555555]"
+                      : "border-transparent text-[#555555] hover:bg-[#FAFAFA]"
                   }`}
                 >
-                  <span
-                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                      active
-                        ? "bg-[#FF711A] text-white"
-                        : "bg-[#FFE9D9] text-[#F04A13]"
-                    }`}
-                  >
-                    <Icon size={16} />
-                  </span>
+                  <Icon size={17} className="shrink-0" />
                   <span className="leading-4">{name}</span>
                 </button>
               );
@@ -501,10 +343,10 @@ export default function ProfitLoss() {
         </div>
 
         {/* Table toolbar */}
-        <div className="flex flex-col gap-4 border-b border-[#F2E8DE] px-4 py-4 sm:px-5">
+        <div className="flex flex-col gap-4 border-b border-[#E8E8E8] px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
           <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-wrap items-center gap-2">
-              <label className="flex h-9 items-center gap-2 text-xs text-[#577B9F]">
+              <label className="flex h-9 items-center gap-2 text-xs text-[#555555]">
                 Show
                 <select
                   value={pageSize}
@@ -593,7 +435,7 @@ export default function ProfitLoss() {
               />
               <input
                 type="search"
-                placeholder="Search records..."
+                placeholder="Search ..."
                 value={search}
                 onChange={(e) => {
                   setSearch(e.target.value);
@@ -609,9 +451,9 @@ export default function ProfitLoss() {
         <div className="overflow-x-auto">
           <table className="w-full min-w-[460px] border-collapse text-left text-xs">
             <thead>
-              <tr className="border-b border-[#F2E8DE] bg-[#FFF7EF] text-[#19366F]">
+              <tr className="border-b border-[#E8E8E8] bg-white text-[#333333]">
                 {visibleColumns.name && (
-                  <th className="px-4 py-4 font-bold sm:px-5">
+                  <th className="px-3 py-3 font-bold sm:px-4">
                     <button
                       type="button"
                       onClick={() =>
@@ -639,7 +481,7 @@ export default function ProfitLoss() {
                 )}
 
                 {visibleColumns.profit && (
-                  <th className="px-4 py-4 font-bold sm:px-5">
+                  <th className="px-3 py-3 font-bold sm:px-4">
                     <span className="inline-flex items-center gap-2">
                       Gross Profit
                       <ArrowUpDown size={13} className="text-[#9AA7B8]" />
@@ -653,18 +495,18 @@ export default function ProfitLoss() {
               {displayedData.map((item, index) => (
                 <tr
                   key={`${item.product}-${index}`}
-                  className={`border-b border-[#F2E8DE] transition-colors hover:bg-[#FFF1E5]/70 ${
-                    index % 2 === 0 ? "bg-white" : "bg-[#FFFCF8]"
+                  className={`border-b border-[#EEEEEE] transition-colors hover:bg-[#F5F5F5] ${
+                    index % 2 === 0 ? "bg-[#F8F8F8]" : "bg-white"
                   }`}
                 >
                   {visibleColumns.name && (
-                    <td                     className="app-table-cell px-4 py-4 font-medium text-[#19366F] sm:px-5">
+                    <td className="app-table-cell px-3 py-3 font-medium text-[#4B5563] sm:px-4">
                       {item.product}
                     </td>
                   )}
 
                   {visibleColumns.profit && (
-                    <td className="app-table-cell px-4 py-4 font-semibold tabular-nums text-[#10234F] sm:px-5">
+                    <td className="app-table-cell px-3 py-3 font-semibold tabular-nums text-[#4B5563] sm:px-4">
                       {money(item.profit)}
                     </td>
                   )}
@@ -697,14 +539,14 @@ export default function ProfitLoss() {
             </tbody>
 
             <tfoot>
-              <tr className="border-t border-[#F2E8DE] bg-[#FFF1E5]">
+              <tr className="border-t border-[#E3E5E8] bg-[#D4D7DE]">
                 {visibleColumns.name && (
-                  <td className="px-4 py-4 font-extrabold text-[#10234F] sm:px-5">
-                    Total
+                  <td className="px-3 py-3 font-extrabold text-[#333333] sm:px-4">
+                    Total:
                   </td>
                 )}
                 {visibleColumns.profit && (
-                  <td className="px-4 py-4 font-extrabold tabular-nums text-[#10234F] sm:px-5">
+                  <td className="px-3 py-3 font-extrabold tabular-nums text-[#333333] sm:px-4">
                     {money(total)}
                   </td>
                 )}
@@ -777,9 +619,9 @@ export default function ProfitLoss() {
         type="button"
         aria-label="Back to top"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-xl bg-[#1475F8] text-white shadow-[0_5px_14px_rgba(20,117,248,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0865DF] print:hidden"
+        className="fixed bottom-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-xl bg-[#3478F6] text-white shadow-[0_5px_14px_rgba(20,117,248,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0865DF] print:hidden"
       >
-        <TrendingUp size={19} />
+        <ChevronUp size={20} />
       </button>
     </main>
   );

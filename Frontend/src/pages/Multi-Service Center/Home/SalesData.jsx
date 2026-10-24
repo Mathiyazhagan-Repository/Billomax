@@ -126,7 +126,6 @@ function SalesChartCard({
   showArea = false,
 }) {
   const isOrange = theme === "orange";
-  const stroke = isOrange ? "#FF812B" : "#3996FF";
   const gradientId = `sales-area-${dataKey}`;
 
   return (
@@ -312,7 +311,10 @@ function SalesChartCard({
 
 export default function SalseData() {
   return (
-    <main className="bg-[#FFFAF5] px-4 py-4 font-sans sm:px-5">
+    <section
+      aria-label="Sales trends"
+      className="bg-[#FFFAF5] px-4 py-4 font-sans sm:px-5"
+    >
       <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">
         <SalesChartCard
           title="Sales"
@@ -337,6 +339,6 @@ export default function SalseData() {
           showArea
         />
       </div>
-    </main>
+    </section>
   );
 }

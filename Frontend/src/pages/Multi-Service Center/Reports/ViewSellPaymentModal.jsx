@@ -25,20 +25,19 @@ export default function ViewSellPaymentModal({
   if (!isOpen) return null;
 
   const details = {
-    customerName: "Walk-In Customer",
-    customerDisplayName: "Walk-In Customer",
-    businessName: "Pharmacy",
-    businessType: "Pharmacy",
-    address:
-      "JP Nagar, Kumarswamy Layout, Bangaluru\nBengaluru,Karnataka,India",
-    gstin: "29AACW6067A1ZB",
-    businessMobile: "7485968575",
-    email: "khanaiamit.m9@gmail.com",
-    amount: 15,
-    paymentMethod: "Cash",
+    customerName: "—",
+    customerDisplayName: "—",
+    businessName: "Multi-Service Center",
+    businessType: "Service Center",
+    address: "—",
+    gstin: "—",
+    businessMobile: "—",
+    email: "—",
+    amount: 0,
+    paymentMethod: "—",
     paymentNote: "",
-    referenceNo: "SP2026/0046",
-    paidOn: "22/10/2026 11:00",
+    referenceNo: "—",
+    paidOn: "—",
     ...payment,
   };
 

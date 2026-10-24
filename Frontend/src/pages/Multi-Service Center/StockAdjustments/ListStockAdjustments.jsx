@@ -3,10 +3,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   Plus,
   Search,
-  Filter,
   Download,
   FileSpreadsheet,
-  FileText,
+  FileDown,
   Printer,
   SlidersHorizontal,
   ChevronDown,
@@ -17,37 +16,35 @@ import {
   Eye,
   Trash2,
   X,
-  RotateCcw,
   ClipboardList,
   MapPin,
   CalendarDays,
-  IndianRupee,
   AlertTriangle,
 } from "lucide-react";
-import ViewStockAdjustmentModal from "./ViewStockAdjustmentModal.jsx";
+import ViewStockAdjustmentModal from "../../Pharmacy/StockAdjustments/ViewStockAdjustmentModal.jsx";
 
 const initialAdjustments = [
   {
     id: 1,
     date: "22/01/2025 17:06",
     referenceNo: "336464646",
-    location: "Pharmacy",
+    location: "Multi-Service Center",
     adjustmentType: "Normal",
     totalAmount: 12,
     totalAmountRecovered: 79,
     reason: "not ok",
-    addedBy: "Mr pharmacy",
+    addedBy: "MSC Admin",
   },
   {
     id: 2,
     date: "22/01/2025 17:05",
     referenceNo: "1213133",
-    location: "Pharmacy",
+    location: "Multi-Service Center",
     adjustmentType: "Abnormal",
     totalAmount: 18,
     totalAmountRecovered: 733,
     reason: "",
-    addedBy: "Mr pharmacy",
+    addedBy: "MSC Admin",
   },
 ];
 
@@ -96,25 +93,6 @@ function ActionButton({
   );
 }
 
-function SummaryCard({ title, value, description, icon: Icon }) {
-  return (
-    <div className="rounded-2xl border border-[#F8EBDD] bg-white/95 p-5 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
-      <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-sm font-semibold text-[#577B9F]">{title}</p>
-          <p className="mt-2 break-words text-2xl font-extrabold tracking-tight text-[#F04A13]">
-            {value}
-          </p>
-          <p className="mt-1 text-xs text-[#8798AD]">{description}</p>
-        </div>
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#FFF1E5] text-[#F04A13]">
-          <Icon size={20} />
-        </span>
-      </div>
-    </div>
-  );
-}
-
 function Field({ label, children }) {
   return (
     <label className="block space-y-1.5">
@@ -131,7 +109,7 @@ function AddAdjustmentModal({ onClose, onAdd }) {
   const [form, setForm] = useState({
     date: "2025-01-22T17:06",
     referenceNo: "",
-    location: "Pharmacy",
+    location: "Multi-Service Center",
     adjustmentType: "Normal",
     totalAmount: "0",
     totalAmountRecovered: "0",
@@ -290,14 +268,12 @@ function AddAdjustmentModal({ onClose, onAdd }) {
 export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) {
   const [adjustments, setAdjustments] = useState(initialAdjustments);
   const [search, setSearch] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
   const [showColumns, setShowColumns] = useState(false);
   const [showAddModal, setShowAddModal] = useState(openAddOnMount);
   const [selectedAdjustment, setSelectedAdjustment] = useState(null);
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [pageSize, setPageSize] = useState(25);
   const [currentPage, setCurrentPage] = useState(1);
-  const [typeFilter, setTypeFilter] = useState("All");
   const [visibleColumns, setVisibleColumns] = useState(
     columns.map((column) => column.key)
   );
@@ -323,10 +299,7 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
           row.addedBy,
         ].some((value) => String(value ?? "").toLowerCase().includes(query));
 
-        return (
-          matchesSearch &&
-          (typeFilter === "All" || row.adjustmentType === typeFilter)
-        );
+        return matchesSearch;
       })
       .sort((a, b) => {
         let comparison;
@@ -343,25 +316,12 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
 
         return sort.direction === "asc" ? comparison : -comparison;
       });
-  }, [adjustments, search, typeFilter, sort]);
+  }, [adjustments, search, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filteredRows.length / pageSize));
   const safePage = Math.min(currentPage, totalPages);
   const startIndex = filteredRows.length ? (safePage - 1) * pageSize : 0;
   const pageRows = filteredRows.slice(startIndex, startIndex + pageSize);
-
-  const totals = useMemo(
-    () =>
-      filteredRows.reduce(
-        (sum, row) => ({
-          amount: sum.amount + Number(row.totalAmount || 0),
-          recovered:
-            sum.recovered + Number(row.totalAmountRecovered || 0),
-        }),
-        { amount: 0, recovered: 0 }
-      ),
-    [filteredRows]
-  );
 
   const toggleSort = (key) => {
     if (key === "action") return;
@@ -382,7 +342,6 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
 
   const resetFilters = () => {
     setSearch("");
-    setTypeFilter("All");
     setCurrentPage(1);
   };
 
@@ -447,153 +406,29 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
       `}</style>
 
       <div className="mx-auto max-w-[1700px] space-y-5">
-        <header className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-          <div>
-            <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
-              <span className="text-[11px] font-extrabold">INVENTORY · STOCK ADJUSTMENTS</span>
-            </div>
-            <h1 className="app-page-title text-[#10234F]">
-              Stock Adjustments
-            </h1>
-            <p className="app-description mt-1 text-[#577B9F]">
-              Review and manage inventory adjustment records.
-            </p>
-          </div>
-
-          <div className="no-print flex flex-wrap gap-2">
-            <ActionButton icon={Download} onClick={exportCSV}>
-              Export CSV
-            </ActionButton>
-            <ActionButton icon={Printer} onClick={() => window.print()}>
-              Print
-            </ActionButton>
-            <ActionButton
-              icon={Plus}
-              primary
-              onClick={onAdd}
-            >
-              Add adjustment
-            </ActionButton>
-          </div>
-        </header>
-
-        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <SummaryCard
-            title="Total adjustments"
-            value={adjustments.length}
-            description="Adjustment records loaded"
-            icon={ClipboardList}
-          />
-          <SummaryCard
-            title="Normal adjustments"
-            value={adjustments.filter((row) => row.adjustmentType === "Normal").length}
-            description="Normal adjustment records"
-            icon={RotateCcw}
-          />
-          <SummaryCard
-            title="Abnormal adjustments"
-            value={adjustments.filter((row) => row.adjustmentType === "Abnormal").length}
-            description="Abnormal adjustment records"
-            icon={AlertTriangle}
-          />
-          <SummaryCard
-            title="Total amount recovered"
-            value={money(totals.recovered)}
-            description="Based on the loaded records"
-            icon={IndianRupee}
-          />
-        </section>
-
-        <section className="no-print overflow-visible rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
-          <button
-            type="button"
-            onClick={() => setShowFilters((value) => !value)}
-            aria-expanded={showFilters}
-            className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
-          >
-            <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFF1E5] text-[#F04A13]">
-                <Filter size={19} />
-              </span>
-              <span>
-                <span className="block font-bold text-[#19366F]">Filters</span>
-                <span className="mt-0.5 block text-xs text-[#577B9F]">
-                  Search by reference, location, type, or staff member.
-                </span>
-              </span>
-            </div>
-            {showFilters ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-          </button>
-
-          {showFilters && (
-            <div className="grid grid-cols-1 gap-4 border-t border-[#F2E8DE] bg-[#FFFCF8] px-5 py-5 sm:grid-cols-2 sm:px-6 lg:grid-cols-3">
-              <Field label="Adjustment type">
-                <select
-                  value={typeFilter}
-                  onChange={(event) => {
-                    setTypeFilter(event.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className={inputClass}
-                >
-                  <option value="All">All adjustment types</option>
-                  <option value="Normal">Normal</option>
-                  <option value="Abnormal">Abnormal</option>
-                </select>
-              </Field>
-
-              <Field label="Search records">
-                <div className="relative">
-                  <Search
-                    size={16}
-                    className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  />
-                  <input
-                    type="search"
-                    value={search}
-                    onChange={(event) => {
-                      setSearch(event.target.value);
-                      setCurrentPage(1);
-                    }}
-                    placeholder="Search adjustments..."
-                    className={`${inputClass} pl-9`}
-                  />
-                </div>
-              </Field>
-
-              <div className="flex items-end">
-                <ActionButton icon={RotateCcw} onClick={resetFilters}>
-                  Reset filters
-                </ActionButton>
-              </div>
-            </div>
-          )}
-        </section>
+        <h1 className="app-page-title text-[#10234F]">Stock Adjustments</h1>
 
         <section className="print-area overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
-          <div className="flex flex-col gap-4 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] via-white to-white px-5 py-5 sm:px-6 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-4 px-5 py-5 sm:px-6 md:flex-row md:items-center md:justify-between">
             <div>
-              <h2 className="app-section-title text-[#10234F]">
+              <h2 className="text-xl font-extrabold text-[#F47700] sm:text-2xl">
                 All stock adjustments
               </h2>
-              <p className="app-description mt-1 text-[#577B9F]">
-                Browse adjustment details and manage records.
-              </p>
             </div>
             <div className="no-print">
               <ActionButton
                 icon={Plus}
                 primary
-                onClick={onAdd}
+                onClick={() => (onAdd ? onAdd() : setShowAddModal(true))}
               >
                 Add
               </ActionButton>
             </div>
           </div>
 
-          <div className="no-print flex flex-col gap-4 border-b border-[#F2E8DE] bg-[#FFFCF8] px-5 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+          <div className="no-print flex flex-col gap-4 px-5 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-wrap items-center gap-3">
-              <label className="flex items-center gap-2 text-sm font-semibold text-[#577B9F]">
+              <label className="flex items-center gap-2 text-sm text-[#19366F]">
                 Show
                 <select
                   value={pageSize}
@@ -601,7 +436,7 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
                     setPageSize(Number(event.target.value));
                     setCurrentPage(1);
                   }}
-                  className="rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm text-[#19366F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
+                  className="rounded-lg border border-[#D8E0EB] bg-white px-3 py-2 text-sm text-[#19366F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
                 >
                   <option value={10}>10</option>
                   <option value={25}>25</option>
@@ -619,6 +454,9 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
               </ActionButton>
               <ActionButton icon={Printer} onClick={() => window.print()}>
                 Print
+              </ActionButton>
+              <ActionButton icon={FileDown} onClick={() => window.print()}>
+                Export PDF
               </ActionButton>
 
               <div className="relative">

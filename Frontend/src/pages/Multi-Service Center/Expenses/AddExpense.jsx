@@ -114,7 +114,7 @@ function SectionHeader({ icon: Icon, title, description, accent = "orange" }) {
 
 export default function AddExpense() {
   const [form, setForm] = useState({
-    businessLocation: "",
+    businessLocation: "msc",
     category: "",
     subcategory: "",
     reference: "",
@@ -184,14 +184,14 @@ export default function AddExpense() {
         <div>
           <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
             <ReceiptText size={13} />
-            <span className="text-[11px] font-extrabold">PHARMACY · EXPENSES</span>
+            <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · EXPENSES</span>
           </div>
 
           <h1 className="app-page-title text-[#10234F]">
             Add Expense
           </h1>
           <p className="mt-1 text-xs leading-relaxed text-[#577B9F] sm:text-sm">
-            Record and manage your pharmacy expenses.
+            Record and manage your Multi-Service Center expenses.
           </p>
         </div>
 
@@ -228,8 +228,8 @@ export default function AddExpense() {
                     update("businessLocation", e.target.value)
                   }
                   options={[
-                    { value: "main", label: "Main Pharmacy" },
-                    { value: "branch", label: "Branch Pharmacy" },
+                    { value: "msc", label: "Multi-Service Center" },
+                    { value: "msc-branch", label: "Multi-Service Center Branch" },
                   ]}
                 />
               </Field>

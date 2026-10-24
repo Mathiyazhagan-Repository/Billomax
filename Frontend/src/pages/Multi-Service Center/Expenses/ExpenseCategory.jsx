@@ -19,23 +19,12 @@ import {
 } from "lucide-react";
 import EditExpenseCategoryModal from "./EditExpenseCategoryModal.jsx";
 
-const initialCategories = [
-  { id: 1, name: "House rent", code: "House rent" },
-  { id: 2, name: "medical", code: "26444" },
-  { id: 3, name: "misliense", code: "misliense" },
-  { id: 4, name: "school", code: "251school" },
-  { id: 5, name: "Tea", code: "tea" },
-];
+const initialCategories = [];
 
 const columns = [
   { key: "name", label: "Category name" },
   { key: "code", label: "Category code" },
 ];
-
-const inputClass =
-  "mt-1.5 h-10 w-full rounded-lg border border-[#E8EDF4] bg-white px-3 text-[13px] font-normal text-[#132653] outline-none transition placeholder:text-[#8798AD] focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10";
-
-const labelClass = "block text-xs font-semibold text-[#557493]";
 
 function ExportButton({ icon: Icon, children, onClick }) {
   return (
@@ -189,7 +178,7 @@ export default function ExpenseCategory() {
         <div>
           <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
             <ReceiptText size={13} />
-            <span className="text-[11px] font-extrabold">PHARMACY · EXPENSES</span>
+            <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · EXPENSES</span>
           </div>
 
           <h1 className="app-page-title text-[#10234F]">
@@ -197,21 +186,9 @@ export default function ExpenseCategory() {
           </h1>
 
           <p className="mt-1 text-xs leading-relaxed text-[#577B9F] sm:text-sm">
-            Manage your expense categories and category codes.
+            Manage expense categories and codes for your Multi-Service Center.
           </p>
         </div>
-
-        {/* <button
-          type="button"
-          onClick={() => {
-            setEditingCategory(null);
-            setModalOpen(true);
-          }}
-          className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#FF711A] px-4 text-sm font-bold text-white shadow-[0_4px_10px_rgba(255,113,26,0.2)] transition hover:-translate-y-0.5 hover:bg-[#F04A13]"
-        >
-          <Plus size={17} />
-          Add Category
-        </button> */}
       </header>
 
       {/* Summary cards */}

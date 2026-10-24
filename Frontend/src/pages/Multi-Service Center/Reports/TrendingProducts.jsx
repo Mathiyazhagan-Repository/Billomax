@@ -10,18 +10,17 @@ import {
   Package,
   ShoppingBag,
   Info,
-  CalendarDays,
   BarChart3,
   Download,
   X,
 } from "lucide-react";
 
 const initialProducts = [
-  { product: "Dolo 650 - 0001 (Pc(s))", unitsSold: 53 },
-  { product: "Amoxicillin - 0038 (pice)", unitsSold: 42 },
-  { product: "Amoxicillin - 0050 (pice)", unitsSold: 23 },
-  { product: "Budesonide - 0054 (pice)", unitsSold: 15 },
-  { product: "Amoxicillin - 0056 (pice)", unitsSold: 10 },
+  { product: "Ac Repair - 0068 (Pc(s))", unitsSold: 1 },
+  { product: "CPU - 0071 (piece)", unitsSold: 1 },
+  { product: "Battery Kit Replacement - 0063 (piece)", unitsSold: 0 },
+  { product: "Bioschip Repair - 0064 (Pc(s))", unitsSold: 0 },
+  { product: "Coling Fan repair - 0065 (Pc(s))", unitsSold: 0 },
 ];
 
 function SummaryCard({ title, value, caption, icon: Icon }) {
@@ -122,13 +121,13 @@ export default function TrendingProducts() {
           <div>
             <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#E86A20]">
               <span className="h-1.5 w-1.5 rounded-full bg-[#FF6814]" />
-              Sales analytics
+              Multi-Service Center · Reports
             </div>
             <h1 className="text-2xl font-bold tracking-tight text-[#10234F] sm:text-3xl">
               Trending Products
             </h1>
             <p className="mt-1.5 text-sm text-slate-500">
-              See which products are leading by units sold.
+              View products and service-related items ranked by units sold.
             </p>
           </div>
 
@@ -269,7 +268,7 @@ export default function TrendingProducts() {
                   </button>
                 </div>
                 <p className="mt-1 text-sm text-slate-500">
-                  Product performance measured by total units sold.
+                  Product and service-item performance measured by units sold.
                 </p>
               </div>
             </div>
@@ -284,9 +283,8 @@ export default function TrendingProducts() {
             <div className="mx-5 mt-4 flex items-start gap-3 rounded-xl border border-cyan-100 bg-cyan-50/70 p-4 text-sm text-slate-600 sm:mx-6">
               <Info size={17} className="mt-0.5 shrink-0 text-cyan-600" />
               <p>
-                This chart compares the total units sold for each product in
-                the displayed results. Product labels and quantities are
-                retained from your existing screenshot.
+                This chart compares the total units sold for each Multi-Service
+                Center product or service item in the displayed results.
               </p>
               <button
                 type="button"
@@ -349,8 +347,6 @@ export default function TrendingProducts() {
                   {/* Y-axis and chart bars */}
                   <div className="relative ml-12 mr-3 border-b border-[#DDE5EF]">
                     {Array.from({ length: 5 }, (_, index) => {
-                      const tick =
-                        Math.ceil(highestValue / 5) * (5 - index);
                       const maxTick = Math.max(
                         Math.ceil(highestValue / 5) * 5,
                         5

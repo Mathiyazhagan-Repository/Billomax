@@ -16,32 +16,11 @@ import {
   RotateCcw,
   X,
   ReceiptText,
-  Wallet,
   TrendingUp,
-  BadgeIndianRupee,
-  CalendarDays,
   Settings,
 } from "lucide-react";
 
-const initialRows = [
-  { id: 1, date: "22/10/2026 11:00", invoice: "0041", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 15, paid: 15, remaining: 0 },
-  { id: 2, date: "01/10/2026 17:00", invoice: "0040", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 15, paid: 15, remaining: 0 },
-  { id: 3, date: "24/09/2026 15:43", invoice: "0039", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 25, paid: 25, remaining: 0 },
-  { id: 4, date: "17/09/2026 13:07", invoice: "0038", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 15, paid: 15, remaining: 0 },
-  { id: 5, date: "17/09/2026 13:07", invoice: "0037", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 15, paid: 15, remaining: 0 },
-  { id: 6, date: "04/09/2026 14:09", invoice: "0036", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 45, paid: 45, remaining: 0 },
-  { id: 7, date: "03/09/2026 10:55", invoice: "0035", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 15, paid: 15, remaining: 0 },
-  { id: 8, date: "08/07/2026 11:35", invoice: "0038", customer: "dev", location: "Pharmacy", status: "Due", amount: 56.25, paid: 0, remaining: 56.25 },
-  { id: 9, date: "08/07/2026 11:31", invoice: "0037", customer: "dev", location: "Pharmacy", status: "Due", amount: 87.5, paid: 0, remaining: 87.5 },
-  { id: 10, date: "06/07/2026 12:28", invoice: "0036", customer: "poorna", location: "Pharmacy", status: "Due", amount: 20.02, paid: 0, remaining: 20.02 },
-  { id: 11, date: "06/07/2026 12:15", invoice: "0035", customer: "Demo Customer", location: "Pharmacy", status: "Due", amount: 56.25, paid: 0, remaining: 56.25 },
-  { id: 12, date: "29/06/2026 15:47", invoice: "0034", customer: "Demo Customer", location: "Pharmacy", status: "Due", amount: 97.5, paid: 0, remaining: 97.5 },
-  { id: 13, date: "26/06/2026 11:29", invoice: "0033", customer: "user", location: "Pharmacy", status: "Due", amount: 87.5, paid: 0, remaining: 87.5 },
-  { id: 14, date: "26/06/2026 11:23", invoice: "0032", customer: "user", location: "Pharmacy", status: "Due", amount: 87.5, paid: 0, remaining: 87.5 },
-  { id: 15, date: "26/06/2026 11:19", invoice: "0031", customer: "user", location: "Pharmacy", status: "Due", amount: 106.25, paid: 0, remaining: 106.25 },
-  { id: 16, date: "19/06/2026 15:32", invoice: "0030", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 25, paid: 25, remaining: 0 },
-  { id: 17, date: "18/06/2026 12:22", invoice: "0029", customer: "Walk-In Customer", location: "Pharmacy", status: "Paid", amount: 25, paid: 25, remaining: 0 },
-];
+const initialRows = [];
 
 const columns = [
   { key: "date", label: "Date", type: "text" },
@@ -80,23 +59,6 @@ function ActionButton({ icon: Icon, children, onClick, primary = false }) {
       {Icon && <Icon size={15} />}
       {children}
     </button>
-  );
-}
-
-function SummaryCard({ title, value, caption, icon: Icon }) {
-  return (
-    <div className="flex min-h-[84px] items-center gap-2.5 rounded-xl border border-[#E6EDF5] bg-white p-3 shadow-[0_3px_8px_rgba(25,43,80,0.04)] transition hover:-translate-y-0.5 hover:shadow-md">
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#FFE5AD] text-[#F47700]">
-        <Icon size={22} strokeWidth={2.8} />
-      </span>
-      <div className="min-w-0">
-          <p className="mb-1 text-[11px] font-bold leading-4 text-[#526D8D]">{title}</p>
-          <p className="break-words text-[18px] font-extrabold leading-none tracking-tight text-[#101C3D]">
-            {value}
-          </p>
-          <p className="mt-1 text-[10px] text-[#577B9F]">{caption}</p>
-      </div>
-    </div>
   );
 }
 
@@ -226,7 +188,7 @@ export default function SalesRepresentativeReport() {
           <div>
             <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
               <ReceiptText size={14} />
-              <span className="text-[11px] font-extrabold">PHARMACY · REPORTS</span>
+              <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · REPORTS</span>
             </div>
             <h1 className="app-page-title text-[#10234F]">
               Sales Representative Report
@@ -302,7 +264,7 @@ export default function SalesRepresentativeReport() {
             <div className="rounded-xl border border-[#F8EBDD] bg-[#FFFCF8] p-4">
               <p className="text-xs font-semibold text-[#577B9F]">Total Sale − Total Sales Return</p>
               <p className="mt-2 text-xl font-extrabold text-[#F04A13]">
-                {money(1883.65)} − {money(0)} = {money(1883.65)}
+                {money(totals.amount)} − {money(0)} = {money(totals.amount)}
               </p>
             </div>
             <div className="rounded-xl border border-[#E6EDF5] bg-white p-4">

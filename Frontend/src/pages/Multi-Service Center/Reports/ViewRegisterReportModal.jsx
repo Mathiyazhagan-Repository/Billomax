@@ -11,10 +11,10 @@ export default function ViewRegisterReportModal({
   if (!isOpen) return null;
 
   const paymentRows = [
-    { method: "Cash in hand:", sell: 13, expense: "--" },
-    { method: "Cash Payment:", sell: 1089, expense: 0 },
+    { method: "Cash in hand:", sell: 0, expense: "--" },
+    { method: "Cash Payment:", sell: 0, expense: 0 },
     { method: "Cheque Payment:", sell: 0, expense: 0 },
-    { method: "Card Payment:", sell: 25, expense: 0 },
+    { method: "Card Payment:", sell: 0, expense: 0 },
     { method: "Bank Transfer:", sell: 0, expense: 0 },
     { method: "Advance payment:", sell: 0, expense: 0 },
     { method: "Custom Payment 1:", sell: 0, expense: 0 },
@@ -27,33 +27,16 @@ export default function ViewRegisterReportModal({
     { method: "Other Payments:", sell: 0, expense: 0 },
   ];
 
-  const products = [
-    { sku: "0038", name: "Amoxicillin", qty: 11, amount: 247.50 },
-    { sku: "0040", name: "Sertraline (Zoloft)", qty: 2, amount: 45.00 },
-    { sku: "0041", name: "Fluoxetine (Prozac)", qty: 3, amount: 67.50 },
-    { sku: "0043", name: "Oxycodone", qty: 2, amount: 45.00 },
-    { sku: "0045", name: "Amlodipine", qty: 3, amount: 67.50 },
-    { sku: "0047", name: "Atorvastatin (Lipitor)", qty: 5, amount: 112.50 },
-    { sku: "0049", name: "Sertraline (Zoloft)", qty: 2, amount: 45.00 },
-    { sku: "0050", name: "Amoxicillin", qty: 5, amount: 112.50 },
-    { sku: "0051", name: "Fluoxetine (Prozac)", qty: 2, amount: 45.00 },
-    { sku: "0054", name: "Budesonide", qty: 1, amount: 22.50 },
-    { sku: "0056", name: "Amoxicillin", qty: 1, amount: 22.50 },
-    { sku: "0057", name: "Azithromycin", qty: 2, amount: 45.00 },
-    { sku: "0001", name: "Dolo 650", qty: 25, amount: 318.63 },
-  ];
+  const products = [];
 
-  const brands = [
-    { name: "Dolo", qty: 25, amount: 318.63 },
-    { name: "", qty: 39, amount: 877.50 },
-  ];
+  const brands = [];
 
   const summaryRows = [
-    { label: "Total Sales:", value: 1114.00, tone: "normal" },
+    { label: "Total Sales:", value: 0, tone: "normal" },
     { label: "Total Refund", value: 0, tone: "red" },
-    { label: "Total Payment", value: 1102.00, tone: "green" },
-    { label: "Credit Sales:", value: 230.50, tone: "green" },
-    { label: "Total Sales:", value: 1344.50, tone: "green" },
+    { label: "Total Payment", value: 0, tone: "green" },
+    { label: "Credit Sales:", value: 0, tone: "green" },
+    { label: "Total Sales:", value: 0, tone: "green" },
     { label: "Total Expense:", value: 0, tone: "red" },
   ];
 
@@ -66,20 +49,20 @@ export default function ViewRegisterReportModal({
   };
 
   const details = {
-    dateRange: "17th Oct, 2024 03:53 PM - 23rd Oct, 2026 12:22 PM",
-    totalSales: 1114.0,
+    dateRange: "—",
+    totalSales: 0,
     totalRefund: 0,
-    totalPayment: 1102.0,
-    creditSales: 230.5,
-    adjustedTotalSales: 1344.5,
+    totalPayment: 0,
+    creditSales: 0,
+    adjustedTotalSales: 0,
     totalExpense: 0,
-    orderTax: 105.05,
-    discount: 24.11,
-    shippingCharges: 60,
-    grandTotal: 1337.07,
-    user: "Mr pharmacy",
-    email: "khanaiamit.m9@gmail.com",
-    businessLocation: "Pharmacy",
+    orderTax: 0,
+    discount: 0,
+    shippingCharges: 0,
+    grandTotal: 0,
+    user: "—",
+    email: "—",
+    businessLocation: "Multi-Service Center",
     ...register,
   };
 
@@ -235,7 +218,7 @@ export default function ViewRegisterReportModal({
                     <td className={`${td} font-bold`} colSpan={3}>
                       Total
                     </td>
-                    <td className={`${td} font-extrabold`}>64</td>
+                    <td className={`${td} font-extrabold`}>0.00</td>
                     <td className={`${td} font-bold`}>
                       <div className="space-y-1">
                         <p>Order Tax: (+) {money(details.orderTax)}</p>
@@ -285,7 +268,7 @@ export default function ViewRegisterReportModal({
                   <tr className="bg-[#E0F1D9]">
                     <td className={`${td} font-bold`}>#</td>
                     <td className={td}></td>
-                    <td className={`${td} font-extrabold`}>64</td>
+                    <td className={`${td} font-extrabold`}>0.00</td>
                     <td className={td}>
                       <div className="space-y-1 font-bold">
                         <p>Order Tax: (+) {money(details.orderTax)}</p>

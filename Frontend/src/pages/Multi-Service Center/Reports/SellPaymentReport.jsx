@@ -18,29 +18,13 @@ import {
   ArrowUpDown,
   CalendarDays,
   IndianRupee,
-  CreditCard,
   ReceiptText,
   Eye,
   Users,
 } from "lucide-react";
 import ViewSellPaymentModal from "./ViewSellPaymentModal.jsx";
 
-const initialPayments = [
-  { id: 1, referenceNo: "SP2026/0046", paidOn: "22/10/2026 11:00", amount: 15, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0041" },
-  { id: 2, referenceNo: "SP2026/0045", paidOn: "01/10/2026 17:00", amount: 15, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0040" },
-  { id: 3, referenceNo: "SP2026/0044", paidOn: "24/09/2026 15:43", amount: 25, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0039" },
-  { id: 4, referenceNo: "SP2026/0043", paidOn: "17/09/2026 13:07", amount: 15, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0038" },
-  { id: 5, referenceNo: "SP2026/0042", paidOn: "17/09/2026 13:07", amount: 15, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0037" },
-  { id: 6, referenceNo: "SP2026/0041", paidOn: "04/09/2026 14:09", amount: 45, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0036" },
-  { id: 7, referenceNo: "SP2026/0040", paidOn: "03/09/2026 10:55", amount: 15, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0035" },
-  { id: 8, referenceNo: "SP2026/0028", paidOn: "25/05/2026 12:32", amount: 25, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0023" },
-  { id: 9, referenceNo: "SP2026/0027", paidOn: "24/04/2026 13:02", amount: 49, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0022" },
-  { id: 10, referenceNo: "SP2026/0026", paidOn: "18/04/2026 11:49", amount: 41, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0021" },
-  { id: 11, referenceNo: "SP2026/0025", paidOn: "27/03/2026 12:01", amount: 38, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0020" },
-  { id: 12, referenceNo: "SP2026/0024", paidOn: "23/03/2026 18:13", amount: 25, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0019" },
-  { id: 13, referenceNo: "SP2026/0023", paidOn: "23/03/2026 17:35", amount: 63, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0017" },
-  { id: 14, referenceNo: "SP2026/0022", paidOn: "17/03/2026 16:29", amount: 65, customer: "Walk-In Customer", customerGroup: "", paymentMethod: "Cash", sale: "0016" },
-];
+const initialPayments = [];
 
 const columns = [
   { key: "referenceNo", label: "Reference No." },
@@ -303,7 +287,7 @@ export default function SellPaymentReport() {
           <div>
             <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
               <Wallet size={14} />
-              <span className="text-[11px] font-extrabold">PHARMACY · REPORTS</span>
+              <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · REPORTS</span>
             </div>
             <h1 className="app-page-title text-[#10234F]">
               Sell Payment Report
