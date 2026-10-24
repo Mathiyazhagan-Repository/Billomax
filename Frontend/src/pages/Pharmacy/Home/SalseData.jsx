@@ -77,9 +77,9 @@ function CustomTooltip({ active, payload, label }) {
   return (
     <div className="rounded-xl border border-[#E6EAF1] bg-white px-4 py-3 shadow-lg">
       <p className="mb-2 text-sm font-bold text-[#183253]">{label}</p>
-      {payload.map((item) => (
+      {payload.map((item, index) => (
         <div
-          key={item.dataKey}
+          key={`${item.dataKey}-${index}`}
           className="flex items-center justify-between gap-5 py-1 text-xs"
         >
           <span style={{ color: item.color }}>
@@ -99,8 +99,8 @@ function ChartLegend({ payload }) {
 
   return (
     <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 px-2 pb-2 pt-1 sm:gap-x-6">
-      {payload.map((item) => (
-        <div key={item.dataKey} className="flex items-center gap-2">
+      {payload.map((item, index) => (
+        <div key={`${item.dataKey}-${index}`} className="flex items-center gap-2">
           <span
             className="h-[3px] w-6 rounded-full"
             style={{ backgroundColor: item.color }}

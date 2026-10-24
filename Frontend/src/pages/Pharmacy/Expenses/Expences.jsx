@@ -11,25 +11,33 @@ import {
   FileDown,
   ArrowUpDown,
   ChevronUp,
+  ChevronDown,
   Pencil,
   Trash2,
   X,
+  ReceiptText,
+  ArrowUp,
+  CalendarDays,
+  Wallet,
 } from "lucide-react";
 
 const initialExpenses = [];
 
 const columns = [
-  { key: "date", label: "Date", width: "70px" },
-  { key: "reference", label: "Reference No", width: "105px" },
-  { key: "recurring", label: "Recurring details", width: "82px" },
-  { key: "category", label: "Expense Category", width: "100px" },
-  { key: "subcategory", label: "Sub category", width: "98px" },
-  { key: "location", label: "Location", width: "95px" },
-  { key: "paymentStatus", label: "Payment Status", width: "100px" },
-  { key: "tax", label: "Tax", width: "60px" },
-  { key: "amount", label: "Total amount", width: "90px" },
-  { key: "due", label: "Payment due", width: "90px" },
-  { key: "expenseFor", label: "Expense for", width: "75px" },
+  { key: "date", label: "Date", width: "105px" },
+  { key: "reference", label: "Reference No", width: "130px" },
+  { key: "recurring", label: "Recurring details", width: "145px" },
+  { key: "category", label: "Expense Category", width: "150px" },
+  { key: "subcategory", label: "Sub category", width: "140px" },
+  { key: "location", label: "Location", width: "125px" },
+  { key: "paymentStatus", label: "Payment Status", width: "130px" },
+  { key: "tax", label: "Tax", width: "100px" },
+  { key: "amount", label: "Total amount", width: "130px" },
+  { key: "due", label: "Payment due", width: "130px" },
+  { key: "expenseFor", label: "Expense for", width: "130px" },
+  { key: "contact", label: "Contact", width: "140px" },
+  { key: "expenseNote", label: "Expense note", width: "155px" },
+  { key: "addedBy", label: "Added By", width: "120px" },
 ];
 
 const money = (value) =>
@@ -38,14 +46,19 @@ const money = (value) =>
     maximumFractionDigits: 2,
   })}`;
 
+const inputClass =
+  "mt-1.5 h-10 w-full rounded-lg border border-[#E8EDF4] bg-white px-3 text-sm font-normal text-[#132653] outline-none transition placeholder:text-[#8798AD] focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10";
+
+const labelClass = "block text-xs font-semibold text-[#557493]";
+
 function ExportButton({ icon: Icon, children, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex h-[25px] shrink-0 items-center gap-1 rounded-md border border-[#AAB9CC] bg-white px-2 text-[10px] font-medium text-[#8798AD] transition hover:border-[#FF8A37] hover:text-[#F47712]"
+      className="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg border border-[#E8EDF4] bg-white px-3 text-xs font-semibold text-[#19366F] shadow-sm transition hover:border-[#FF8A37] hover:bg-[#FFF1E5] hover:text-[#F04A13]"
     >
-      <Icon size={11} />
+      <Icon size={14} />
       {children}
     </button>
   );
@@ -65,6 +78,9 @@ function ExpenseForm({ expense, onClose, onSave }) {
       amount: "",
       due: 0,
       expenseFor: "",
+      contact: "",
+      expenseNote: "",
+      addedBy: "",
     }
   );
 
@@ -82,6 +98,9 @@ function ExpenseForm({ expense, onClose, onSave }) {
     ["tax", "Tax (₹)", "number"],
     ["due", "Payment due (₹)", "number"],
     ["expenseFor", "Expense for", "text"],
+    ["contact", "Contact", "text"],
+    ["expenseNote", "Expense note", "text"],
+    ["addedBy", "Added By", "text"],
   ];
 
   const submit = (event) => {
@@ -98,35 +117,41 @@ function ExpenseForm({ expense, onClose, onSave }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#10234F]/40 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#10234F]/45 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <form
         onSubmit={submit}
         onClick={(event) => event.stopPropagation()}
-        className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[#F0E0CF] bg-white p-5 shadow-[0_15px_50px_rgba(100,65,30,0.16)]"
+        className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-[#F2E8DE] bg-white shadow-[0_20px_60px_rgba(16,35,79,0.18)]"
       >
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-[#10234F]">
-            {expense ? "Edit Expense" : "Add Expense"}
-          </h2>
+        <div className="flex items-center gap-3 rounded-t-2xl border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] to-white px-5 py-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
+            <ReceiptText size={22} />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <h2 className="text-lg font-bold text-[#10234F]">
+              {expense ? "Edit Expense" : "Add Expense"}
+            </h2>
+            <p className="mt-0.5 text-xs text-[#6B829D]">
+              Enter the expense details below.
+            </p>
+          </div>
 
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="rounded-md p-1 text-[#71839A] hover:bg-[#FFF0E3]"
+            className="rounded-lg p-2 text-[#577B9F] transition hover:bg-[#FFF1E5] hover:text-[#F04A13]"
           >
-            <X size={18} />
+            <X size={19} />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
           {fields.map(([key, label, type]) => (
-            <label
-              key={key}
-              className="text-xs font-semibold text-[#526780]"
-            >
+            <label key={key} className={labelClass}>
               {label}
               <input
                 type={type}
@@ -135,19 +160,19 @@ function ExpenseForm({ expense, onClose, onSave }) {
                 required={["date", "category", "amount"].includes(key)}
                 value={form[key] ?? ""}
                 onChange={(event) => update(key, event.target.value)}
-                className="mt-1.5 h-9 w-full rounded-md border border-[#D9C7B3] bg-white px-3 text-xs font-normal text-[#10234F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
+                className={inputClass}
               />
             </label>
           ))}
 
-          <label className="text-xs font-semibold text-[#526780]">
+          <label className={labelClass}>
             Payment Status
             <select
               value={form.paymentStatus}
               onChange={(event) =>
                 update("paymentStatus", event.target.value)
               }
-              className="mt-1.5 h-9 w-full rounded-md border border-[#D9C7B3] bg-white px-3 text-xs font-normal text-[#10234F] outline-none focus:border-[#FF8A37]"
+              className={inputClass}
             >
               <option>Paid</option>
               <option>Partial</option>
@@ -156,19 +181,20 @@ function ExpenseForm({ expense, onClose, onSave }) {
           </label>
         </div>
 
-        <div className="mt-5 flex justify-end gap-2">
+        <div className="flex justify-end gap-2 border-t border-[#F2E8DE] bg-[#FFFAF5]/70 px-5 py-4">
           <button
             type="button"
             onClick={onClose}
-            className="h-9 rounded-md border border-[#D9C7B3] px-4 text-xs text-[#526780] hover:bg-[#FFF5EA]"
+            className="h-10 rounded-lg border border-[#E8EDF4] bg-white px-4 text-sm font-semibold text-[#19366F] transition hover:bg-[#FFFAF5]"
           >
             Cancel
           </button>
 
           <button
             type="submit"
-            className="h-9 rounded-md bg-[#5145EF] px-4 text-xs font-semibold text-white shadow-sm hover:bg-[#4338CA]"
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#FF711A] px-5 text-sm font-bold text-white shadow-[0_4px_10px_rgba(255,113,26,0.18)] transition hover:bg-[#F04A13]"
           >
+            <Plus size={15} />
             Save Expense
           </button>
         </div>
@@ -177,7 +203,7 @@ function ExpenseForm({ expense, onClose, onSave }) {
   );
 }
 
-export default function Expences() {
+export default function Expences({ onNavigate }) {
   const [expenses, setExpenses] = useState(initialExpenses);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -317,32 +343,97 @@ export default function Expences() {
     setPage(1);
   };
 
+  const openAddExpense = () => {
+    if (onNavigate) {
+      onNavigate("Add Expense");
+      return;
+    }
+
+    setEditingExpense(null);
+    setFormOpen(true);
+  };
+
+  const exportPlaceholder = (format) =>
+    alert(
+      `${format} export needs to be connected to an export library. CSV export is available.`
+    );
+
   return (
     <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
       {/* Page heading */}
-      <h1 className="mb-4 text-[24px] font-semibold leading-7 text-black">
-        Expenses
-      </h1>
+      <header className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
+            <ReceiptText size={14} strokeWidth={2.5} />
+            <span className="text-[11px] font-extrabold">PHARMACY · EXPENSES</span>
+          </div>
 
-      {/* Filters card */}
-      <section className="mb-4 overflow-visible rounded-[17px] border border-[#F0E0CF] bg-white shadow-[0_7px_20px_rgba(120,75,35,0.07)]">
+          <h1 className="app-page-title text-[#10234F]">
+            Expenses
+          </h1>
+
+          <p className="mt-1 text-xs leading-relaxed text-[#577B9F] sm:text-sm">
+            Manage and track your pharmacy expenses.
+          </p>
+        </div>
+
+      </header>
+
+      {/* Summary cards */}
+      <div className="mb-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <section className="group relative flex min-h-[84px] items-center gap-2.5 overflow-hidden rounded-xl border border-[#E6EDF5] bg-white p-3 shadow-[0_3px_8px_rgba(25,43,80,0.04)] transition hover:-translate-y-0.5 hover:shadow-md">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#FFE5AD] text-[#F47700]">
+              <Wallet size={22} strokeWidth={2.8} />
+            </div>
+            <div>
+              <p className="mb-1 text-[11px] font-bold tracking-[-0.2px] text-[#526D8D]">
+                Total Expenses
+              </p>
+              <p className="text-[18px] font-extrabold leading-none tracking-[-0.3px] text-[#101C3D]">
+                {money(totalAmount)}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="group relative flex min-h-[84px] items-center gap-2.5 overflow-hidden rounded-xl border border-[#E6EDF5] bg-white p-3 shadow-[0_3px_8px_rgba(25,43,80,0.04)] transition hover:-translate-y-0.5 hover:shadow-md">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#CDE6FF] text-[#087AF0]">
+              <CalendarDays size={22} strokeWidth={2.8} />
+            </div>
+            <div>
+              <p className="mb-1 text-[11px] font-bold tracking-[-0.2px] text-[#526D8D]">
+                Total Payment Due
+              </p>
+              <p className="text-[18px] font-extrabold leading-none tracking-[-0.3px] text-[#101C3D]">
+                {money(totalDue)}
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      {/* Filters */}
+      <section className="mb-5 overflow-visible rounded-2xl border border-[#F8EBDD] bg-white/90 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
         <button
           type="button"
           aria-expanded={filtersOpen}
           onClick={() => setFiltersOpen((current) => !current)}
-          className="flex h-[57px] w-full items-center gap-2 rounded-[17px] px-4 text-left text-[20px] font-bold text-[#398FC0]"
+          className="flex h-[57px] w-full items-center gap-2 rounded-2xl px-4 text-left text-base font-extrabold text-[#10234F] transition hover:bg-[#FFFAF5]"
         >
-          <Filter size={21} fill="currentColor" />
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FFE9D9] text-[#F04A13]">
+            <Filter size={17} />
+          </span>
           Filters
-
-          <span className="ml-auto text-[#9BA8B7]">
-            {filtersOpen && <ChevronUp size={16} />}
+          <span className="ml-auto text-[#577B9F]">
+            {filtersOpen ? <ChevronUp size={17} /> : <ChevronDown size={17} />}
           </span>
         </button>
 
         {filtersOpen && (
-          <div className="grid grid-cols-1 gap-3 border-t border-[#F0E0CF] p-4 sm:grid-cols-3">
-            <label className="text-xs font-semibold text-[#526780]">
+          <div className="grid grid-cols-1 gap-4 border-t border-[#F2E8DE] bg-[#FFFEFC] p-4 sm:grid-cols-3">
+            <label className={labelClass}>
               Expense Category
               <select
                 value={categoryFilter}
@@ -350,7 +441,7 @@ export default function Expences() {
                   setCategoryFilter(event.target.value);
                   setPage(1);
                 }}
-                className="mt-1.5 h-9 w-full rounded-md border border-[#D9C7B3] bg-white px-2 text-xs outline-none focus:border-[#FF8A37]"
+                className={inputClass}
               >
                 <option value="">All categories</option>
                 {[...new Set(expenses.map((expense) => expense.category))]
@@ -363,7 +454,7 @@ export default function Expences() {
               </select>
             </label>
 
-            <label className="text-xs font-semibold text-[#526780]">
+            <label className={labelClass}>
               Payment Status
               <select
                 value={statusFilter}
@@ -371,7 +462,7 @@ export default function Expences() {
                   setStatusFilter(event.target.value);
                   setPage(1);
                 }}
-                className="mt-1.5 h-9 w-full rounded-md border border-[#D9C7B3] bg-white px-2 text-xs outline-none focus:border-[#FF8A37]"
+                className={inputClass}
               >
                 <option value="">All statuses</option>
                 <option value="Paid">Paid</option>
@@ -380,11 +471,11 @@ export default function Expences() {
               </select>
             </label>
 
-            <div className="flex items-end">
+            <div className="flex items-end gap-2">
               <button
                 type="button"
                 onClick={resetFilters}
-                className="h-9 rounded-md border border-[#D9C7B3] px-4 text-xs text-[#526780] hover:bg-[#FFF5EA]"
+                className="h-10 rounded-lg border border-[#E8EDF4] bg-white px-4 text-xs font-bold text-[#19366F] shadow-sm transition hover:border-[#FF8A37] hover:bg-[#FFF1E5] hover:text-[#F04A13]"
               >
                 Reset filters
               </button>
@@ -393,30 +484,37 @@ export default function Expences() {
         )}
       </section>
 
-      {/* All expenses card */}
-      <section className="min-w-0 overflow-visible rounded-[17px] border border-[#F0E0CF] bg-white p-4 shadow-[0_8px_24px_rgba(120,75,35,0.07)] sm:p-5">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <h2 className="text-[21px] font-extrabold leading-7 text-[#FF9500]">
-            All expenses
-          </h2>
+      {/* All expenses */}
+      <section className="min-w-0 overflow-visible rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] via-white to-white px-4 py-4 sm:px-5">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
+              <ReceiptText size={20} />
+            </div>
+            <div>
+              <h2 className="app-section-title text-[#10234F]">
+                All <span className="text-[#FF711A]">expenses</span>
+              </h2>
+              <p className="mt-0.5 text-xs text-[#6B829D]">
+                Review, search, and manage expense records.
+              </p>
+            </div>
+          </div>
 
           <button
             type="button"
-            onClick={() => {
-              setEditingExpense(null);
-              setFormOpen(true);
-            }}
-            className="inline-flex h-[48px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#5145EF] to-[#3983F6] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
+            onClick={openAddExpense}
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#FF711A] px-4 text-xs font-bold text-white shadow-[0_4px_10px_rgba(255,113,26,0.18)] transition hover:bg-[#F04A13]"
           >
-            <Plus size={17} />
-            Add
+            <Plus size={15} />
+            Add Expense
           </button>
         </div>
 
         {/* Toolbar */}
-        <div className="mb-5 flex flex-col justify-between gap-3 xl:flex-row xl:items-center">
+        <div className="flex flex-col justify-between gap-3 p-4 sm:p-5 xl:flex-row xl:items-center">
           <div className="flex flex-wrap items-center gap-2">
-            <label className="flex items-center gap-1.5 whitespace-nowrap text-xs">
+            <label className="flex items-center gap-1.5 whitespace-nowrap text-xs text-[#526D8D]">
               Show
               <select
                 value={pageSize}
@@ -424,7 +522,7 @@ export default function Expences() {
                   setPageSize(event.target.value);
                   setPage(1);
                 }}
-                className="h-[30px] w-[75px] border border-[#D9C7B3] bg-white px-2 text-xs outline-none focus:border-[#FF8A37]"
+                className="h-9 w-[75px] rounded-lg border border-[#E8EDF4] bg-white px-2 text-xs text-[#132653] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
               >
                 <option value="10">10</option>
                 <option value="25">25</option>
@@ -440,9 +538,7 @@ export default function Expences() {
 
             <ExportButton
               icon={FileSpreadsheet}
-              onClick={() =>
-                alert("Connect an Excel export library to generate .xlsx files.")
-              }
+              onClick={() => exportPlaceholder("Excel")}
             >
               Export Excel
             </ExportButton>
@@ -460,7 +556,7 @@ export default function Expences() {
               </ExportButton>
 
               {columnsOpen && (
-                <div className="absolute left-0 top-full z-30 mt-2 max-h-64 w-52 overflow-y-auto rounded-lg border border-[#F0E0CF] bg-white p-3 shadow-[0_8px_25px_rgba(120,75,35,0.12)]">
+                <div className="absolute left-0 top-full z-30 mt-2 max-h-64 w-56 overflow-y-auto rounded-xl border border-[#F2E8DE] bg-white p-3 shadow-[0_8px_25px_rgba(16,35,79,0.12)]">
                   <p className="mb-2 text-xs font-semibold text-[#10234F]">
                     Show columns
                   </p>
@@ -468,7 +564,7 @@ export default function Expences() {
                   {columns.map((column) => (
                     <label
                       key={column.key}
-                      className="flex cursor-pointer items-center gap-2 py-1.5 text-xs text-[#526780]"
+                      className="flex cursor-pointer items-center gap-2 py-1.5 text-xs text-[#526D8D]"
                     >
                       <input
                         type="checkbox"
@@ -480,7 +576,7 @@ export default function Expences() {
                               : [...current, column.key]
                           )
                         }
-                        className="accent-[#5145EF]"
+                        className="accent-[#FF711A]"
                       />
                       {column.label}
                     </label>
@@ -491,18 +587,16 @@ export default function Expences() {
 
             <ExportButton
               icon={FileDown}
-              onClick={() =>
-                alert("Connect a PDF export library to generate PDF reports.")
-              }
+              onClick={() => exportPlaceholder("PDF")}
             >
               Export PDF
             </ExportButton>
           </div>
 
-          <div className="relative w-full shrink-0 xl:w-[167px]">
+          <div className="relative w-full shrink-0 xl:w-[210px]">
             <Search
-              size={12}
-              className="absolute left-2 top-1/2 -translate-y-1/2 text-[#91A0B3]"
+              size={15}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8798AD]"
             />
             <input
               type="search"
@@ -511,45 +605,45 @@ export default function Expences() {
                 setSearch(event.target.value);
                 setPage(1);
               }}
-              placeholder="Search ..."
-              className="h-[30px] w-full border border-[#D9C7B3] bg-white pl-7 pr-2 text-[11px] outline-none focus:border-[#FF8A37]"
+              placeholder="Search expenses..."
+              className="h-10 w-full rounded-lg border border-[#E8EDF4] bg-white pl-9 pr-3 text-xs text-[#132653] outline-none transition placeholder:text-[#8798AD] focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
             />
           </div>
         </div>
 
-        {/* Expense table */}
-        <div className="w-full overflow-x-auto">
-          <table className="w-full min-w-[1000px] table-fixed border-collapse text-left">
+        {/* Table: Action + 14 expense columns */}
+        <div className="mx-4 overflow-x-auto rounded-xl border border-[#E8EDF4] sm:mx-5">
+          <table className="w-full min-w-[1900px] table-fixed border-collapse text-left">
             <colgroup>
-              <col style={{ width: "60px" }} />
+              <col style={{ width: "82px" }} />
               {visibleTableColumns.map((column) => (
                 <col key={column.key} style={{ width: column.width }} />
               ))}
             </colgroup>
 
             <thead>
-              <tr className="bg-white">
-                <th className="h-[57px] border border-[#F0E0CF] px-2 py-2 text-[12px] font-bold text-black">
+              <tr className="bg-[#FFF7EF]">
+                <th className="app-table-heading h-12 border-b border-[#F2E8DE] px-3 py-2 text-[#19366F]">
                   Action
                 </th>
 
                 {visibleTableColumns.map((column) => (
                   <th
                     key={column.key}
-                    className="h-[57px] border border-[#F0E0CF] px-2 py-2 text-[12px] font-bold leading-[17px] text-black"
+                    className="app-table-heading h-12 border-b border-[#F2E8DE] px-3 py-2 leading-4 text-[#19366F]"
                   >
                     <button
                       type="button"
                       onClick={() => changeSort(column.key)}
-                      className="flex w-full items-center justify-between gap-1 text-left"
+                      className="flex w-full items-center justify-between gap-2 text-left"
                     >
-                      <span className="break-words">{column.label}</span>
+                      <span>{column.label}</span>
                       <ArrowUpDown
                         size={13}
                         className={
                           sort.key === column.key
-                            ? "shrink-0 text-[#8798AD]"
-                            : "shrink-0 text-[#D0D4D9]"
+                            ? "shrink-0 text-[#FF711A]"
+                            : "shrink-0 text-[#A3B1C2]"
                         }
                       />
                     </button>
@@ -563,19 +657,29 @@ export default function Expences() {
                 <tr>
                   <td
                     colSpan={visibleTableColumns.length + 1}
-                    className="h-[39px] border-x border-[#F0E0CF] bg-[#FBF5ED] px-3 text-center text-[12px] text-[#10234F]"
+                    className="h-32 border-b border-[#F2E8DE] bg-white px-3 text-center"
                   >
-                    No data available in table
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFE9D9] text-[#F04A13]">
+                        <ReceiptText size={23} />
+                      </div>
+                      <p className="text-sm font-bold text-[#10234F]">
+                        No data available in table
+                      </p>
+                      <p className="text-xs text-[#8798AD]">
+                        There are no expense records available at the moment.
+                      </p>
+                    </div>
                   </td>
                 </tr>
               ) : (
                 pageRows.map((expense) => (
                   <tr
                     key={expense.id}
-                    className="bg-white transition hover:bg-[#FFFCF8]"
+                    className="transition odd:bg-white even:bg-[#FFFCF8] hover:bg-[#FFF1E5]/70"
                   >
-                    <td className="border border-[#F0E0CF] px-2 py-2 text-center">
-                      <div className="flex items-center justify-center gap-1">
+                    <td className="border-b border-r border-[#F2E8DE] px-3 py-3">
+                      <div className="flex items-center justify-center gap-2">
                         <button
                           type="button"
                           title="Edit expense"
@@ -583,18 +687,18 @@ export default function Expences() {
                             setEditingExpense(expense);
                             setFormOpen(true);
                           }}
-                          className="text-[#398FC0] hover:text-blue-700"
+                          className="rounded-lg p-1.5 text-[#1475F8] transition hover:bg-[#EAF3FF] hover:text-[#10234F]"
                         >
-                          <Pencil size={13} />
+                          <Pencil size={15} />
                         </button>
 
                         <button
                           type="button"
                           title="Delete expense"
                           onClick={() => setDeleteExpense(expense)}
-                          className="text-[#D65D43] hover:text-red-700"
+                          className="rounded-lg p-1.5 text-[#E45138] transition hover:bg-red-50 hover:text-[#C83D2B]"
                         >
-                          <Trash2 size={13} />
+                          <Trash2 size={15} />
                         </button>
                       </div>
                     </td>
@@ -602,22 +706,25 @@ export default function Expences() {
                     {visibleTableColumns.map((column) => (
                       <td
                         key={column.key}
-                        className="break-words border border-[#F0E0CF] px-2 py-2 text-[12px] text-[#10234F]"
+                        className="app-table-cell break-words border-b border-r border-[#F2E8DE] px-3 py-3 text-[#19366F] last:border-r-0"
                       >
                         {["amount", "due", "tax"].includes(column.key) ? (
                           money(expense[column.key])
                         ) : column.key === "paymentStatus" ? (
                           <span
-                            className={`rounded px-1.5 py-1 text-[10px] font-medium ${
+                            className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-semibold ${
                               expense.paymentStatus === "Paid"
-                                ? "bg-green-50 text-green-700"
+                                ? "bg-[#E9F9F1] text-[#168553]"
                                 : expense.paymentStatus === "Partial"
                                   ? "bg-amber-50 text-amber-700"
                                   : "bg-red-50 text-red-600"
                             }`}
                           >
-                            {expense.paymentStatus}
+                            <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                            {expense.paymentStatus || "—"}
                           </span>
+                        ) : column.key === "date" && expense.date ? (
+                          expense.date
                         ) : (
                           expense[column.key] || "—"
                         )}
@@ -628,62 +735,64 @@ export default function Expences() {
               )}
 
               {/* Totals row */}
-              <tr className="h-[41px] bg-[#D2D6DE]">
-                <td
-                  colSpan={
-                    Math.max(
-                      1,
-                      visibleTableColumns.findIndex(
-                        (column) => column.key === "amount"
-                      ) + 1
-                    )
-                  }
-                  className="border border-white px-3 text-center text-[14px] font-bold text-black"
-                >
-                  Total:
-                </td>
-
-                {visibleTableColumns.map((column, index) => {
+              <tr className="h-12 bg-[#FFF1E5]">
+                {(() => {
                   const amountIndex = visibleTableColumns.findIndex(
-                    (item) => item.key === "amount"
+                    (column) => column.key === "amount"
+                  );
+                  const dueIndex = visibleTableColumns.findIndex(
+                    (column) => column.key === "due"
+                  );
+                  const firstTotalIndex = Math.min(
+                    amountIndex < 0 ? Infinity : amountIndex,
+                    dueIndex < 0 ? Infinity : dueIndex
                   );
 
-                  if (index < amountIndex) return null;
-
-                  if (column.key === "amount") {
+                  if (firstTotalIndex === Infinity) {
                     return (
                       <td
-                        key={column.key}
-                        className="border border-white px-2 text-center text-[13px] text-black"
+                        colSpan={visibleTableColumns.length + 1}
+                        className="border-b border-r border-white px-3 text-center text-sm font-bold text-[#10234F]"
                       >
-                        {money(totalAmount)}
-                      </td>
-                    );
-                  }
-
-                  if (column.key === "due") {
-                    return (
-                      <td
-                        key={column.key}
-                        className="border border-white px-2 text-center text-[13px] text-black"
-                      >
-                        {money(totalDue)}
+                        Total:
                       </td>
                     );
                   }
 
                   return (
-                    <td key={column.key} className="border border-white" />
+                    <>
+                      <td
+                        colSpan={firstTotalIndex + 1}
+                        className="border-b border-r border-white px-3 text-center text-sm font-bold text-[#10234F]"
+                      >
+                        Total:
+                      </td>
+
+                      {visibleTableColumns
+                        .slice(firstTotalIndex)
+                        .map((column) => (
+                          <td
+                            key={column.key}
+                            className="border-b border-r border-white px-3 text-center text-xs font-bold text-[#10234F]"
+                          >
+                            {column.key === "amount"
+                              ? money(totalAmount)
+                              : column.key === "due"
+                                ? money(totalDue)
+                                : ""}
+                          </td>
+                        ))}
+                    </>
                   );
-                })}
+                })()}
               </tr>
             </tbody>
           </table>
         </div>
 
         {/* Table footer */}
-        <div className="mt-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-          <p className="text-[12px] text-[#10234F]">
+        <div className="flex flex-col justify-between gap-3 px-4 py-4 sm:flex-row sm:items-center sm:px-5">
+          <p className="text-xs text-[#526D8D]">
             Showing{" "}
             {filteredExpenses.length
               ? (page - 1) * Number(pageSize) + 1
@@ -697,13 +806,13 @@ export default function Expences() {
               type="button"
               disabled={page <= 1}
               onClick={() => setPage((current) => Math.max(1, current - 1))}
-              className="h-[34px] rounded-l-sm border border-[#E1D7CC] bg-white px-3 text-[12px] text-[#64748B] hover:bg-[#FFF8F0] disabled:cursor-not-allowed"
+              className="h-9 rounded-l-lg border border-[#E8EDF4] bg-white px-3 text-xs font-semibold text-[#577B9F] transition hover:bg-[#FFF7EF] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Previous
             </button>
 
             {filteredExpenses.length > 0 && (
-              <span className="flex h-[34px] min-w-[34px] items-center justify-center border-y border-[#5145EF] bg-[#5145EF] px-2 text-xs text-white">
+              <span className="flex h-9 min-w-9 items-center justify-center border-y border-[#FF711A] bg-[#FF711A] px-2 text-xs font-bold text-white">
                 {page}
               </span>
             )}
@@ -714,13 +823,43 @@ export default function Expences() {
               onClick={() =>
                 setPage((current) => Math.min(pageCount, current + 1))
               }
-              className="h-[34px] rounded-r-sm border border-[#E1D7CC] bg-white px-3 text-[12px] text-[#64748B] hover:bg-[#FFF8F0] disabled:cursor-not-allowed"
+              className="h-9 rounded-r-lg border border-[#E8EDF4] bg-white px-3 text-xs font-semibold text-[#577B9F] transition hover:bg-[#FFF7EF] disabled:cursor-not-allowed disabled:opacity-50"
             >
               Next
             </button>
           </div>
         </div>
       </section>
+
+      {/* Print button */}
+      <div className="mb-4 mt-5 flex justify-end">
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#FF711A] px-4 text-xs font-bold text-white shadow-[0_4px_10px_rgba(255,113,26,0.18)] transition hover:bg-[#F04A13]"
+        >
+          <Printer size={15} />
+          Print
+        </button>
+      </div>
+
+      {/* Footer */}
+      <footer className="relative -mx-4 mt-5 border-t border-[#F2E8DE] bg-[#FFFAF5] px-4 pb-4 pt-5 sm:-mx-5 sm:px-5">
+        <p className="text-center text-[11px] leading-5 text-[#526D8D]">
+          Billomax - Your Trusted Partner in Billing &amp; Invoicing - Your
+          Trusted Partner in Billing &amp; Invoicing - V6.3 | Copyright ©
+          2026 All rights reserved.
+        </p>
+
+        <button
+          type="button"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-5 right-5 z-40 flex h-[44px] w-[44px] items-center justify-center rounded-xl bg-[#1475F8] text-white shadow-[0_5px_14px_rgba(20,117,248,0.25)] transition hover:bg-[#0865DF]"
+        >
+          <ArrowUp size={23} strokeWidth={3} />
+        </button>
+      </footer>
 
       {/* Add / Edit modal */}
       {formOpen && (
@@ -737,28 +876,38 @@ export default function Expences() {
       {/* Delete confirmation */}
       {deleteExpense && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#10234F]/40 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#10234F]/45 p-4 backdrop-blur-sm"
           onClick={() => setDeleteExpense(null)}
         >
           <div
             role="dialog"
             aria-modal="true"
-            className="w-full max-w-sm rounded-2xl border border-[#F0E0CF] bg-white p-5 shadow-2xl"
+            className="w-full max-w-sm overflow-hidden rounded-2xl border border-[#F2E8DE] bg-white shadow-[0_20px_60px_rgba(16,35,79,0.18)]"
             onClick={(event) => event.stopPropagation()}
           >
-            <h2 className="text-base font-bold text-[#10234F]">
-              Delete expense?
-            </h2>
+            <div className="flex items-center gap-3 border-b border-[#F2E8DE] bg-[#FFF7EF] p-5">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-50 text-[#E45138]">
+                <Trash2 size={19} />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-[#10234F]">
+                  Delete expense?
+                </h2>
+                <p className="mt-0.5 text-xs text-[#6B829D]">
+                  This action removes the selected record.
+                </p>
+              </div>
+            </div>
 
-            <p className="mt-2 text-xs text-[#64748B]">
+            <p className="px-5 py-4 text-sm leading-6 text-[#526D8D]">
               This will remove the selected expense from the current page state.
             </p>
 
-            <div className="mt-5 flex justify-end gap-2">
+            <div className="flex justify-end gap-2 border-t border-[#F2E8DE] bg-[#FFFAF5]/70 px-5 py-4">
               <button
                 type="button"
                 onClick={() => setDeleteExpense(null)}
-                className="rounded-md border border-[#D9C7B3] px-3 py-2 text-xs"
+                className="rounded-lg border border-[#E8EDF4] bg-white px-4 py-2 text-xs font-bold text-[#19366F] transition hover:bg-[#FFFAF5]"
               >
                 Cancel
               </button>
@@ -771,9 +920,9 @@ export default function Expences() {
                   );
                   setDeleteExpense(null);
                 }}
-                className="rounded-md bg-[#E45138] px-3 py-2 text-xs font-semibold text-white hover:bg-[#C83D2B]"
+                className="rounded-lg bg-[#E45138] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#C83D2B]"
               >
-                Delete
+                Delete Expense
               </button>
             </div>
           </div>
