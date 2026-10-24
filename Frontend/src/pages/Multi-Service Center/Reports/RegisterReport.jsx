@@ -24,35 +24,11 @@ import {
   Clock3,
   MapPin,
   UserRound,
-  CheckCircle2,
   AlertCircle,
 } from "lucide-react";
 import ViewRegisterReportModal from "./ViewRegisterReportModal.jsx";
 
-const initialRows = [
-  {
-    id: 1,
-    openTime: "17/10/2024 15:53",
-    closeTime: "",
-    location: "Pharmacy",
-    user: "Mr pharmacy khanajamit.m9@gmail.com",
-    cardSlips: 25,
-    cheques: 0,
-    cash: 1089,
-    bankTransfer: 0,
-    advancePayment: 0,
-    customPayment1: 0,
-    customPayment2: 0,
-    customPayment3: 0,
-    customPayment4: 0,
-    customPayment5: 0,
-    customPayment6: 0,
-    customPayment7: 0,
-    otherPayments: 0,
-    total: 1114,
-    status: "Open",
-  },
-];
+const initialRows = [];
 
 const columns = [
   { key: "openTime", label: "Open Time", type: "text" },
@@ -116,7 +92,7 @@ function SummaryCard({ title, value, caption, icon: Icon }) {
 }
 
 export default function RegisterReport() {
-  const [rows, setRows] = useState(initialRows);
+  const [rows] = useState(initialRows);
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [showColumns, setShowColumns] = useState(false);
@@ -180,17 +156,6 @@ export default function RegisterReport() {
       }, {}),
     [filteredRows]
   );
-
-  const grandTotal = filteredRows.reduce(
-    (sum, row) => sum + Number(row.total || 0),
-    0
-  );
-  const openRegisters = filteredRows.filter(
-    (row) => !row.closeTime
-  ).length;
-  const locationsCount = new Set(
-    filteredRows.map((row) => row.location).filter(Boolean)
-  ).size;
 
   const toggleSort = (key) => {
     setSort((previous) => ({
@@ -271,7 +236,7 @@ export default function RegisterReport() {
           <div>
             <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
               <ReceiptText size={14} />
-              <span className="text-[11px] font-extrabold">PHARMACY · REPORTS</span>
+              <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · REPORTS</span>
             </div>
             <h1 className="app-page-title text-[#10234F]">
               Register Report

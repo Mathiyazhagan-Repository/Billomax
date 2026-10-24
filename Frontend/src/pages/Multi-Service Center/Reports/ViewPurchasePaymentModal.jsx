@@ -25,20 +25,19 @@ export default function ViewPurchasePaymentModal({
   if (!isOpen) return null;
 
   const details = {
-    supplierName: "ramraj ramraj",
-    supplierMobile: "1444188866",
-    businessName: "Pharmacy",
-    businessType: "Pharmacy",
-    address:
-      "JP Nagar, Kumarswamy Layout, Bangaluru\nBengaluru,Karnataka,India",
-    gstin: "29AACW6067A1ZB",
-    businessMobile: "7485968575",
-    email: "khanaiamit.m9@gmail.com",
-    amount: 500,
-    paymentMethod: "Cash",
+    supplierName: "—",
+    supplierMobile: "—",
+    businessName: "Multi-Service Center",
+    businessType: "Service Center",
+    address: "—",
+    gstin: "—",
+    businessMobile: "—",
+    email: "—",
+    amount: 0,
+    paymentMethod: "—",
     paymentNote: "",
-    referenceNo: "PP2024/0006",
-    paidOn: "17/10/2024 16:37",
+    referenceNo: "—",
+    paidOn: "—",
     ...payment,
   };
 

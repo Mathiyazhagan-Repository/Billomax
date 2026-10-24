@@ -24,62 +24,7 @@ import {
 } from "lucide-react";
 import ViewPurchasePaymentModal from "./ViewPurchasePaymentModal.jsx";
 
-const initialPayments = [
-  {
-    id: 1,
-    referenceNo: "PP2024/0006",
-    paidOn: "17/10/2024 16:37",
-    amount: 500,
-    supplier: "ramraj",
-    paymentMethod: "Cash",
-    purchase: "PO2024/0007",
-  },
-  {
-    id: 2,
-    referenceNo: "PP2024/0005",
-    paidOn: "17/10/2024 15:52",
-    amount: 30000,
-    supplier: "poonam",
-    paymentMethod: "Cash",
-    purchase: "PO2024/0001",
-  },
-  {
-    id: 3,
-    referenceNo: "PP2024/0004",
-    paidOn: "17/10/2024 15:41",
-    amount: 10000,
-    supplier: "Ravi",
-    paymentMethod: "Cash",
-    purchase: "PO2024/0004",
-  },
-  {
-    id: 4,
-    referenceNo: "PP2024/0003",
-    paidOn: "17/10/2024 15:40",
-    amount: 20000,
-    supplier: "Bhoomica",
-    paymentMethod: "Cash",
-    purchase: "PO2024/0005",
-  },
-  {
-    id: 5,
-    referenceNo: "PP2024/0002",
-    paidOn: "17/10/2024 15:39",
-    amount: 20000,
-    supplier: "ramraj",
-    paymentMethod: "Cash",
-    purchase: "PO2024/0003",
-  },
-  {
-    id: 6,
-    referenceNo: "PP2024/0001",
-    paidOn: "17/10/2024 15:36",
-    amount: 300000,
-    supplier: "Rohan",
-    paymentMethod: "Cash",
-    purchase: "PO2024/0002",
-  },
-];
+const initialPayments = [];
 
 const columns = [
   { key: "referenceNo", label: "Reference No." },
@@ -368,7 +313,7 @@ export default function PurchasePaymentReport() {
           <div>
             <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
               <Wallet size={14} />
-              <span className="text-[11px] font-extrabold">PHARMACY · REPORTS</span>
+              <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · REPORTS</span>
             </div>
             <h1 className="app-page-title text-[#10234F]">
               Purchase Payment Report
