@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import Sidebar from './component/Sidebar.jsx'
+import Sidebar from './component/Pharmacy-Sidebar.jsx'
 import TopNavBar from './component/TopNavBar.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
 import Remainders from './pages/Pharmacy/Home/Remainders.jsx'
