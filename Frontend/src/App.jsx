@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import AdminSidebar from './component/Admin-Sidebar.jsx'
+import ElectronicsSidebar from './component/ElectronicsSidebar.jsx'
 import MSCSideBar from './component/MSCSideBar.jsx'
 import PharmacySidebar from './component/PharmacySidebar.jsx'
 import RestaurantSidebar from './component/RestaurantSidebar.jsx'
@@ -32,6 +33,11 @@ import SuperMarketRemainders from './pages/SuperMarket/Home/Remainders.jsx'
 import SuperMarketSales from './pages/SuperMarket/Home/Sales.jsx'
 import SuperMarketShipment from './pages/SuperMarket/Home/Shipment.jsx'
 import SuperMarketSalseData from './pages/SuperMarket/Home/SalseData.jsx'
+import ElectronicsDashboard from './pages/Electronics/Home/Dashboard.jsx'
+import ElectronicsRemainders from './pages/Electronics/Home/Remainders.jsx'
+import ElectronicsSales from './pages/Electronics/Home/Sales.jsx'
+import ElectronicsShipment from './pages/Electronics/Home/Shipment.jsx'
+import ElectronicsSalseData from './pages/Electronics/Home/SalseData.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
 import Remainders from './pages/Pharmacy/Home/Remainders.jsx'
 import Sales from './pages/Pharmacy/Home/Sales.jsx'
@@ -123,6 +129,17 @@ function App() {
               <SuperMarketSales />
               <SuperMarketShipment />
               <SuperMarketSalseData />
+            </>
+          )
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return (
+            <>
+              <ElectronicsDashboard />
+              <ElectronicsRemainders />
+              <ElectronicsSales />
+              <ElectronicsShipment />
+              <ElectronicsSalseData />
             </>
           )
         }
@@ -279,7 +296,8 @@ function App() {
             business === 'Pharmacy' ||
             business === 'Multi-Service Center' ||
             business === 'Restaurant' ||
-            business === 'Super Market'
+            business === 'Super Market' ||
+            business === 'Electronics & MobileShop'
           ) {
             setActivePage('Home')
             setActiveBusiness(business)
@@ -293,6 +311,8 @@ function App() {
     <div className="flex min-h-screen bg-white">
       {activeBusiness === 'Admin' ? (
         <AdminSidebar onNavigate={setActivePage} />
+      ) : activeBusiness === 'Electronics & MobileShop' ? (
+        <ElectronicsSidebar onNavigate={setActivePage} />
       ) : activeBusiness === 'Multi-Service Center' ? (
         <MSCSideBar onNavigate={setActivePage} />
       ) : activeBusiness === 'Restaurant' ? (

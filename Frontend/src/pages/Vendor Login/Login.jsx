@@ -171,7 +171,8 @@ export default function Login({ onSelectBusiness }) {
                       business.name === "Pharmacy" ||
                       business.name === "Multi-Service Center" ||
                       business.name === "Restaurant" ||
-                      business.name === "Super Market"
+                      business.name === "Super Market" ||
+                      business.name === "Electronics & MobileShop"
                     ) {
                       onSelectBusiness?.(business.name);
                     }
