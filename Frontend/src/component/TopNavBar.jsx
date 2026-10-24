@@ -11,7 +11,10 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-export default function TopNavBar({ businessName = "Pharmacy" }) {
+export default function TopNavBar({
+  businessName = "Pharmacy",
+  onLogout,
+}) {
   const [search, setSearch] = useState("");
   const [notifications, setNotifications] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -129,6 +132,10 @@ export default function TopNavBar({ businessName = "Pharmacy" }) {
             </button>
             <button
               type="button"
+              onClick={() => {
+                setProfileOpen(false);
+                onLogout?.();
+              }}
               className="w-full rounded-md px-3 py-2 text-left text-xs text-red-600 hover:bg-red-50"
             >
               Logout

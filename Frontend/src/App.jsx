@@ -5,6 +5,7 @@ import PharmacySidebar from './component/PharmacySidebar.jsx'
 import TopNavBar from './component/TopNavBar.jsx'
 import Login from './pages/Vendor Login/Login.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
+import MSCDashboard from './pages/Multi-Service Center/Home/Dashboard.jsx'
 import Remainders from './pages/Pharmacy/Home/Remainders.jsx'
 import Sales from './pages/Pharmacy/Home/Sales.jsx'
 import Shipment from './pages/Pharmacy/Home/Shipment.jsx'
@@ -12,14 +13,20 @@ import SalseData from './pages/Pharmacy/Home/SalseData.jsx'
 import ListExpenses from './pages/Pharmacy/Expenses/Expences.jsx'
 import AddExpense from './pages/Pharmacy/Expenses/AddExpense.jsx'
 import ExpenseCategory from './pages/Pharmacy/Expenses/ExpenseCategory.jsx'
+import MSCListExpenses from './pages/Multi-Service Center/Expenses/Expences.jsx'
+import MSCAddExpense from './pages/Multi-Service Center/Expenses/AddExpense.jsx'
+import MSCExpenseCategory from './pages/Multi-Service Center/Expenses/ExpenseCategory.jsx'
 import ProfitLoss from './pages/Pharmacy/Reports/ProfiteLoss.jsx'
+import MSCProfitLoss from './pages/Multi-Service Center/Reports/ProfiteLoss.jsx'
 import SalesReport from './pages/Pharmacy/Reports/Sales.jsx'
+import MSCSalesReport from './pages/Multi-Service Center/Reports/Sales.jsx'
 import PurchaseReport from './pages/Pharmacy/Reports/Purchase.jsx'
 import TaxReport from './pages/Pharmacy/Reports/TaxReport.jsx'
 import CustomersSuppliersReports from './pages/Pharmacy/Reports/CustomersSuppliersReports.jsx'
 import CustomerReminder from './pages/Pharmacy/Reports/CustomerReminder.jsx'
 import CustomerGroupsReport from './pages/Pharmacy/Reports/CustomerGroupsReport.jsx'
 import StockReport from './pages/Pharmacy/Reports/StockReport.jsx'
+import MSCStockReport from './pages/Multi-Service Center/Reports/StockReport.jsx'
 import StockAdjustmentReport from './pages/Pharmacy/Reports/StockAdjustmentReport.jsx'
 import RackWiseReport from './pages/Pharmacy/Reports/Rack-wiseReport.jsx'
 import NotificationTemplates from './pages/Pharmacy/NotificationTemplates/NotificationTemplates.jsx'
@@ -49,6 +56,8 @@ import Subscription from './pages/Pharmacy/Settings/Subscription.jsx'
 import ActivityLog from './pages/Pharmacy/Reports/ActivityLog.jsx'
 import ListStockAdjustments from './pages/Pharmacy/StockAdjustments/ListStockAdjustments.jsx'
 import AddStockAdjustment from './pages/Pharmacy/StockAdjustments/AddStockAdjustment.jsx'
+import MSCListStockAdjustments from './pages/Multi-Service Center/StockAdjustments/ListStockAdjustments.jsx'
+import MSCAddStockAdjustment from './pages/Multi-Service Center/StockAdjustments/AddStockAdjustment.jsx'
 import Stocks from './pages/Pharmacy/Stocks/Stocks.jsx'
 import ModifyBill from './pages/Pharmacy/Modify Bill/ModifyBill.jsx'
 import EWayBill from './pages/Pharmacy/E-WayBill/E-WayBill.jsx'
@@ -64,6 +73,9 @@ function App() {
   const pageContent = (() => {
     switch (activePage) {
       case 'Home':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCDashboard />
+        }
         return (
           <>
             <Dashboard />
@@ -74,15 +86,30 @@ function App() {
           </>
         )
       case 'List Expenses':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCListExpenses onNavigate={setActivePage} />
+        }
         return <ListExpenses onNavigate={setActivePage} />
       case 'Add Expense':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCAddExpense />
+        }
         return <AddExpense />
       case 'Expense Categories':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCExpenseCategory />
+        }
         return <ExpenseCategory />
       case 'Reports':
       case 'Profit / Loss Report':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCProfitLoss />
+        }
         return <ProfitLoss />
       case 'Sales Report':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCSalesReport />
+        }
         return <SalesReport />
       case 'Purchase & Sale':
         return <PurchaseReport />
@@ -95,6 +122,9 @@ function App() {
       case 'Customer Groups Report':
         return <CustomerGroupsReport />
       case 'Stock Report':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCStockReport />
+        }
         return <StockReport />
       case 'Stock Adjustment Report':
         return <StockAdjustmentReport />
@@ -105,12 +135,22 @@ function App() {
       case 'E-Way Bill':
         return <EWayBill />
       case 'List Stock Adjustments':
+        if (activeBusiness === 'Multi-Service Center') {
+          return (
+            <MSCListStockAdjustments
+              onAdd={() => setActivePage('Add Stock Adjustments')}
+            />
+          )
+        }
         return (
           <ListStockAdjustments
             onAdd={() => setActivePage('Add Stock Adjustments')}
           />
         )
       case 'Add Stock Adjustments':
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCAddStockAdjustment />
+        }
         return <AddStockAdjustment />
       case 'List Stock Transfers':
         return (
@@ -209,7 +249,14 @@ function App() {
         <PharmacySidebar onNavigate={setActivePage} />
       )}
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <TopNavBar businessName={activeBusiness} />
+        <TopNavBar
+          businessName={activeBusiness}
+          onLogout={() => {
+            setActivePage('Home')
+            setSelectedStockTransfer(null)
+            setActiveBusiness(null)
+          }}
+        />
         <div className="min-h-0 flex-1">{pageContent}</div>
       </div>
     </div>
