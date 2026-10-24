@@ -1,11 +1,7 @@
 import { useState } from 'react'
 import './App.css'
-<<<<<<< HEAD
 import MSCSideBar from './component/MSCSideBar.jsx'
 import PharmacySidebar from './component/PharmacySidebar.jsx'
-=======
-import Sidebar from './component/Pharmacy-Sidebar.jsx'
->>>>>>> refs/remotes/origin/main
 import TopNavBar from './component/TopNavBar.jsx'
 import Login from './pages/Vendor Login/Login.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
