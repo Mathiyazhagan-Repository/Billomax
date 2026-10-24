@@ -167,8 +167,11 @@ export default function Login({ onSelectBusiness }) {
                     setSelectedBusiness(business.name);
                     fillDemoCredentials();
                     if (
+                      business.name === "Admin" ||
                       business.name === "Pharmacy" ||
-                      business.name === "Multi-Service Center"
+                      business.name === "Multi-Service Center" ||
+                      business.name === "Restaurant" ||
+                      business.name === "Super Market"
                     ) {
                       onSelectBusiness?.(business.name);
                     }

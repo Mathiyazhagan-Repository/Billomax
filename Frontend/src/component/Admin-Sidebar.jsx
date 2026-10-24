@@ -19,7 +19,6 @@ import {
   ChevronDown,
   Mail,
   Lightbulb,
-  BriefcaseMedical,
   RefreshCw,
   Settings,
   Database,
@@ -100,15 +99,6 @@ const menuItems = [
   { name: "Modules", icon: Blocks },
   { name: "Notification Templates", icon: Mail },
   { name: "AI Offer Suggestions", icon: Lightbulb },
-  {
-    name: "Pharmacy",
-    icon: BriefcaseMedical,
-    children: [
-      { name: "Doctors" },
-      { name: "Prescriptions" },
-      { name: "Batch Recalls" },
-    ],
-  },
   { name: "Yearly renewal", icon: RefreshCw },
   {
     name: "Settings",
@@ -144,7 +134,7 @@ export default function Sidebar({ onNavigate }) {
 
   return (
     <aside className="sticky top-0 flex h-screen w-[224px] shrink-0 flex-col self-start border-r border-[#F0EAE3] bg-[#FFFCF8] px-3 py-4 font-sans">
-      {/* Pharmacy Header */}
+      {/* Admin Header */}
       <div className="mb-5 flex h-[40px] items-center justify-center gap-2">
         <Pill
           size={31}
@@ -201,14 +191,6 @@ export default function Sidebar({ onNavigate }) {
                       current.includes(name) ? current : [...current, name]
                     );
                     navigateTo("Profit / Loss Report");
-                    return;
-                  }
-
-                  if (name === "Pharmacy") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
-                    navigateTo("Doctors");
                     return;
                   }
 

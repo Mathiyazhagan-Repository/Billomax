@@ -1,9 +1,37 @@
 import { useState } from 'react'
 import './App.css'
+import AdminSidebar from './component/Admin-Sidebar.jsx'
 import MSCSideBar from './component/MSCSideBar.jsx'
 import PharmacySidebar from './component/PharmacySidebar.jsx'
+import RestaurantSidebar from './component/RestaurantSidebar.jsx'
+import SuperMarketSidebar from './component/SuperMarketSidebar.jsx'
 import TopNavBar from './component/TopNavBar.jsx'
 import Login from './pages/Vendor Login/Login.jsx'
+import AdminDashboard from './pages/Admin/Home/Dashboard.jsx'
+import AdminRemainders from './pages/Admin/Home/Remainders.jsx'
+import AdminSales from './pages/Admin/Home/Sales.jsx'
+import AdminShipment from './pages/Admin/Home/Shipment.jsx'
+import AdminSalseData from './pages/Admin/Home/SalseData.jsx'
+import AdministerBackup from './pages/Admin/Administer Backup/AdministerBackup.jsx'
+import ManageModules from './pages/Admin/Modules/ManageModules.jsx'
+import StockExpiryReport from './pages/Admin/Reports/StockExpiryReport.jsx'
+import RestaurantDashboard from './pages/Restaurant/Home/Dashboard.jsx'
+import RestaurantRemainders from './pages/Restaurant/Home/Remainders.jsx'
+import RestaurantSales from './pages/Restaurant/Home/Sales.jsx'
+import RestaurantShipment from './pages/Restaurant/Home/Shipment.jsx'
+import RestaurantSalseData from './pages/Restaurant/Home/SalseData.jsx'
+import RestaurantCategories from './pages/Restaurant/Restaurant/Categories.jsx'
+import RestaurantMenuItems from './pages/Restaurant/Restaurant/MenuItems.jsx'
+import RestaurantBillingKOT from './pages/Restaurant/Restaurant/BillingKOT.jsx'
+import RestaurantCashier from './pages/Restaurant/Restaurant/Cashier.jsx'
+import RestaurantOutletTime from './pages/Restaurant/Restaurant/OutletTime.jsx'
+import RestaurantLiveOrders from './pages/Restaurant/Restaurant/LiveOrders.jsx'
+import RestaurantBillingGSTSettings from './pages/Restaurant/Restaurant/BillingGSTSettings.jsx'
+import SuperMarketDashboard from './pages/SuperMarket/Home/Dashboard.jsx'
+import SuperMarketRemainders from './pages/SuperMarket/Home/Remainders.jsx'
+import SuperMarketSales from './pages/SuperMarket/Home/Sales.jsx'
+import SuperMarketShipment from './pages/SuperMarket/Home/Shipment.jsx'
+import SuperMarketSalseData from './pages/SuperMarket/Home/SalseData.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
 import Remainders from './pages/Pharmacy/Home/Remainders.jsx'
 import Sales from './pages/Pharmacy/Home/Sales.jsx'
@@ -63,7 +91,41 @@ function App() {
 
   const pageContent = (() => {
     switch (activePage) {
+      case 'Dashboard':
       case 'Home':
+        if (activeBusiness === 'Admin') {
+          return (
+            <>
+              <AdminDashboard />
+              <AdminRemainders />
+              <AdminSales />
+              <AdminShipment />
+              <AdminSalseData />
+            </>
+          )
+        }
+        if (activeBusiness === 'Restaurant') {
+          return (
+            <>
+              <RestaurantDashboard />
+              <RestaurantRemainders />
+              <RestaurantSales />
+              <RestaurantShipment />
+              <RestaurantSalseData />
+            </>
+          )
+        }
+        if (activeBusiness === 'Super Market') {
+          return (
+            <>
+              <SuperMarketDashboard />
+              <SuperMarketRemainders />
+              <SuperMarketSales />
+              <SuperMarketShipment />
+              <SuperMarketSalseData />
+            </>
+          )
+        }
         return (
           <>
             <Dashboard />
@@ -73,6 +135,20 @@ function App() {
             <SalseData />
           </>
         )
+      case 'Menu Categories':
+        return <RestaurantCategories />
+      case 'Menu Items':
+        return <RestaurantMenuItems />
+      case 'Billing & KOT':
+        return <RestaurantBillingKOT />
+      case 'Cashier':
+        return <RestaurantCashier />
+      case 'Outlet Time':
+        return <RestaurantOutletTime />
+      case 'Live Orders':
+        return <RestaurantLiveOrders />
+      case 'Billing & GST Settings':
+        return <RestaurantBillingGSTSettings />
       case 'List Expenses':
         return <ListExpenses onNavigate={setActivePage} />
       case 'Add Expense':
@@ -96,6 +172,8 @@ function App() {
         return <CustomerGroupsReport />
       case 'Stock Report':
         return <StockReport />
+      case 'Stock Expiry Report':
+        return <StockExpiryReport />
       case 'Stock Adjustment Report':
         return <StockAdjustmentReport />
       case 'Stocks (Expiry/Dump/Faulty)':
@@ -183,6 +261,10 @@ function App() {
         return <Subscription />
       case 'Activity Log':
         return <ActivityLog />
+      case 'Administer Backup':
+        return <AdministerBackup />
+      case 'Modules':
+        return <ManageModules />
       default:
         return null
     }
@@ -192,7 +274,13 @@ function App() {
     return (
       <Login
         onSelectBusiness={(business) => {
-          if (business === 'Pharmacy' || business === 'Multi-Service Center') {
+          if (
+            business === 'Admin' ||
+            business === 'Pharmacy' ||
+            business === 'Multi-Service Center' ||
+            business === 'Restaurant' ||
+            business === 'Super Market'
+          ) {
             setActivePage('Home')
             setActiveBusiness(business)
           }
@@ -203,8 +291,14 @@ function App() {
 
   return (
     <div className="flex min-h-screen bg-white">
-      {activeBusiness === 'Multi-Service Center' ? (
+      {activeBusiness === 'Admin' ? (
+        <AdminSidebar onNavigate={setActivePage} />
+      ) : activeBusiness === 'Multi-Service Center' ? (
         <MSCSideBar onNavigate={setActivePage} />
+      ) : activeBusiness === 'Restaurant' ? (
+        <RestaurantSidebar onNavigate={setActivePage} />
+      ) : activeBusiness === 'Super Market' ? (
+        <SuperMarketSidebar onNavigate={setActivePage} />
       ) : (
         <PharmacySidebar onNavigate={setActivePage} />
       )}
