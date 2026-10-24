@@ -11,7 +11,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-export default function TopNavBar() {
+export default function TopNavBar({ businessName = "Pharmacy" }) {
   const [search, setSearch] = useState("");
   const [notifications, setNotifications] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -102,7 +102,9 @@ export default function TopNavBar() {
           className="flex h-[38px] items-center gap-2 rounded-lg border border-[#E9EAF0] bg-white px-3 text-[#192F68] shadow-sm transition hover:bg-[#F5F7FC]"
         >
           <UserCircle size={19} fill="#192F68" className="text-white" />
-          <span className="text-[12px] font-semibold">pharmacy</span>
+          <span className="text-[12px] font-semibold">
+            {businessName.toLowerCase()}
+          </span>
           <ChevronDown
             size={14}
             className={`transition-transform ${

@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import './App.css'
-import Sidebar from './component/Sidebar.jsx'
+import MSCSideBar from './component/MSCSideBar.jsx'
+import PharmacySidebar from './component/PharmacySidebar.jsx'
 import TopNavBar from './component/TopNavBar.jsx'
+import Login from './pages/Vendor Login/Login.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
 import Remainders from './pages/Pharmacy/Home/Remainders.jsx'
 import Sales from './pages/Pharmacy/Home/Sales.jsx'
@@ -57,6 +59,7 @@ import EditStockTransfer from './pages/Pharmacy/StockTransfers/EditStockTransfer
 function App() {
   const [activePage, setActivePage] = useState('Home')
   const [selectedStockTransfer, setSelectedStockTransfer] = useState(null)
+  const [activeBusiness, setActiveBusiness] = useState(null)
 
   const pageContent = (() => {
     switch (activePage) {
@@ -185,11 +188,28 @@ function App() {
     }
   })()
 
+  if (!activeBusiness) {
+    return (
+      <Login
+        onSelectBusiness={(business) => {
+          if (business === 'Pharmacy' || business === 'Multi-Service Center') {
+            setActivePage('Home')
+            setActiveBusiness(business)
+          }
+        }}
+      />
+    )
+  }
+
   return (
     <div className="flex min-h-screen bg-white">
-      <Sidebar onNavigate={setActivePage} />
+      {activeBusiness === 'Multi-Service Center' ? (
+        <MSCSideBar onNavigate={setActivePage} />
+      ) : (
+        <PharmacySidebar onNavigate={setActivePage} />
+      )}
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-        <TopNavBar />
+        <TopNavBar businessName={activeBusiness} />
         <div className="min-h-0 flex-1">{pageContent}</div>
       </div>
     </div>
