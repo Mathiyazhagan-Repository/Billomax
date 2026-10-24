@@ -83,7 +83,7 @@ export default function EditExpenseCategoryModal({
             </div>
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-[#F07820]">
-                Expense management
+                Multi-Service Center · Expenses
               </p>
               <h2
                 id="edit-expense-category-title"

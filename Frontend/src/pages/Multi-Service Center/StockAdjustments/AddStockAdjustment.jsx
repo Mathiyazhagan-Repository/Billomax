@@ -33,7 +33,7 @@ const getLocalDateTime = () => {
 };
 
 const defaultLocations = [
-  { id: "BL0001", name: "Pharmacy", code: "BL0001" },
+  { id: "BL0001", name: "Multi-Service Center", code: "BL0001" },
   { id: "soujanya-h-v", name: "Soujanya H V" },
 ];
 
@@ -102,7 +102,7 @@ export default function AddStockAdjustment({
   onSave,
   onCancel,
 }) {
-  const [businessLocation, setBusinessLocation] = useState("");
+  const [businessLocation, setBusinessLocation] = useState("BL0001");
   const [referenceNo, setReferenceNo] = useState("");
   const [date, setDate] = useState(getLocalDateTime);
   const [adjustmentType, setAdjustmentType] = useState("");

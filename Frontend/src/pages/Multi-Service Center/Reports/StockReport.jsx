@@ -2,9 +2,6 @@
 import React, { useMemo, useState } from "react";
 import {
   Package,
-  Boxes,
-  IndianRupee,
-  TrendingUp,
   Filter,
   Search,
   Download,
@@ -20,62 +17,20 @@ import {
   History,
   X,
   MapPin,
-  Eye,
+  Plus,
 } from "lucide-react";
 import ProductStockHistory from "./ProductStockHistory.jsx";
 import ViewGroupPrices from "./ViewGroupPrices.jsx";
 
 const stockData = [
   {
-    id: 1,
-    sku: "0001",
-    product: "Dolo 650",
+    id: 63,
+    sku: "0063",
+    product: "Battery Kit Replacement",
     variation: "",
-    category: "First Aid Supplies",
-    location: "Pharmacy",
-    sellingPrice: 13.75,
-    currentStock: 12,
-    unit: "Pc(s)",
-    purchaseValue: 385,
-    saleValue: 165,
-    potentialProfit: -220,
-    totalSold: 53,
-    transferred: 0,
-    adjusted: 0,
-    custom1: "",
-    custom2: "",
-    custom3: "",
-    custom4: "",
-  },
-  {
-    id: 2,
-    sku: "0038",
-    product: "Amoxicillin",
-    variation: "",
-    category: "Health & Wellness Products",
-    location: "Pharmacy",
-    sellingPrice: 22.5,
-    currentStock: 197,
-    unit: "piece",
-    purchaseValue: 10152,
-    saleValue: 4432.5,
-    potentialProfit: -5719.5,
-    totalSold: 42,
-    transferred: 0,
-    adjusted: 0,
-    custom1: "",
-    custom2: "",
-    custom3: "",
-    custom4: "",
-  },
-  {
-    id: 3,
-    sku: "0039",
-    product: "Azithromycin",
-    variation: "",
-    category: "First Aid Supplies",
+    category: "",
     location: "",
-    sellingPrice: 22.5,
+    sellingPrice: 918,
     currentStock: 0,
     unit: "piece",
     purchaseValue: 0,
@@ -84,52 +39,142 @@ const stockData = [
     totalSold: 0,
     transferred: 0,
     adjusted: 0,
-    custom1: "",
-    custom2: "",
-    custom3: "",
-    custom4: "",
   },
   {
-    id: 4,
-    sku: "0040",
-    product: "Sertraline (Zoloft)",
-    variation: "",
-    category: "First Aid Supplies",
-    location: "Pharmacy",
-    sellingPrice: 22.5,
-    currentStock: 298,
-    unit: "piece",
-    purchaseValue: 5364,
-    saleValue: 6705,
-    potentialProfit: 1341,
-    totalSold: 3,
-    transferred: 0,
-    adjusted: 0,
-    custom1: "",
-    custom2: "",
-    custom3: "",
-    custom4: "",
-  },
-  {
-    id: 5,
-    sku: "0041",
-    product: "Fluoxetine (Prozac)",
+    id: 64,
+    sku: "0064",
+    product: "Bioschip Repair",
     variation: "",
     category: "",
-    location: "Pharmacy",
-    sellingPrice: 22.5,
-    currentStock: 497,
-    unit: "piece",
-    purchaseValue: 8946,
-    saleValue: 11182.5,
-    potentialProfit: 2236.5,
-    totalSold: 3,
+    location: "",
+    sellingPrice: 9018,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 0,
     transferred: 0,
     adjusted: 0,
-    custom1: "",
-    custom2: "",
-    custom3: "",
-    custom4: "",
+  },
+  {
+    id: 65,
+    sku: "0065",
+    product: "Coling Fan repair",
+    variation: "",
+    category: "",
+    location: "",
+    sellingPrice: 120.96,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 0,
+    transferred: 0,
+    adjusted: 0,
+  },
+  {
+    id: 66,
+    sku: "0066",
+    product: "CPU",
+    variation: "",
+    category: "",
+    location: "",
+    sellingPrice: 738.46,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 0,
+    transferred: 0,
+    adjusted: 0,
+  },
+  {
+    id: 67,
+    sku: "0067",
+    product: "Display",
+    variation: "",
+    category: "",
+    location: "",
+    sellingPrice: 1229.76,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 0,
+    transferred: 0,
+    adjusted: 0,
+  },
+  {
+    id: 68,
+    sku: "0068",
+    product: "Ac Repair",
+    variation: "",
+    category: "",
+    location: "Multi-Service Center",
+    sellingPrice: 120.96,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 1,
+    transferred: 0,
+    adjusted: 0,
+  },
+  {
+    id: 69,
+    sku: "0069",
+    product: "CPU",
+    variation: "",
+    category: "",
+    location: "",
+    sellingPrice: 7068.75,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 0,
+    transferred: 0,
+    adjusted: 0,
+  },
+  {
+    id: 70,
+    sku: "0070",
+    product: "CPU",
+    variation: "",
+    category: "",
+    location: "",
+    sellingPrice: 624.96,
+    currentStock: 0,
+    unit: "Pc(s)",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 0,
+    transferred: 0,
+    adjusted: 0,
+  },
+  {
+    id: 71,
+    sku: "0071",
+    product: "CPU",
+    variation: "",
+    category: "",
+    location: "Multi-Service Center",
+    sellingPrice: 1028.16,
+    currentStock: 0,
+    unit: "piece",
+    purchaseValue: 0,
+    saleValue: 0,
+    potentialProfit: 0,
+    totalSold: 1,
+    transferred: 0,
+    adjusted: 0,
   },
 ];
 
@@ -154,10 +199,6 @@ const columnDefinitions = [
   { key: "totalSold", label: "Total unit sold" },
   { key: "transferred", label: "Total Unit Transferred" },
   { key: "adjusted", label: "Total Unit Adjusted" },
-  { key: "custom1", label: "Custom Field1" },
-  { key: "custom2", label: "Custom Field2" },
-  { key: "custom3", label: "Custom Field3" },
-  { key: "custom4", label: "Custom Field4" },
 ];
 
 const money = (value) =>
@@ -172,36 +213,30 @@ const quantity = (value, unit) =>
     maximumFractionDigits: 2,
   })} ${unit || "Pc(s)"}`;
 
-function SummaryCard({ label, value, icon: Icon, accent, detail }) {
-  const accents = {
-    orange: "bg-[#FFE5AD] text-[#F47700]",
-    blue: "bg-[#CDE6FF] text-[#087AF0]",
-    green: "bg-[#D1FBD1] text-[#13A52E]",
-    purple: "bg-[#E8D8FF] text-[#8219F5]",
-  };
-
+function SummaryCard({ label }) {
   return (
-    <div className="flex min-h-[84px] items-center gap-2.5 rounded-xl border border-[#E6EDF5] bg-white p-3 shadow-[0_3px_8px_rgba(25,43,80,0.04)] transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg ${accents[accent]}`}>
-        <Icon size={22} strokeWidth={2.8} />
-      </div>
-      <div className="min-w-0">
-          <p className="mb-1 text-[11px] font-bold leading-4 text-[#526D8D]">
-            {label}
-          </p>
-          <p className="break-words text-[18px] font-extrabold leading-none tracking-tight text-[#101C3D]">
-            {value}
-          </p>
-          {detail && <p className="mt-1 text-[10px] text-[#577B9F]">{detail}</p>}
-      </div>
+    <div className="min-h-[220px] rounded-[22px] border border-[#E8EDF3] bg-white px-5 py-6 shadow-[0_8px_20px_rgba(16,35,79,0.06)] sm:px-8">
+      <p className="text-base font-normal text-[#182230]">{label}</p>
+      <RotateCcw
+        size={34}
+        strokeWidth={3}
+        className="mt-6 text-[#F0A02F]"
+        aria-label="Loading stock summary"
+      />
     </div>
   );
 }
 
-function ActionButton({ children, icon: Icon, onClick, primary = false }) {
+function ActionButton({
+  children,
+  icon: Icon,
+  onClick,
+  primary = false,
+  type = "button",
+}) {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick}
       className={`inline-flex items-center justify-center gap-2 rounded-lg border px-3 py-2.5 text-xs font-bold transition focus:outline-none focus:ring-2 focus:ring-orange-200 ${
         primary
@@ -216,7 +251,11 @@ function ActionButton({ children, icon: Icon, onClick, primary = false }) {
 }
 
 export default function StockReport() {
-  const [products] = useState(stockData);
+  const [products, setProducts] = useState(stockData);
+  const [customFields, setCustomFields] = useState([]);
+  const [customFieldName, setCustomFieldName] = useState("");
+  const [showAddCustomField, setShowAddCustomField] = useState(false);
+  const [customFieldError, setCustomFieldError] = useState("");
   const [search, setSearch] = useState("");
   const [locationFilter, setLocationFilter] = useState("all");
   const [showFilters, setShowFilters] = useState(false);
@@ -233,6 +272,14 @@ export default function StockReport() {
   const [historyProduct, setHistoryProduct] = useState(null);
   const [groupPriceProduct, setGroupPriceProduct] = useState(null);
 
+  const columns = useMemo(
+    () => [
+      ...columnDefinitions,
+      ...customFields.map(({ key, label }) => ({ key, label })),
+    ],
+    [customFields]
+  );
+
   const locations = useMemo(
     () => [...new Set(products.map((item) => item.location).filter(Boolean))],
     [products]
@@ -246,6 +293,7 @@ export default function StockReport() {
         product.variation,
         product.category,
         product.location,
+        ...customFields.map(({ key }) => product[key]),
       ]
         .join(" ")
         .toLowerCase();
@@ -288,7 +336,7 @@ export default function StockReport() {
     }
 
     return result;
-  }, [products, search, locationFilter, sortConfig]);
+  }, [products, search, locationFilter, sortConfig, customFields]);
 
   const totalPages = Math.max(
     1,
@@ -356,8 +404,30 @@ export default function StockReport() {
     );
   };
 
+  const addCustomField = (event) => {
+    event.preventDefault();
+    const label = customFieldName.trim();
+    if (!label) return;
+
+    if (
+      columns.some(
+        (column) => column.label.toLowerCase() === label.toLowerCase()
+      )
+    ) {
+      setCustomFieldError("A field with this name already exists.");
+      return;
+    }
+
+    const key = `custom-${customFields.length + 1}`;
+    setCustomFields((current) => [...current, { key, label }]);
+    setVisibleColumns((current) => [...current, key]);
+    setCustomFieldName("");
+    setCustomFieldError("");
+    setShowAddCustomField(false);
+  };
+
   const exportCSV = () => {
-    const exportColumns = columnDefinitions.filter(
+    const exportColumns = columns.filter(
       (column) =>
         visibleColumns.includes(column.key) && column.key !== "action"
     );
@@ -437,10 +507,6 @@ export default function StockReport() {
       case "variation":
       case "category":
       case "location":
-      case "custom1":
-      case "custom2":
-      case "custom3":
-      case "custom4":
         return (
           <span className="block min-w-[90px] max-w-[180px] whitespace-normal leading-5 text-slate-600">
             {row[key] || "—"}
@@ -503,6 +569,28 @@ export default function StockReport() {
         );
 
       default:
+        {
+          const customField = customFields.find((field) => field.key === key);
+          if (customField) {
+            return (
+              <input
+                aria-label={`${customField.label} for ${row.product}`}
+                value={row[key] ?? ""}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  setProducts((current) =>
+                    current.map((product) =>
+                      product.id === row.id
+                        ? { ...product, [key]: value }
+                        : product
+                    )
+                  );
+                }}
+                className="w-32 rounded-md border border-transparent bg-transparent px-2 py-1 text-xs text-[#19366F] outline-none focus:border-[#FF8A37] focus:bg-white"
+              />
+            );
+          }
+        }
         return row[key] ?? "—";
     }
   };
@@ -543,80 +631,21 @@ export default function StockReport() {
 
       <div className="mx-auto max-w-[1800px] space-y-5">
         {/* Header */}
-        <header className="flex flex-col justify-between gap-4 xl:flex-row xl:items-center">
-          <div>
-            <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
-              <Package size={14} />
-              <span className="text-[11px] font-extrabold">PHARMACY · REPORTS</span>
-            </div>
-            <h1 className="app-page-title text-[#10234F]">
-              Stock Report
-            </h1>
-            <p className="app-description mt-1 text-[#577B9F]">
-              Monitor inventory valuation, stock quantities, and potential profit.
-            </p>
-          </div>
-
-          <div className="no-print flex flex-wrap gap-2">
-            <ActionButton icon={FileSpreadsheet} onClick={exportCSV}>
-              Export Excel
-            </ActionButton>
-            <ActionButton icon={FileText} onClick={() => window.print()} primary>
-              Export PDF
-            </ActionButton>
-          </div>
+        <header>
+          <h1 className="text-3xl font-bold text-black">Stock Report</h1>
         </header>
 
-        {/* Summary metrics — original screenshot values */}
-        <section className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
-          <SummaryCard
-            label="Closing stock (By purchase price)"
-            value="₹ 723,040.00"
-            icon={Boxes}
-            accent="blue"
-            detail="Inventory purchase valuation"
-          />
-          <SummaryCard
-            label="Closing stock (By sale price)"
-            value="₹ 903,785.75"
-            icon={Package}
-            accent="orange"
-            detail="Inventory sale valuation"
-          />
-          <SummaryCard
-            label="Potential profit"
-            value="₹ 180,745.75"
-            icon={TrendingUp}
-            accent="green"
-            detail="Estimated stock margin"
-          />
-          <SummaryCard
-            label="Profit Margin %"
-            value="20.00%"
-            icon={IndianRupee}
-            accent="purple"
-            detail="Reported margin"
-          />
-        </section>
-
         {/* Filters */}
-        <section className="no-print overflow-visible rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
+        <section className="no-print overflow-visible rounded-[22px] border border-[#E8EDF3] bg-white shadow-[0_8px_20px_rgba(16,35,79,0.06)]">
           <button
             type="button"
             onClick={() => setShowFilters((value) => !value)}
             aria-expanded={showFilters}
-            className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
+            className="flex w-full items-center justify-between gap-4 px-6 py-6 text-left sm:px-8"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FFE9D9] text-[#F04A13]">
-                <Filter size={19} />
-              </div>
-              <div>
-                <h2 className="app-section-title text-[#10234F]">Filters</h2>
-                <p className="app-description mt-0.5 text-[#577B9F]">
-                  Filter stock records by location.
-                </p>
-              </div>
+              <Filter size={26} fill="currentColor" className="text-[#5793C1]" />
+              <h2 className="text-2xl font-bold text-[#5793C1]">Filters</h2>
               {activeFilterCount > 0 && (
                 <span className="rounded-full bg-[#FFF1E5] px-2 py-0.5 text-xs font-bold text-[#E96B10]">
                   {activeFilterCount} active
@@ -624,9 +653,9 @@ export default function StockReport() {
               )}
             </div>
             {showFilters ? (
-              <ChevronUp size={19} className="text-[#577B9F]" />
+              <ChevronUp size={19} className="text-[#5793C1]" />
             ) : (
-              <ChevronDown size={19} className="text-[#577B9F]" />
+              <ChevronDown size={19} className="text-[#5793C1]" />
             )}
           </button>
 
@@ -670,6 +699,14 @@ export default function StockReport() {
           )}
         </section>
 
+        {/* Summary metrics */}
+        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <SummaryCard label="Closing stock (By purchase price)" />
+          <SummaryCard label="Closing stock (By sale price)" />
+          <SummaryCard label="Potential profit" />
+          <SummaryCard label="Profit Margin %" />
+        </section>
+
         {/* Main table */}
         <section className="print-area overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
           <div className="flex flex-col gap-4 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] via-white to-white px-5 py-5 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
@@ -682,7 +719,7 @@ export default function StockReport() {
                   Stock Details
                 </h2>
                 <p className="app-description mt-0.5 text-[#577B9F]">
-                  All 18 stock report columns
+                  {columns.length} stock report columns
                 </p>
               </div>
             </div>
@@ -751,7 +788,7 @@ export default function StockReport() {
                       </button>
                     </div>
 
-                    {columnDefinitions.map((column) => (
+                    {columns.map((column) => (
                       <label
                         key={column.key}
                         className="flex cursor-pointer items-start gap-2 rounded-lg px-2 py-2 text-xs text-[#19366F] hover:bg-[#FFF7EF]"
@@ -768,6 +805,16 @@ export default function StockReport() {
                   </div>
                 )}
               </div>
+
+              <ActionButton
+                icon={Plus}
+                onClick={() => {
+                  setShowAddCustomField((visible) => !visible);
+                  setCustomFieldError("");
+                }}
+              >
+                Add Custom Field
+              </ActionButton>
             </div>
 
             <label className="relative block w-full xl:max-w-sm">
@@ -788,12 +835,57 @@ export default function StockReport() {
             </label>
           </div>
 
-          {/* Horizontal scrolling is intentional for all 18 columns */}
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[2400px] border-collapse text-left text-xs">
+            {showAddCustomField && (
+              <form
+                onSubmit={addCustomField}
+                className="flex flex-col gap-2 rounded-xl border border-[#E8E8E8] bg-[#FAFAFA] p-3 sm:flex-row sm:items-start"
+              >
+                <label className="flex-1">
+                  <span className="mb-1 block text-xs font-semibold text-[#557493]">
+                    Custom field name
+                  </span>
+                  <input
+                    autoFocus
+                    required
+                    maxLength={40}
+                    value={customFieldName}
+                    onChange={(event) => {
+                      setCustomFieldName(event.target.value);
+                      setCustomFieldError("");
+                    }}
+                    placeholder="Enter field name"
+                    className="w-full rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm text-[#19366F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
+                  />
+                  {customFieldError && (
+                    <span className="mt-1 block text-xs text-rose-600">
+                      {customFieldError}
+                    </span>
+                  )}
+                </label>
+                <div className="flex gap-2 sm:pt-5">
+                  <ActionButton icon={Plus} primary type="submit">
+                    Add field
+                  </ActionButton>
+                  <ActionButton
+                    icon={X}
+                    onClick={() => {
+                      setShowAddCustomField(false);
+                      setCustomFieldName("");
+                      setCustomFieldError("");
+                    }}
+                  >
+                    Cancel
+                  </ActionButton>
+                </div>
+              </form>
+            )}
+
+            {/* Horizontal scrolling supports the stock and added custom columns. */}
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[1900px] border-collapse text-left text-xs">
               <thead>
                 <tr className="border-y border-[#F2E8DE] bg-[#FFF7EF]">
-                  {columnDefinitions
+                  {columns
                     .filter((column) =>
                       visibleColumns.includes(column.key)
                     )
@@ -846,7 +938,7 @@ export default function StockReport() {
                           : "bg-white"
                     }`}
                   >
-                    {columnDefinitions
+                    {columns
                       .filter((column) =>
                         visibleColumns.includes(column.key)
                       )
@@ -891,7 +983,7 @@ export default function StockReport() {
               {pageRows.length > 0 && (
                 <tfoot>
                   <tr className="border-t border-[#F2E8DE] bg-[#FFF1E5]">
-                    {columnDefinitions
+                    {columns
                       .filter((column) =>
                         visibleColumns.includes(column.key)
                       )

@@ -22,6 +22,7 @@ import {
   CirclePlus,
   Wallet,
   X,
+  Truck,
 } from "lucide-react";
 
 const salesPayments = [];
@@ -50,6 +51,19 @@ const stockItems = [
 ];
 
 const salesOrders = [];
+
+const pendingShipments = [
+  {
+    id: "0018",
+    date: "04/13/2026 11:17",
+    invoice: "0018",
+    customer: "Walk-In Customer",
+    contact: "",
+    location: "Multi-Service Center",
+    shippingStatus: "Ordered",
+    paymentStatus: "Paid",
+  },
+];
 
 const exportRows = (rows, filename) => {
   if (!rows.length) {
@@ -101,8 +115,15 @@ function LocationSelect({ value, onChange }) {
   );
 }
 
-function ExportToolbar({ color, rows, filename, onColumns, onPdf }) {
-  const isOrange = color === "orange";
+function ExportToolbar({
+  color,
+  buttonColor = color,
+  rows,
+  filename,
+  onColumns,
+  onPdf,
+}) {
+  const isOrange = buttonColor === "orange";
 
   const buttonClass = `inline-flex h-8 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-[11px] font-semibold text-white shadow-sm transition hover:brightness-105 ${
     isOrange ? "bg-[#FF711A]" : "bg-[#1475F8]"
@@ -258,6 +279,8 @@ function Panel({
   onPdf,
   rows = [],
   filename,
+  showLocation = true,
+  toolbarExtra,
 }) {
   const isOrange = color === "orange";
   const [showColumns, setShowColumns] = useState(false);
@@ -301,24 +324,30 @@ function Panel({
                 </span>
                 <Info size={14} className="ml-1 text-[#0BB9E9]" />
               </h2>
-              <p className="app-description mt-1 text-[#627C9E]">
-                {description}
-              </p>
+              {description && (
+                <p className="app-description mt-1 text-[#627C9E]">
+                  {description}
+                </p>
+              )}
             </div>
           </div>
 
-          <LocationSelect value={location} onChange={setLocation} />
+          {showLocation && (
+            <LocationSelect value={location} onChange={setLocation} />
+          )}
         </div>
 
         {/* Export toolbar */}
-        <div className="mb-3">
+        <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
           <ExportToolbar
             color={color}
+            buttonColor={toolbarExtra ? "blue" : color}
             rows={rows}
             filename={filename}
             onColumns={() => setShowColumns(!showColumns)}
             onPdf={onPdf}
           />
+          {toolbarExtra}
         </div>
 
         {showColumns && (
@@ -343,14 +372,17 @@ function Panel({
   );
 }
 
-function DataTable({ columns, rows, color, empty, rowKey }) {
+function DataTable({ columns, rows, color, empty, rowKey, minWidth = "460px" }) {
   const [page, setPage] = useState(1);
   const pageRows = rows.slice((page - 1) * 5, page * 5);
 
   return (
     <>
       <div className="overflow-x-auto rounded-xl">
-        <table className="w-full min-w-[460px] border-collapse text-left">
+        <table
+          className="w-full border-collapse text-left"
+          style={{ minWidth }}
+        >
           <thead>
             <tr className={color === "orange" ? "bg-[#FFF4E9]" : "bg-[#EEF5FF]"}>
               {columns.map((column) => (
@@ -405,7 +437,7 @@ function DataTable({ columns, rows, color, empty, rowKey }) {
   );
 }
 
-export default function Sales() {
+export default function Sales({ showPaymentPanels = true }) {
   const [salesLocation, setSalesLocation] = useState("");
   const [purchaseLocation, setPurchaseLocation] = useState("");
   const [stockLocation, setStockLocation] = useState("");
@@ -414,6 +446,7 @@ export default function Sales() {
   const [paymentAmount, setPaymentAmount] = useState("300");
   const [paymentSaved, setPaymentSaved] = useState(false);
   const [orderSearch, setOrderSearch] = useState("");
+  const [shipmentSearch, setShipmentSearch] = useState("");
 
   const [payments, setPayments] = useState(purchasePayments);
 
@@ -438,6 +471,11 @@ export default function Sales() {
       String(value).toLowerCase().includes(orderSearch.toLowerCase())
     )
   );
+  const filteredShipments = pendingShipments.filter((shipment) =>
+    Object.values(shipment).some((value) =>
+      String(value).toLowerCase().includes(shipmentSearch.toLowerCase())
+    )
+  );
 
   const handlePayment = () => {
     if (!paymentAmount || Number(paymentAmount) <= 0) return;
@@ -453,96 +491,100 @@ export default function Sales() {
     alert("Connect a PDF generation library to export this report as PDF.");
 
   return (
-    <main className="bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
+    <section className="bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
       <div className="grid grid-cols-1 items-stretch gap-3 xl:grid-cols-2">
-        {/* 1. Sales Payment Due */}
-        <Panel
-          title="Sales Payment"
-          highlight="Due"
-          description="Customers with pending sales payments."
-          icon={AlertTriangle}
-          color="orange"
-          location={salesLocation}
-          setLocation={setSalesLocation}
-          rows={salesPayments}
-          filename="sales-payments.csv"
-          onPdf={pdfNotice}
-        >
-          <DataTable
-            color="orange"
-            rows={salesPayments}
-            columns={[
-              { key: "customer", label: "CUSTOMER" },
-              { key: "invoice", label: "INVOICE NO." },
-              { key: "amount", label: "DUE AMOUNT" },
-              { key: "action", label: "ACTION" },
-            ]}
-            empty={{
-              type: "payment",
-              title: "No data available in table",
-              description: "There are no pending sales payments at the moment.",
-            }}
-          />
-        </Panel>
+        {showPaymentPanels && (
+          <>
+            {/* 1. Sales Payment Due */}
+            <Panel
+              title="Sales Payment"
+              highlight="Due"
+              description="Customers with pending sales payments."
+              icon={AlertTriangle}
+              color="orange"
+              location={salesLocation}
+              setLocation={setSalesLocation}
+              rows={salesPayments}
+              filename="sales-payments.csv"
+              onPdf={pdfNotice}
+            >
+              <DataTable
+                color="orange"
+                rows={salesPayments}
+                columns={[
+                  { key: "customer", label: "CUSTOMER" },
+                  { key: "invoice", label: "INVOICE NO." },
+                  { key: "amount", label: "DUE AMOUNT" },
+                  { key: "action", label: "ACTION" },
+                ]}
+                empty={{
+                  type: "payment",
+                  title: "No data available in table",
+                  description: "There are no pending sales payments at the moment.",
+                }}
+              />
+            </Panel>
 
-        {/* 2. Purchase Payment Due */}
-        <Panel
-          title="Purchase Payment"
-          highlight="Due"
-          description="Suppliers with pending purchase payments."
-          icon={AlertTriangle}
-          color="blue"
-          location={purchaseLocation}
-          setLocation={setPurchaseLocation}
-          rows={filteredPayments}
-          filename="purchase-payments.csv"
-          onPdf={pdfNotice}
-        >
-          <DataTable
-            color="blue"
-            rows={filteredPayments}
-            rowKey="reference"
-            columns={[
-              { key: "supplier", label: "SUPPLIER" },
-              {
-                key: "reference",
-                label: "REFERENCE NO.",
-                render: (row) => (
-                  <span className="font-medium text-[#1475F8]">
-                    {row.reference}
-                  </span>
-                ),
-              },
-              {
-                key: "amount",
-                label: "DUE AMOUNT",
-                render: (row) => `₹ ${Number(row.amount).toFixed(2)}`,
-              },
-              {
-                key: "action",
-                label: "ACTION",
-                render: (row) => (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setPaymentItem(row);
-                      setPaymentAmount(String(row.amount));
-                    }}
-                    className="inline-flex items-center gap-2 rounded-[10px] border border-[#39D8BC] bg-[#F4FFFC] px-3 py-2 font-semibold text-[#12B99D] hover:bg-[#E4FFF8]"
-                  >
-                    <Wallet size={15} />
-                    Add payment
-                  </button>
-                ),
-              },
-            ]}
-            empty={{
-              type: "payment",
-              title: "No data available in table",
-              description: "There are no pending purchase payments at the moment.",
-            }}
-          />
-        </Panel>
+            {/* 2. Purchase Payment Due */}
+            <Panel
+              title="Purchase Payment"
+              highlight="Due"
+              description="Suppliers with pending purchase payments."
+              icon={AlertTriangle}
+              color="blue"
+              location={purchaseLocation}
+              setLocation={setPurchaseLocation}
+              rows={filteredPayments}
+              filename="purchase-payments.csv"
+              onPdf={pdfNotice}
+            >
+              <DataTable
+                color="blue"
+                rows={filteredPayments}
+                rowKey="reference"
+                columns={[
+                  { key: "supplier", label: "SUPPLIER" },
+                  {
+                    key: "reference",
+                    label: "REFERENCE NO.",
+                    render: (row) => (
+                      <span className="font-medium text-[#1475F8]">
+                        {row.reference}
+                      </span>
+                    ),
+                  },
+                  {
+                    key: "amount",
+                    label: "DUE AMOUNT",
+                    render: (row) => `₹ ${Number(row.amount).toFixed(2)}`,
+                  },
+                  {
+                    key: "action",
+                    label: "ACTION",
+                    render: (row) => (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPaymentItem(row);
+                          setPaymentAmount(String(row.amount));
+                        }}
+                        className="inline-flex items-center gap-2 rounded-[10px] border border-[#39D8BC] bg-[#F4FFFC] px-3 py-2 font-semibold text-[#12B99D] hover:bg-[#E4FFF8]"
+                      >
+                        <Wallet size={15} />
+                        Add payment
+                      </button>
+                    ),
+                  },
+                ]}
+                empty={{
+                  type: "payment",
+                  title: "No data available in table",
+                  description: "There are no pending purchase payments at the moment.",
+                }}
+              />
+            </Panel>
+          </>
+        )}
 
         {/* 3. Product Stock Alert */}
         <Panel
@@ -642,6 +684,98 @@ export default function Sales() {
         </Panel>
       </div>
 
+      <div className="mt-4">
+        <Panel
+          title="Pending Shipments"
+          icon={Truck}
+          color="orange"
+          showLocation={false}
+          rows={filteredShipments}
+          filename="pending-shipments.csv"
+          onPdf={pdfNotice}
+          toolbarExtra={
+            <label className="relative block w-full sm:w-[240px]">
+              <span className="sr-only">Search pending shipments</span>
+              <Search
+                size={16}
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#7186A8]"
+              />
+              <input
+                type="search"
+                value={shipmentSearch}
+                onChange={(event) => setShipmentSearch(event.target.value)}
+                placeholder="Search ..."
+                className="h-9 w-full rounded-lg border border-[#DDE5EF] bg-white pl-9 pr-3 text-xs text-[#19366F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
+              />
+            </label>
+          }
+        >
+          <DataTable
+            color="blue"
+            rows={filteredShipments}
+            rowKey="id"
+            minWidth="1050px"
+            columns={[
+              {
+                key: "action",
+                label: "ACTION",
+                render: () => (
+                  <button
+                    type="button"
+                    className="inline-flex h-8 items-center gap-2 rounded-lg border border-[#17BDF2] bg-white px-3 text-xs font-semibold text-[#08B6EF] transition hover:bg-[#EFFBFF]"
+                  >
+                    Actions
+                    <ChevronDown size={14} />
+                  </button>
+                ),
+              },
+              {
+                key: "date",
+                label: (
+                  <span className="inline-flex items-center gap-2">
+                    DATE <ArrowUpDown size={13} className="text-[#8EA0BF]" />
+                  </span>
+                ),
+              },
+              {
+                key: "invoice",
+                label: (
+                  <span className="inline-flex items-center gap-2">
+                    INVOICE NO. <ArrowUpDown size={13} className="text-[#8EA0BF]" />
+                  </span>
+                ),
+              },
+              { key: "customer", label: "CUSTOMER NAME" },
+              { key: "contact", label: "CONTACT NUMBER" },
+              { key: "location", label: "LOCATION" },
+              {
+                key: "shippingStatus",
+                label: "SHIPPING STATUS",
+                render: (row) => (
+                  <span className="inline-flex rounded-md bg-[#FFA83D] px-2.5 py-1 text-[11px] font-bold text-white">
+                    {row.shippingStatus}
+                  </span>
+                ),
+              },
+              {
+                key: "paymentStatus",
+                label: "PAYMENT STATUS",
+                render: (row) => (
+                  <span className="inline-flex rounded-md bg-[#8DD766] px-2.5 py-1 text-[11px] font-bold text-white">
+                    {row.paymentStatus}
+                  </span>
+                ),
+              },
+            ]}
+            empty={{
+              type: "order",
+              title: "No pending shipments",
+              description: "There are no shipments waiting for delivery.",
+            }}
+          />
+        </Panel>
+      </div>
+
       {/* Add Payment Modal */}
       {paymentItem && (
         <div
@@ -720,6 +854,6 @@ export default function Sales() {
           </button>
         </div>
       )}
-    </main>
+    </section>
   );
 }

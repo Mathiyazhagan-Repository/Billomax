@@ -72,7 +72,7 @@ function ExpenseForm({ expense, onClose, onSave }) {
       recurring: "",
       category: "",
       subcategory: "",
-      location: "Pharmacy",
+      location: "Multi-Service Center",
       paymentStatus: "Paid",
       tax: 0,
       amount: "",
@@ -365,7 +365,7 @@ export default function Expences({ onNavigate }) {
         <div>
           <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
             <ReceiptText size={14} strokeWidth={2.5} />
-            <span className="text-[11px] font-extrabold">PHARMACY · EXPENSES</span>
+            <span className="text-[11px] font-extrabold">MULTI-SERVICE CENTER · EXPENSES</span>
           </div>
 
           <h1 className="app-page-title text-[#10234F]">
@@ -373,7 +373,7 @@ export default function Expences({ onNavigate }) {
           </h1>
 
           <p className="mt-1 text-xs leading-relaxed text-[#577B9F] sm:text-sm">
-            Manage and track your pharmacy expenses.
+            Manage and track your Multi-Service Center expenses.
           </p>
         </div>
 
