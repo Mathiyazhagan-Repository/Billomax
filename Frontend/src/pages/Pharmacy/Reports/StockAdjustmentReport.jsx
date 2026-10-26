@@ -45,14 +45,14 @@ const money = (value) =>
 
 function SummaryCard({ title, rows, icon: Icon, accent = "orange" }) {
   const accentStyles = {
-    orange: "bg-orange-50 text-orange-600",
-    blue: "bg-blue-50 text-blue-600",
-    green: "bg-emerald-50 text-emerald-600",
-    purple: "bg-violet-50 text-violet-600",
+    orange: "bg-[#FFE9D9] text-[#F04A13]",
+    blue: "bg-[#CDE6FF] text-[#087AF0]",
+    green: "bg-[#D1FBD1] text-[#13A52E]",
+    purple: "bg-[#E8D8FF] text-[#8219F5]",
   };
 
   return (
-    <section className="h-full rounded-2xl border border-[#E6EAF0] bg-white p-5 shadow-[0_5px_24px_rgba(16,35,79,0.045)] sm:p-6">
+    <section className="h-full rounded-2xl border border-[#E6EDF5] bg-white p-5 shadow-[0_3px_8px_rgba(25,43,80,0.04)] sm:p-6">
       <div className="mb-5 flex items-center justify-between gap-3">
         <h2 className="text-sm font-bold text-[#10234F]">{title}</h2>
         <span
@@ -68,7 +68,7 @@ function SummaryCard({ title, rows, icon: Icon, accent = "orange" }) {
             key={row.label}
             className="flex items-start justify-between gap-4"
           >
-            <span className="text-sm font-medium leading-5 text-slate-600">
+            <span className="text-sm font-medium leading-5 text-[#577B9F]">
               {row.label}
             </span>
             <span className="whitespace-nowrap text-sm font-bold tabular-nums text-[#10234F]">
@@ -88,8 +88,8 @@ function Button({ icon: Icon, children, onClick, primary = false }) {
       onClick={onClick}
       className={`inline-flex min-h-9 items-center justify-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition sm:text-sm ${
         primary
-          ? "border-transparent bg-gradient-to-r from-[#FF6814] to-[#FF812B] text-white shadow-sm hover:brightness-105"
-          : "border-[#E1E7EF] bg-white text-[#34445E] hover:border-orange-200 hover:bg-orange-50 hover:text-[#D85B13]"
+          ? "border-transparent bg-[#FF711A] text-white shadow-sm hover:bg-[#F04A13]"
+          : "border-[#E8EDF4] bg-white text-[#19366F] hover:border-[#FF8A37] hover:bg-[#FFF1E5] hover:text-[#F04A13]"
       }`}
     >
       {Icon && <Icon size={15} />}
@@ -306,7 +306,7 @@ export default function StockAdjustmentReport() {
         <button
           type="button"
           onClick={() => setSelectedAdjustment(row)}
-          className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-blue-200 bg-blue-50 px-2.5 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-100"
+          className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#E8EDF4] bg-[#EDF4FF] px-2.5 py-2 text-xs font-semibold text-[#4276B5] hover:bg-[#E3ECF8]"
         >
           <ClipboardList size={14} />
           View details
@@ -327,8 +327,8 @@ export default function StockAdjustmentReport() {
         <span
           className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${
             String(row[key]).toLowerCase() === "abnormal"
-              ? "bg-rose-50 text-rose-700"
-              : "bg-emerald-50 text-emerald-700"
+              ? "bg-[#FFF1E5] text-[#B85D0A]"
+              : "bg-[#EAF7ED] text-[#218838]"
           }`}
         >
           {row[key] || "—"}
@@ -337,14 +337,14 @@ export default function StockAdjustmentReport() {
     }
 
     return (
-      <span className="whitespace-nowrap text-slate-600">
+      <span className="whitespace-nowrap text-[#577B9F]">
         {row[key] || "—"}
       </span>
     );
   };
 
   return (
-    <main className="min-h-screen min-w-0 bg-[#FFFAF5] px-4 py-5 font-sans text-slate-700 sm:px-6 lg:px-8">
+    <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
       <style>{`
         @media print {
           body { background: white !important; }
@@ -353,18 +353,20 @@ export default function StockAdjustmentReport() {
         }
       `}</style>
 
-      <div className="mx-auto max-w-[1600px] space-y-6">
+      <div className="mx-auto max-w-[1500px] space-y-5">
         {/* Page heading */}
         <header className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#E86A20]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FF6814]" />
-              Inventory management
+            <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
+              <PackageCheck size={15} />
+              <span className="text-[11px] font-extrabold">
+                INVENTORY · REPORTS
+              </span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-[#10234F] sm:text-3xl">
+            <h1 className="app-page-title text-[#10234F]">
               Stock Adjustment Report
             </h1>
-            <p className="mt-1.5 text-sm text-slate-500">
+            <p className="app-description mt-1">
               Review stock adjustments, recovered amounts, and adjustment records.
             </p>
           </div>
@@ -380,13 +382,13 @@ export default function StockAdjustmentReport() {
         </header>
 
         {/* Location and date selectors */}
-        <section className="no-print flex flex-col gap-3 rounded-2xl border border-[#E6EAF0] bg-white p-4 shadow-[0_5px_24px_rgba(16,35,79,0.035)] sm:flex-row sm:items-center sm:justify-between sm:p-5">
+        <section className="no-print flex flex-col gap-3 rounded-2xl border border-[#F8EBDD] bg-white/95 p-4 shadow-[0_6px_18px_rgba(224,133,65,0.07)] sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <label className="flex min-w-0 items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#CDE6FF] text-[#087AF0]">
               <MapPin size={18} />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="mb-1 block text-xs font-semibold text-slate-500">
+              <span className="mb-1 block text-xs font-semibold text-[#577B9F]">
                 Location
               </span>
               <select
@@ -395,7 +397,7 @@ export default function StockAdjustmentReport() {
                   setLocation(event.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full rounded-lg border border-[#DFE5EE] bg-[#FFFEFC] px-3 py-2 text-sm text-[#10234F] outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 sm:min-w-52"
+                className="w-full rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm text-[#132653] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10 sm:min-w-52"
               >
                 <option value="all">All locations</option>
                 {locations.map((item) => (
@@ -408,11 +410,11 @@ export default function StockAdjustmentReport() {
           </label>
 
           <label className="flex min-w-0 items-center gap-3">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
               <CalendarDays size={18} />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="mb-1 block text-xs font-semibold text-slate-500">
+              <span className="mb-1 block text-xs font-semibold text-[#577B9F]">
                 Date range
               </span>
               <select
@@ -421,7 +423,7 @@ export default function StockAdjustmentReport() {
                   setDateFilter(event.target.value);
                   setCurrentPage(1);
                 }}
-                className="w-full rounded-lg border border-[#DFE5EE] bg-[#FFFEFC] px-3 py-2 text-sm text-[#10234F] outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 sm:min-w-48"
+                className="w-full rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm text-[#132653] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10 sm:min-w-48"
               >
                 <option value="all">All dates</option>
                 <option value="today">Today</option>
@@ -442,7 +444,7 @@ export default function StockAdjustmentReport() {
                   setCustomStart(event.target.value);
                   setCurrentPage(1);
                 }}
-                className="rounded-lg border border-[#DFE5EE] px-3 py-2 text-sm outline-none focus:border-orange-400"
+                className="rounded-lg border border-[#E8EDF4] px-3 py-2 text-sm outline-none focus:border-[#FF8A37]"
               />
               <input
                 aria-label="End date"
@@ -452,7 +454,7 @@ export default function StockAdjustmentReport() {
                   setCustomEnd(event.target.value);
                   setCurrentPage(1);
                 }}
-                className="rounded-lg border border-[#DFE5EE] px-3 py-2 text-sm outline-none focus:border-orange-400"
+                className="rounded-lg border border-[#E8EDF4] px-3 py-2 text-sm outline-none focus:border-[#FF8A37]"
               />
             </div>
           )}
@@ -482,7 +484,7 @@ export default function StockAdjustmentReport() {
         </section>
 
         {/* Filters panel */}
-        <section className="no-print overflow-visible rounded-2xl border border-[#E6EAF0] bg-white shadow-[0_5px_24px_rgba(16,35,79,0.035)]">
+        <section className="no-print overflow-visible rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
           <button
             type="button"
             onClick={() => setShowFilters((value) => !value)}
@@ -490,26 +492,26 @@ export default function StockAdjustmentReport() {
             className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
           >
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-[#E86A20]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
                 <Filter size={19} />
               </span>
               <span>
                 <span className="block font-bold text-[#10234F]">Filters</span>
-                <span className="mt-0.5 block text-xs text-slate-500">
+                <span className="app-description mt-0.5 block">
                   Narrow the report by location and date.
                 </span>
               </span>
             </div>
             {showFilters ? (
-              <ChevronUp size={18} className="text-slate-400" />
+              <ChevronUp size={18} className="text-[#8798AD]" />
             ) : (
-              <ChevronDown size={18} className="text-slate-400" />
+              <ChevronDown size={18} className="text-[#8798AD]" />
             )}
           </button>
 
           {showFilters && (
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#EDF0F5] px-5 py-4 sm:px-6">
-              <p className="text-sm text-slate-500">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#F2E8DE] px-5 py-4 sm:px-6">
+              <p className="app-description">
                 Use the selectors above to narrow adjustment records.
               </p>
               <Button icon={RotateCcw} onClick={resetFilters}>
@@ -520,17 +522,17 @@ export default function StockAdjustmentReport() {
         </section>
 
         {/* Table */}
-        <section className="print-area overflow-hidden rounded-2xl border border-[#E6EAF0] bg-white shadow-[0_5px_24px_rgba(16,35,79,0.045)]">
-          <div className="flex flex-col gap-4 border-b border-[#EDF0F5] px-5 py-5 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
+        <section className="print-area overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
+          <div className="flex flex-col gap-4 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] via-white to-white px-5 py-5 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-[#E86A20]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
                 <PackageCheck size={19} />
               </span>
               <div>
-                <h2 className="text-lg font-bold text-[#10234F]">
+                <h2 className="app-section-title text-[#10234F]">
                   Stock Adjustments
                 </h2>
-                <p className="mt-0.5 text-xs text-slate-500">
+                <p className="app-description mt-0.5">
                   Adjustment history and recovery details
                 </p>
               </div>
@@ -555,7 +557,7 @@ export default function StockAdjustmentReport() {
           {/* Table toolbar */}
           <div className="no-print flex flex-col gap-4 px-5 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex flex-wrap items-center gap-3">
-              <label className="flex items-center gap-2 text-sm text-slate-600">
+              <label className="flex items-center gap-2 text-sm text-[#577B9F]">
                 Show
                 <select
                   value={pageSize}
@@ -563,7 +565,7 @@ export default function StockAdjustmentReport() {
                     setPageSize(Number(event.target.value));
                     setCurrentPage(1);
                   }}
-                  className="rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm text-[#10234F] outline-none focus:border-orange-400"
+                  className="rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm text-[#19366F] outline-none focus:border-[#FF8A37]"
                 >
                   <option value={10}>10</option>
                   <option value={25}>25</option>
@@ -577,7 +579,7 @@ export default function StockAdjustmentReport() {
                 <button
                   type="button"
                   onClick={() => setShowColumns((value) => !value)}
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:border-orange-200 hover:bg-orange-50"
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#577B9F] hover:border-[#FF8A37] hover:bg-[#FFF1E5]"
                 >
                   <SlidersHorizontal size={15} />
                   Column visibility
@@ -585,16 +587,16 @@ export default function StockAdjustmentReport() {
                 </button>
 
                 {showColumns && (
-                  <div className="absolute left-0 top-full z-30 mt-2 max-h-80 w-64 overflow-y-auto rounded-xl border border-[#E6EAF0] bg-white p-3 shadow-xl">
-                    <div className="mb-2 flex items-center justify-between border-b border-slate-100 pb-2">
-                      <span className="text-sm font-bold text-[#10234F]">
+                  <div className="absolute left-0 top-full z-30 mt-2 max-h-80 w-64 overflow-y-auto rounded-xl border border-[#F8EBDD] bg-white p-3 shadow-xl">
+                    <div className="mb-2 flex items-center justify-between border-b border-[#F2E8DE] pb-2">
+                      <span className="text-sm font-bold text-[#19366F]">
                         Visible columns
                       </span>
                       <button
                         type="button"
                         onClick={() => setShowColumns(false)}
                         aria-label="Close column visibility"
-                        className="rounded-md p-1 text-slate-400 hover:bg-slate-100"
+                        className="rounded-md p-1 text-[#8798AD] hover:bg-[#FFF1E5]"
                       >
                         <X size={15} />
                       </button>
@@ -602,13 +604,13 @@ export default function StockAdjustmentReport() {
                     {columns.map((column) => (
                       <label
                         key={column.key}
-                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-600 hover:bg-orange-50"
+                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm text-[#577B9F] hover:bg-[#FFF1E5]"
                       >
                         <input
                           type="checkbox"
                           checked={visibleColumns.includes(column.key)}
                           onChange={() => toggleColumn(column.key)}
-                          className="h-4 w-4 accent-[#FF6814]"
+                          className="h-4 w-4 accent-[#FF711A]"
                         />
                         {column.label}
                       </label>
@@ -621,7 +623,7 @@ export default function StockAdjustmentReport() {
             <label className="relative block w-full xl:max-w-sm">
               <Search
                 size={16}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#8798AD]"
               />
               <input
                 type="search"
@@ -631,7 +633,7 @@ export default function StockAdjustmentReport() {
                   setCurrentPage(1);
                 }}
                 placeholder="Search adjustments..."
-                className="w-full rounded-xl border border-[#DFE5EE] bg-[#FFFEFC] py-2.5 pl-9 pr-3 text-sm outline-none placeholder:text-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="w-full rounded-lg border border-[#E8EDF4] bg-white py-2.5 pl-9 pr-3 text-sm outline-none placeholder:text-[#8798AD] focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
               />
             </label>
           </div>
@@ -640,7 +642,7 @@ export default function StockAdjustmentReport() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[1150px] border-collapse text-left text-sm">
               <thead>
-                <tr className="border-y border-[#E9EDF3] bg-[#F8FAFC]">
+                <tr className="border-y border-[#F2E8DE] bg-[#FFF7EF]">
                   {columns
                     .filter((column) =>
                       visibleColumns.includes(column.key)
@@ -653,7 +655,7 @@ export default function StockAdjustmentReport() {
                         <button
                           type="button"
                           onClick={() => toggleSort(column.key)}
-                          className="inline-flex items-center gap-2 text-left leading-5 hover:text-[#E86A20]"
+                          className="inline-flex items-center gap-2 text-left leading-5 hover:text-[#F04A13]"
                         >
                           {column.label}
                           {column.key !== "action" &&
@@ -661,18 +663,18 @@ export default function StockAdjustmentReport() {
                               sort.direction === "asc" ? (
                                 <ChevronUp
                                   size={14}
-                                  className="text-[#E86A20]"
+                                  className="text-[#F04A13]"
                                 />
                               ) : (
                                 <ChevronDown
                                   size={14}
-                                  className="text-[#E86A20]"
+                                  className="text-[#F04A13]"
                                 />
                               )
                             ) : (
                               <ArrowUpDown
                                 size={13}
-                                className="text-slate-300"
+                                className="text-[#D5DDE7]"
                               />
                             ))}
                         </button>
@@ -681,12 +683,12 @@ export default function StockAdjustmentReport() {
                 </tr>
               </thead>
 
-              <tbody className="divide-y divide-[#EDF0F5]">
+              <tbody className="divide-y divide-[#F2E8DE]">
                 {pageRows.map((row, index) => (
                   <tr
                     key={row.id ?? `${row.referenceNo}-${index}`}
-                    className={`transition-colors hover:bg-orange-50/50 ${
-                      index % 2 ? "bg-[#FCFDFE]" : "bg-white"
+                    className={`transition-colors hover:bg-[#FFF7EF] ${
+                      index % 2 ? "bg-[#FFFEFC]" : "bg-white"
                     }`}
                   >
                     {columns
@@ -710,13 +712,13 @@ export default function StockAdjustmentReport() {
                       colSpan={Math.max(visibleColumns.length, 1)}
                       className="px-6 py-14 text-center"
                     >
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF1E5] text-[#8798AD]">
                         <ClipboardList size={21} />
                       </div>
                       <p className="mt-3 font-semibold text-[#10234F]">
                         No data available in table
                       </p>
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="app-description mt-1">
                         Stock adjustment records will appear here when available.
                       </p>
                     </td>
@@ -726,7 +728,7 @@ export default function StockAdjustmentReport() {
 
               {pageRows.length > 0 && (
                 <tfoot>
-                  <tr className="border-t border-[#DDE4ED] bg-[#F0F3F8]">
+                  <tr className="border-t border-[#F2E8DE] bg-[#FFF7EF]">
                     {columns
                       .filter((column) =>
                         visibleColumns.includes(column.key)
@@ -757,8 +759,8 @@ export default function StockAdjustmentReport() {
           </div>
 
           {/* Pagination */}
-          <div className="no-print flex flex-col gap-4 border-t border-[#EDF0F5] px-5 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm text-slate-500">
+          <div className="no-print flex flex-col gap-4 border-t border-[#F2E8DE] px-5 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+            <p className="app-description">
               Showing{" "}
               <span className="font-semibold text-[#10234F]">
                 {filteredRows.length ? startIndex + 1 : 0}
@@ -781,13 +783,13 @@ export default function StockAdjustmentReport() {
                 onClick={() =>
                   setCurrentPage((page) => Math.max(1, page - 1))
                 }
-                className="inline-flex items-center gap-1 rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center gap-1 rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#577B9F] hover:bg-[#FFF1E5] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <ChevronLeft size={15} />
                 Previous
               </button>
 
-              <span className="flex h-9 min-w-9 items-center justify-center rounded-lg bg-gradient-to-r from-[#FF6814] to-[#FF812B] px-3 text-sm font-semibold text-white">
+              <span className="flex h-9 min-w-9 items-center justify-center rounded-lg bg-[#FF711A] px-3 text-sm font-semibold text-white">
                 {safePage}
               </span>
 
@@ -799,7 +801,7 @@ export default function StockAdjustmentReport() {
                     Math.min(pageCount, page + 1)
                   )
                 }
-                className="inline-flex items-center gap-1 rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-slate-600 hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center gap-1 rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#577B9F] hover:bg-[#FFF1E5] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Next
                 <ChevronRight size={15} />
@@ -808,7 +810,7 @@ export default function StockAdjustmentReport() {
           </div>
         </section>
 
-        <footer className="flex flex-col items-center justify-between gap-2 pb-3 text-center text-xs text-slate-400 sm:flex-row">
+        <footer className="flex flex-col items-center justify-between gap-2 pb-3 text-center text-xs text-[#8798AD] sm:flex-row">
           <p>Billomax · Stock Adjustment Report</p>
           <p>Billing & invoicing management</p>
         </footer>
@@ -823,15 +825,15 @@ export default function StockAdjustmentReport() {
           <div
             role="dialog"
             aria-modal="true"
-            className="w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl"
+            className="w-full max-w-lg overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white shadow-2xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[#EDF0F5] bg-[#FFFAF5] px-5 py-4">
+            <div className="flex items-center justify-between border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] to-white px-5 py-4">
               <div>
                 <h2 className="font-bold text-[#10234F]">
                   Stock Adjustment Details
                 </h2>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="app-description mt-1">
                   Reference: {selectedAdjustment.referenceNo || "—"}
                 </p>
               </div>
@@ -839,7 +841,7 @@ export default function StockAdjustmentReport() {
                 type="button"
                 onClick={() => setSelectedAdjustment(null)}
                 aria-label="Close details"
-                className="rounded-lg p-2 text-slate-400 hover:bg-white hover:text-slate-700"
+                className="rounded-lg p-2 text-[#8798AD] hover:bg-[#FFF1E5] hover:text-[#19366F]"
               >
                 <X size={18} />
               </button>
@@ -851,9 +853,9 @@ export default function StockAdjustmentReport() {
                 .map((column) => (
                   <div
                     key={column.key}
-                    className="flex items-start justify-between gap-4 border-b border-slate-100 pb-3 last:border-0"
+                    className="flex items-start justify-between gap-4 border-b border-[#F2E8DE] pb-3 last:border-0"
                   >
-                    <span className="text-sm text-slate-500">
+                    <span className="text-sm text-[#577B9F]">
                       {column.label}
                     </span>
                     <span className="max-w-[60%] break-words text-right text-sm font-semibold text-[#10234F]">

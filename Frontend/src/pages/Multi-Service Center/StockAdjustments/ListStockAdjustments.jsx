@@ -421,7 +421,7 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
                 primary
                 onClick={() => (onAdd ? onAdd() : setShowAddModal(true))}
               >
-                Add
+                Add Stock Transfer
               </ActionButton>
             </div>
           </div>

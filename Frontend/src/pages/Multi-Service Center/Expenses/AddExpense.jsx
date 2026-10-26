@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import {
+  ArrowLeft,
   CalendarDays,
   Info,
   Upload,
@@ -112,7 +113,7 @@ function SectionHeader({ icon: Icon, title, description, accent = "orange" }) {
   );
 }
 
-export default function AddExpense() {
+export default function AddExpense({ onBack }) {
   const [form, setForm] = useState({
     businessLocation: "msc",
     category: "",
@@ -195,17 +196,29 @@ export default function AddExpense() {
           </p>
         </div>
 
-        <div className="hidden items-center gap-2 rounded-xl border border-[#F2E8DE] bg-white px-3 py-2.5 shadow-[0_3px_8px_rgba(25,43,80,0.04)] sm:flex">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#CDE6FF] text-[#087AF0]">
-            <FileText size={16} />
-          </div>
-          <div>
-            <p className="text-[10px] font-medium text-[#577B9F]">
-              Expense entry
-            </p>
-            <p className="text-xs font-bold text-[#10234F]">
-              New transaction
-            </p>
+        <div className="flex flex-wrap items-center gap-3">
+          {onBack && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#E8EDF4] bg-white px-4 py-2.5 text-sm font-bold text-[#19366F] transition hover:bg-[#FFF1E5]"
+            >
+              <ArrowLeft size={17} />
+              Back
+            </button>
+          )}
+          <div className="hidden items-center gap-2 rounded-xl border border-[#F2E8DE] bg-white px-3 py-2.5 shadow-[0_3px_8px_rgba(25,43,80,0.04)] sm:flex">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#CDE6FF] text-[#087AF0]">
+              <FileText size={16} />
+            </div>
+            <div>
+              <p className="text-[10px] font-medium text-[#577B9F]">
+                Expense entry
+              </p>
+              <p className="text-xs font-bold text-[#10234F]">
+                New transaction
+              </p>
+            </div>
           </div>
         </div>
       </header>

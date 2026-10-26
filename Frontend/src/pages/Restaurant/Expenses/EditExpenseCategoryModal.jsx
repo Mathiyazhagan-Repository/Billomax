@@ -188,15 +188,6 @@ export default function EditExpenseCategoryModal({
           {/* Footer */}
           <footer className="flex flex-wrap justify-end gap-2 border-t border-slate-200 bg-white px-5 py-4 sm:px-6">
             <button
-              type="button"
-              onClick={onClose}
-              disabled={saving}
-              className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 disabled:opacity-50"
-            >
-              Cancel
-            </button>
-
-            <button
               type="submit"
               disabled={saving || !formData.name.trim()}
               className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6814] to-[#FF812B] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
@@ -215,7 +206,7 @@ export default function EditExpenseCategoryModal({
               disabled={saving}
               className="rounded-xl bg-[#10234F] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1B376E] disabled:opacity-50"
             >
-              Close
+              Cancel
             </button>
           </footer>
         </form>

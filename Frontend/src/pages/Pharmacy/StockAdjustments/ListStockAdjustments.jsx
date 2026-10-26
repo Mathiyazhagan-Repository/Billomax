@@ -472,7 +472,7 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
               primary
               onClick={onAdd}
             >
-              Add adjustment
+              Add Stock Transfer
             </ActionButton>
           </div>
         </header>
