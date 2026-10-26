@@ -87,20 +87,20 @@ const toDateInput = (value) => {
 
 function MetricCard({ icon: Icon, label, value, accent = "orange", hint }) {
   const accents = {
-    orange: "bg-orange-50 text-orange-600 ring-orange-100",
-    blue: "bg-blue-50 text-blue-600 ring-blue-100",
-    green: "bg-emerald-50 text-emerald-600 ring-emerald-100",
+    orange: "bg-[#FFE9D9] text-[#F04A13] ring-[#F8EBDD]",
+    blue: "bg-[#EDF4FF] text-[#4276B5] ring-[#E3ECF8]",
+    green: "bg-[#EAF7ED] text-[#218838] ring-[#D9EEDB]",
   };
 
   return (
-    <div className="rounded-2xl border border-[#E6EAF0] bg-white p-4 shadow-[0_4px_18px_rgba(16,35,79,0.035)] transition hover:-translate-y-0.5 hover:shadow-md sm:p-5">
+    <div className="rounded-2xl border border-[#F8EBDD] bg-white/95 p-4 shadow-[0_6px_18px_rgba(224,133,65,0.07)] transition hover:-translate-y-0.5 hover:shadow-md sm:p-5">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-sm font-medium text-slate-500">{label}</p>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-[#10234F]">
+          <p className="app-description">{label}</p>
+          <p className="mt-2 text-2xl font-extrabold tracking-tight text-[#F04A13]">
             {value}
           </p>
-          {hint && <p className="mt-1 text-xs text-slate-400">{hint}</p>}
+          {hint && <p className="mt-1 text-xs text-[#8798AD]">{hint}</p>}
         </div>
         <div
           className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ring-1 ${accents[accent]}`}
@@ -115,16 +115,16 @@ function MetricCard({ icon: Icon, label, value, accent = "orange", hint }) {
 function ActionButton({ children, onClick, variant = "secondary", icon: Icon }) {
   const variants = {
     primary:
-      "border-transparent bg-gradient-to-r from-[#FF6814] to-[#FF812B] text-white shadow-sm hover:brightness-105",
+      "border-transparent bg-[#FF711A] text-white shadow-sm hover:bg-[#F04A13]",
     secondary:
-      "border-[#E1E7EF] bg-white text-[#34445E] hover:border-orange-200 hover:bg-orange-50 hover:text-[#D85B13]",
+      "border-[#E8EDF4] bg-white text-[#19366F] hover:border-[#FF8A37] hover:bg-[#FFF1E5] hover:text-[#F04A13]",
   };
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl border px-3.5 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-orange-200 ${variants[variant]}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-lg border px-3.5 py-2.5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-[#FF8A37]/20 ${variants[variant]}`}
     >
       {Icon && <Icon size={16} />}
       {children}
@@ -302,7 +302,7 @@ export default function CustomerReminder() {
       case "customer":
         return (
           <div className="flex min-w-[130px] items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-orange-50 text-sm font-bold uppercase text-[#E86A20]">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FFE9D9] text-sm font-bold uppercase text-[#F04A13]">
               {row.customer.charAt(0)}
             </div>
             <span className="font-semibold text-[#10234F]">{row.customer}</span>
@@ -315,14 +315,14 @@ export default function CustomerReminder() {
       case "lastBillDate":
       case "expectedCompletion":
         return (
-          <span className="whitespace-nowrap text-slate-600">
+          <span className="whitespace-nowrap text-[#577B9F]">
             {row[key]}
           </span>
         );
 
       case "daysSinceCompletion":
         return (
-          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-orange-50 px-2.5 py-1.5 text-xs font-bold text-orange-700">
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#FFF1E5] px-2.5 py-1.5 text-xs font-bold text-[#F04A13]">
             <Clock3 size={13} />
             {row.daysSinceCompletion} days
           </span>
@@ -330,7 +330,7 @@ export default function CustomerReminder() {
 
       case "medicine":
         return (
-          <span className="whitespace-nowrap font-medium text-slate-700">
+          <span className="whitespace-nowrap font-medium text-[#19366F]">
             {row.medicine}
           </span>
         );
@@ -355,7 +355,7 @@ export default function CustomerReminder() {
           <button
             type="button"
             onClick={() => setHistoryCustomer(row)}
-            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#10234F] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#1A376F] focus:outline-none focus:ring-2 focus:ring-blue-200"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#FF711A] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#F04A13] focus:outline-none focus:ring-2 focus:ring-[#FF8A37]/20"
           >
             <History size={14} />
             View History
@@ -382,7 +382,7 @@ export default function CustomerReminder() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FFFAF5] px-4 py-5 text-slate-700 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FFFAF5] px-4 py-4 text-[#19366F] sm:px-5">
       <style>{`
         @media print {
           body { background: white !important; }
@@ -394,18 +394,18 @@ export default function CustomerReminder() {
         }
       `}</style>
 
-      <div className="mx-auto max-w-[1600px] space-y-6">
+      <div className="mx-auto max-w-[1500px] space-y-5">
         {/* Page heading */}
         <header className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div>
-            <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#E86A20]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FF6814]" />
-              Customer management
+            <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
+              <BellRing size={14} />
+              <span className="text-[11px] font-extrabold">CUSTOMER MANAGEMENT · REPORTS</span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-[#10234F] sm:text-3xl">
+            <h1 className="app-page-title text-[#10234F]">
               Customer Reminder Report
             </h1>
-            <p className="mt-1.5 text-sm text-slate-500">
+            <p className="app-description mt-1">
               Review customers who have not returned after their expected
               medicine completion date.
             </p>
@@ -451,7 +451,7 @@ export default function CustomerReminder() {
         </section>
 
         {/* Filter panel */}
-        <section className="no-print overflow-visible rounded-2xl border border-[#E6EAF0] bg-white shadow-[0_5px_24px_rgba(16,35,79,0.04)]">
+        <section className="no-print overflow-visible rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
           <button
             type="button"
             onClick={() => setShowFilters((value) => !value)}
@@ -459,39 +459,39 @@ export default function CustomerReminder() {
             aria-expanded={showFilters}
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-[#E86A20]">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
                 <Filter size={19} />
               </div>
               <div>
                 <h2 className="font-bold text-[#10234F]">Filters</h2>
-                <p className="mt-0.5 text-xs text-slate-500">
+                <p className="app-description mt-0.5">
                   Narrow the report by bill date or reminder status.
                 </p>
               </div>
               {activeFilters > 0 && (
-                <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-bold text-orange-700">
+                <span className="rounded-full bg-[#FFF1E5] px-2 py-0.5 text-xs font-bold text-[#F04A13]">
                   {activeFilters} active
                 </span>
               )}
             </div>
             {showFilters ? (
-              <ChevronUp size={19} className="text-slate-400" />
+              <ChevronUp size={19} className="text-[#8798AD]" />
             ) : (
-              <ChevronDown size={19} className="text-slate-400" />
+              <ChevronDown size={19} className="text-[#8798AD]" />
             )}
           </button>
 
           {showFilters && (
-            <div className="border-t border-[#EDF0F5] px-5 py-5 sm:px-6">
+            <div className="border-t border-[#F2E8DE] px-5 py-5 sm:px-6">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 <label className="space-y-1.5">
-                  <span className="text-xs font-semibold text-slate-600">
+                  <span className="text-xs font-semibold text-[#577B9F]">
                     Last bill date — from
                   </span>
                   <div className="relative">
                     <CalendarDays
                       size={16}
-                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#8798AD]"
                     />
                     <input
                       type="date"
@@ -501,19 +501,19 @@ export default function CustomerReminder() {
                         setStartDate(event.target.value);
                         setCurrentPage(1);
                       }}
-                      className="w-full rounded-xl border border-[#DFE5EE] bg-[#FFFEFC] py-2.5 pl-9 pr-3 text-sm outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                      className="w-full rounded-lg border border-[#E8EDF4] bg-white py-2.5 pl-9 pr-3 text-sm outline-none transition focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
                     />
                   </div>
                 </label>
 
                 <label className="space-y-1.5">
-                  <span className="text-xs font-semibold text-slate-600">
+                  <span className="text-xs font-semibold text-[#577B9F]">
                     Last bill date — to
                   </span>
                   <div className="relative">
                     <CalendarDays
                       size={16}
-                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#8798AD]"
                     />
                     <input
                       type="date"
@@ -523,13 +523,13 @@ export default function CustomerReminder() {
                         setEndDate(event.target.value);
                         setCurrentPage(1);
                       }}
-                      className="w-full rounded-xl border border-[#DFE5EE] bg-[#FFFEFC] py-2.5 pl-9 pr-3 text-sm outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                      className="w-full rounded-lg border border-[#E8EDF4] bg-white py-2.5 pl-9 pr-3 text-sm outline-none transition focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
                     />
                   </div>
                 </label>
 
                 <label className="space-y-1.5">
-                  <span className="text-xs font-semibold text-slate-600">
+                  <span className="text-xs font-semibold text-[#577B9F]">
                     Reminder status
                   </span>
                   <select
@@ -538,7 +538,7 @@ export default function CustomerReminder() {
                       setStatusFilter(event.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full rounded-xl border border-[#DFE5EE] bg-[#FFFEFC] px-3 py-2.5 text-sm outline-none transition focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                    className="w-full rounded-lg border border-[#E8EDF4] bg-white px-3 py-2.5 text-sm outline-none transition focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
                   >
                     <option value="All">All statuses</option>
                     <option value="Pending">Pending</option>
@@ -556,18 +556,18 @@ export default function CustomerReminder() {
         </section>
 
         {/* Main report table */}
-        <section className="print-area overflow-hidden rounded-2xl border border-[#E6EAF0] bg-white shadow-[0_5px_24px_rgba(16,35,79,0.045)]">
-          <div className="flex flex-col gap-4 border-b border-[#EDF0F5] px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+        <section className="print-area overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
+          <div className="flex flex-col gap-4 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] via-white to-white px-5 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-[#E86A20]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
                   <BellRing size={19} />
                 </div>
-                <h2 className="text-lg font-bold text-[#10234F]">
+                <h2 className="app-section-title text-[#10234F]">
                   Customers Who Did Not Return
                 </h2>
               </div>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-500">
+              <p className="app-description mt-2 max-w-3xl leading-6">
                 Reminder estimates use prescription validity days when
                 available; otherwise the sold quantity is used as a lightweight
                 completion estimate.
@@ -597,7 +597,7 @@ export default function CustomerReminder() {
           {/* Table controls */}
           <div className="no-print flex flex-col gap-4 px-5 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap items-center gap-3">
-              <label className="flex items-center gap-2 text-sm text-slate-600">
+              <label className="flex items-center gap-2 text-sm text-[#577B9F]">
                 Show
                 <select
                   value={pageSize}
@@ -605,7 +605,7 @@ export default function CustomerReminder() {
                     setPageSize(Number(event.target.value));
                     setCurrentPage(1);
                   }}
-                  className="rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-[#10234F] outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                  className="rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#19366F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
                 >
                   <option value={10}>10</option>
                   <option value={25}>25</option>
@@ -619,7 +619,7 @@ export default function CustomerReminder() {
                 <button
                   type="button"
                   onClick={() => setShowColumns((value) => !value)}
-                  className="inline-flex items-center gap-2 rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-slate-600 transition hover:border-orange-200 hover:bg-orange-50"
+                  className="inline-flex items-center gap-2 rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#577B9F] transition hover:border-[#FF8A37] hover:bg-[#FFF1E5]"
                 >
                   <SlidersHorizontal size={15} />
                   Columns
@@ -627,15 +627,15 @@ export default function CustomerReminder() {
                 </button>
 
                 {showColumns && (
-                  <div className="absolute left-0 top-full z-20 mt-2 w-64 rounded-xl border border-[#E6EAF0] bg-white p-3 shadow-xl">
-                    <div className="mb-2 flex items-center justify-between border-b border-slate-100 pb-2">
-                      <span className="text-sm font-bold text-[#10234F]">
+                  <div className="absolute left-0 top-full z-20 mt-2 w-64 rounded-xl border border-[#F8EBDD] bg-white p-3 shadow-xl">
+                    <div className="mb-2 flex items-center justify-between border-b border-[#F2E8DE] pb-2">
+                      <span className="text-sm font-bold text-[#19366F]">
                         Visible columns
                       </span>
                       <button
                         type="button"
                         onClick={() => setShowColumns(false)}
-                        className="rounded-md p-1 text-slate-400 hover:bg-slate-100"
+                        className="rounded-md p-1 text-[#8798AD] hover:bg-[#FFF1E5]"
                         aria-label="Close column menu"
                       >
                         <X size={15} />
@@ -644,13 +644,13 @@ export default function CustomerReminder() {
                     {columnDefinitions.map((column) => (
                       <label
                         key={column.key}
-                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm text-slate-600 hover:bg-orange-50"
+                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-sm text-[#577B9F] hover:bg-[#FFF1E5]"
                       >
                         <input
                           type="checkbox"
                           checked={visibleColumns.includes(column.key)}
                           onChange={() => toggleColumn(column.key)}
-                          className="h-4 w-4 accent-[#FF6814]"
+                          className="h-4 w-4 accent-[#FF711A]"
                         />
                         {column.label}
                       </label>
@@ -663,7 +663,7 @@ export default function CustomerReminder() {
             <label className="relative block w-full lg:max-w-xs">
               <Search
                 size={17}
-                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#8798AD]"
               />
               <input
                 type="search"
@@ -673,7 +673,7 @@ export default function CustomerReminder() {
                   setCurrentPage(1);
                 }}
                 placeholder="Search customers, medicine..."
-                className="w-full rounded-xl border border-[#DFE5EE] bg-[#FFFEFC] py-2.5 pl-9 pr-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="w-full rounded-lg border border-[#E8EDF4] bg-white py-2.5 pl-9 pr-3 text-sm outline-none transition placeholder:text-[#8798AD] focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
               />
             </label>
           </div>
@@ -693,7 +693,7 @@ export default function CustomerReminder() {
                         <button
                           type="button"
                           onClick={() => handleSort(column.key)}
-                          className={`inline-flex items-center gap-2 transition hover:text-[#E86A20] ${
+                          className={`inline-flex items-center gap-2 transition hover:text-[#F04A13] ${
                             column.key === "action"
                               ? "cursor-default"
                               : "cursor-pointer"
@@ -703,15 +703,15 @@ export default function CustomerReminder() {
                           {column.key !== "action" &&
                             (sortConfig.key === column.key ? (
                               sortConfig.direction === "asc" ? (
-                                <ChevronUp size={14} className="text-[#E86A20]" />
+                                <ChevronUp size={14} className="text-[#F04A13]" />
                               ) : (
                                 <ChevronDown
                                   size={14}
-                                  className="text-[#E86A20]"
+                                  className="text-[#F04A13]"
                                 />
                               )
                             ) : (
-                              <span className="text-slate-300">
+                              <span className="text-[#D5DDE7]">
                                 <ChevronUp size={12} />
                               </span>
                             ))}
@@ -725,7 +725,7 @@ export default function CustomerReminder() {
                 {pageRows.map((row, index) => (
                   <tr
                     key={row.id}
-                    className={`transition-colors hover:bg-orange-50/40 ${
+                    className={`transition-colors hover:bg-[#FFF7EF] ${
                       index % 2 === 1 ? "bg-[#FCFDFE]" : "bg-white"
                     }`}
                   >
@@ -734,7 +734,7 @@ export default function CustomerReminder() {
                       .map((column) => (
                         <td
                           key={column.key}
-                          className="px-4 py-4 align-middle text-slate-600"
+                          className="px-4 py-4 align-middle text-[#577B9F]"
                         >
                           {renderCell(row, column.key)}
                         </td>
@@ -748,19 +748,19 @@ export default function CustomerReminder() {
                       colSpan={Math.max(1, visibleColumns.length)}
                       className="px-6 py-16 text-center"
                     >
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FFF1E5] text-[#8798AD]">
                         <Search size={21} />
                       </div>
                       <p className="mt-3 font-semibold text-[#10234F]">
                         No matching customers
                       </p>
-                      <p className="mt-1 text-sm text-slate-500">
+                      <p className="app-description mt-1">
                         Try another search term or reset your filters.
                       </p>
                       <button
                         type="button"
                         onClick={resetFilters}
-                        className="mt-4 text-sm font-semibold text-[#E86A20] hover:underline"
+                        className="mt-4 text-sm font-semibold text-[#F04A13] hover:underline"
                       >
                         Clear filters
                       </button>
@@ -772,20 +772,20 @@ export default function CustomerReminder() {
           </div>
 
           {/* Pagination */}
-          <div className="no-print flex flex-col gap-4 border-t border-[#EDF0F5] px-5 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
-            <p className="text-sm text-slate-500">
+          <div className="no-print flex flex-col gap-4 border-t border-[#F2E8DE] px-5 py-4 sm:px-6 md:flex-row md:items-center md:justify-between">
+            <p className="app-description">
               Showing{" "}
-              <span className="font-semibold text-[#10234F]">
+              <span className="font-semibold text-[#19366F]">
                 {filteredReminders.length === 0
                   ? 0
                   : (safePage - 1) * pageSize + 1}
               </span>{" "}
               to{" "}
-              <span className="font-semibold text-[#10234F]">
+              <span className="font-semibold text-[#19366F]">
                 {Math.min(safePage * pageSize, filteredReminders.length)}
               </span>{" "}
               of{" "}
-              <span className="font-semibold text-[#10234F]">
+              <span className="font-semibold text-[#19366F]">
                 {filteredReminders.length}
               </span>{" "}
               entries
@@ -796,7 +796,7 @@ export default function CustomerReminder() {
                 type="button"
                 disabled={safePage <= 1}
                 onClick={() => setCurrentPage((page) => Math.max(1, page - 1))}
-                className="inline-flex items-center gap-1 rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center gap-1 rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#577B9F] transition hover:bg-[#FFF1E5] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <ChevronLeft size={15} />
                 Previous
@@ -810,8 +810,8 @@ export default function CustomerReminder() {
                     onClick={() => setCurrentPage(page)}
                     className={`h-9 min-w-9 rounded-lg px-3 text-sm font-semibold transition ${
                       safePage === page
-                        ? "bg-gradient-to-r from-[#FF6814] to-[#FF812B] text-white shadow-sm"
-                        : "border border-[#DFE5EE] bg-white text-slate-600 hover:bg-orange-50"
+                        ? "bg-[#FF711A] text-white shadow-sm"
+                        : "border border-[#E8EDF4] bg-white text-[#577B9F] hover:bg-[#FFF1E5]"
                     }`}
                   >
                     {page}
@@ -825,7 +825,7 @@ export default function CustomerReminder() {
                 onClick={() =>
                   setCurrentPage((page) => Math.min(totalPages, page + 1))
                 }
-                className="inline-flex items-center gap-1 rounded-lg border border-[#DFE5EE] bg-white px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-orange-50 disabled:cursor-not-allowed disabled:opacity-40"
+                className="inline-flex items-center gap-1 rounded-lg border border-[#E8EDF4] bg-white px-3 py-2 text-sm font-medium text-[#577B9F] transition hover:bg-[#FFF1E5] disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Next
                 <ChevronRight size={15} />
@@ -834,7 +834,7 @@ export default function CustomerReminder() {
           </div>
         </section>
 
-        <footer className="flex flex-col items-center justify-between gap-2 pb-3 text-center text-xs text-slate-400 sm:flex-row sm:text-left">
+        <footer className="flex flex-col items-center justify-between gap-2 pb-3 text-center text-xs text-[#8798AD] sm:flex-row sm:text-left">
           <p>Billomax · Customer Reminder Report</p>
           <p>Billing & invoicing management</p>
         </footer>

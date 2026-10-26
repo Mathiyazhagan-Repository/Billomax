@@ -69,12 +69,12 @@ const money = (value) =>
   })}`;
 
 const inputClass =
-  "mt-1.5 w-full rounded-lg border border-[#D7DFEA] bg-white px-3 py-2.5 text-sm font-normal text-[#10234F] outline-none transition focus:border-[#1680FF] focus:ring-2 focus:ring-blue-100";
+  "mt-1.5 w-full rounded-lg border border-[#E8EDF4] bg-white px-3 py-2.5 text-sm font-normal text-[#132653] outline-none transition focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10";
 
 function Panel({ children, className = "" }) {
   return (
     <section
-      className={`rounded-2xl border border-[#E6EDF5] bg-white p-5 shadow-[0_8px_24px_rgba(16,35,79,0.06)] sm:p-6 ${className}`}
+      className={`rounded-2xl border border-[#F8EBDD] bg-white/95 p-5 shadow-[0_6px_18px_rgba(224,133,65,0.07)] sm:p-6 ${className}`}
     >
       {children}
     </section>
@@ -83,7 +83,7 @@ function Panel({ children, className = "" }) {
 
 function SectionTitle({ children }) {
   return (
-    <h2 className="text-xl font-extrabold tracking-tight text-[#FF6814]">
+    <h2 className="app-section-title text-[#10234F]">
       {children}
     </h2>
   );
@@ -96,12 +96,12 @@ function ActionButton({
   type = "button",
 }) {
   const colors = {
-    blue: "bg-[#1680FF] hover:bg-blue-700",
-    green: "bg-emerald-500 hover:bg-emerald-600",
-    rose: "bg-rose-500 hover:bg-rose-600",
-    violet: "bg-[#7775FF] hover:bg-[#605EF0]",
+    blue: "bg-[#FF711A] hover:bg-[#F04A13]",
+    green: "bg-[#FF711A] hover:bg-[#F04A13]",
+    rose: "bg-[#FF711A] hover:bg-[#F04A13]",
+    violet: "bg-[#FF711A] hover:bg-[#F04A13]",
     neutral:
-      "border border-[#D7DFEA] bg-white text-[#10234F] hover:bg-slate-50",
+      "border border-[#E8EDF4] bg-white text-[#19366F] hover:bg-[#FFF1E5]",
   };
 
   return (
@@ -123,11 +123,11 @@ function InfoItem({ label, value, icon: Icon }) {
   return (
     <div className="flex min-w-0 items-start gap-2.5">
       {Icon && (
-        <Icon size={17} className="mt-0.5 shrink-0 text-[#FF6814]" />
+        <Icon size={17} className="mt-0.5 shrink-0 text-[#F04A13]" />
       )}
       <div className="min-w-0">
         <p className="text-sm font-bold text-[#10234F]">{label}</p>
-        <p className="mt-1 break-words text-sm text-[#65728A]">{value}</p>
+        <p className="app-description mt-1 break-words">{value}</p>
       </div>
     </div>
   );
@@ -137,7 +137,7 @@ function InsightItem({ label, value }) {
   return (
     <div className="min-w-0">
       <p className="text-sm font-bold leading-5 text-[#10234F]">{label}</p>
-      <p className="mt-1 break-words text-sm text-[#52627A]">{value}</p>
+      <p className="app-description mt-1 break-words">{value}</p>
     </div>
   );
 }
@@ -153,14 +153,14 @@ function EmptyTab({ activeTab }) {
 
   return (
     <Panel className="py-12 text-center shadow-none">
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-[#1680FF]">
+      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
         <FileText size={23} />
       </div>
       <h3 className="mt-4 text-lg font-bold text-[#10234F]">{activeTab}</h3>
-      <p className="mt-2 text-sm text-[#65728A]">
+      <p className="app-description mt-2">
         {descriptions[activeTab]}
       </p>
-      <p className="mt-1 text-xs text-[#8A95A7]">
+      <p className="mt-1 text-xs text-[#8798AD]">
         Connect your existing data source to display these records.
       </p>
     </Panel>
@@ -313,8 +313,8 @@ export default function CustomerReminderViewHistory({
   }
 
   return (
-    <main className="min-h-screen bg-[#FFFAF5] p-4 text-[#10234F] sm:p-6">
-      <div className="mx-auto max-w-[1600px] space-y-5">
+    <main className="min-h-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
+      <div className="mx-auto max-w-[1500px] space-y-5">
         {/* Header */}
         <header className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
           <div className="flex items-center gap-3">
@@ -325,12 +325,10 @@ export default function CustomerReminderViewHistory({
               </ActionButton>
             )}
             <div>
-            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#FF6814]">
-              Customer Management
-            </p>
-            <h1 className="mt-1 text-2xl font-bold tracking-tight">
-              View Contact
-            </h1>
+              <p className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[11px] font-extrabold text-[#F04A13]">
+                Customer Management · History
+              </p>
+              <h1 className="app-page-title text-[#10234F]">View Contact</h1>
             </div>
           </div>
 
@@ -341,7 +339,7 @@ export default function CustomerReminderViewHistory({
             </select>
             <ChevronDown
               size={16}
-              className="pointer-events-none absolute right-3 top-4 text-slate-500"
+              className="pointer-events-none absolute right-3 top-4 text-[#8798AD]"
             />
           </label>
         </header>
@@ -350,12 +348,12 @@ export default function CustomerReminderViewHistory({
         <Panel>
           <div className="flex flex-col justify-between gap-6 lg:flex-row">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#1680FF]">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#CDE6FF] text-[#087AF0]">
                 <UserRound size={24} />
               </div>
 
               <div className="space-y-4">
-                <p className="text-sm font-medium text-[#65728A]">
+                <p className="app-description">
                   {customer.type}
                 </p>
 
@@ -386,8 +384,8 @@ export default function CustomerReminderViewHistory({
         </Panel>
 
         {/* Navigation tabs */}
-        <section className="overflow-hidden rounded-2xl border border-[#E6EDF5] bg-white shadow-sm">
-          <nav className="flex overflow-x-auto border-b border-[#E6EDF5]">
+        <section className="overflow-hidden rounded-2xl border border-[#F8EBDD] bg-white/95 shadow-[0_6px_18px_rgba(224,133,65,0.07)]">
+          <nav className="flex overflow-x-auto border-b border-[#F2E8DE]">
             {tabs.map(({ label, Icon }) => {
               const active = activeTab === label;
 
@@ -398,8 +396,8 @@ export default function CustomerReminderViewHistory({
                   onClick={() => setActiveTab(label)}
                   className={`flex min-h-[64px] min-w-[145px] flex-1 items-center justify-center gap-2 border-b-[3px] px-4 py-3 text-sm font-semibold transition ${
                     active
-                      ? "border-[#1680FF] bg-blue-50/40 text-[#10234F]"
-                      : "border-transparent text-[#65728A] hover:bg-slate-50"
+                      ? "border-[#FF711A] bg-[#FFF7EF] text-[#19366F]"
+                      : "border-transparent text-[#577B9F] hover:bg-[#FFFCF8]"
                   }`}
                 >
                   <Icon size={18} />
@@ -492,20 +490,20 @@ export default function CustomerReminderViewHistory({
                     <div className="relative">
                       <Search
                         size={16}
-                        className="absolute left-3 top-3 text-slate-400"
+                        className="absolute left-3 top-3 text-[#8798AD]"
                       />
                       <input
                         value={search}
                         onChange={(event) => setSearch(event.target.value)}
                         placeholder="Search billing history..."
-                        className="w-full rounded-lg border border-[#D7DFEA] py-2.5 pl-9 pr-3 text-sm outline-none focus:border-[#1680FF] focus:ring-2 focus:ring-blue-100"
+                        className="w-full rounded-lg border border-[#E8EDF4] py-2.5 pl-9 pr-3 text-sm outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10"
                       />
                     </div>
                   </div>
 
-                  <div className="overflow-x-auto rounded-xl border border-[#E9EDF3]">
+                  <div className="overflow-x-auto rounded-xl border border-[#F2E8DE]">
                     <table className="w-full min-w-[850px] border-collapse text-left text-sm">
-                      <thead className="bg-[#F5F8FC]">
+                      <thead className="bg-[#FFF7EF]">
                         <tr>
                           {[
                             "Invoice No.",
@@ -518,7 +516,7 @@ export default function CustomerReminderViewHistory({
                           ].map((heading) => (
                             <th
                               key={heading}
-                              className="border-b border-[#E6EDF5] px-3 py-3 font-bold text-[#10234F]"
+                              className="border-b border-[#F2E8DE] px-3 py-3 font-bold text-[#19366F]"
                             >
                               {heading}
                             </th>
@@ -531,7 +529,7 @@ export default function CustomerReminderViewHistory({
                           filteredRows.map((row) => (
                             <tr
                               key={row.invoice}
-                              className="border-b border-[#EEF1F5] last:border-0 hover:bg-orange-50/30"
+                              className="border-b border-[#F2E8DE] last:border-0 hover:bg-[#FFF7EF]"
                             >
                               <td className="px-3 py-3">{row.invoice}</td>
                               <td className="px-3 py-3">{row.date}</td>
@@ -551,8 +549,8 @@ export default function CustomerReminderViewHistory({
                                 <span
                                   className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
                                     row.status === "Due"
-                                      ? "bg-amber-100 text-amber-800"
-                                      : "bg-emerald-100 text-emerald-800"
+                                      ? "bg-[#FFF1E5] text-[#B85D0A]"
+                                      : "bg-[#EAF7ED] text-[#218838]"
                                   }`}
                                 >
                                   {row.status}
@@ -564,7 +562,7 @@ export default function CustomerReminderViewHistory({
                           <tr>
                             <td
                               colSpan={7}
-                              className="px-4 py-10 text-center text-sm text-[#65728A]"
+                              className="px-4 py-10 text-center text-sm text-[#577B9F]"
                             >
                               No billing history found for the selected
                               filters.
@@ -575,7 +573,7 @@ export default function CustomerReminderViewHistory({
                     </table>
                   </div>
 
-                  <p className="mt-3 text-xs text-[#65728A]">
+                  <p className="app-description mt-3">
                     Showing {filteredRows.length} of {billingHistory.length}{" "}
                     entries
                   </p>
@@ -584,7 +582,7 @@ export default function CustomerReminderViewHistory({
                 {/* Reminder insights */}
                 <Panel>
                   <div className="mb-5 flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-[#FF6814]">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
                       <BellRing size={20} />
                     </div>
                     <SectionTitle>Reminder Insight</SectionTitle>
@@ -605,7 +603,7 @@ export default function CustomerReminderViewHistory({
                     />
                     <div>
                       <p className="text-sm font-bold">Reminder Status:</p>
-                      <span className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                      <span className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-[#FFF1E5] px-3 py-1 text-xs font-semibold text-[#B85D0A]">
                         <Clock3 size={13} />
                         {reminder.status}
                       </span>
@@ -616,7 +614,7 @@ export default function CustomerReminderViewHistory({
                     />
                   </div>
 
-                  <div className="my-5 border-t border-[#E6EDF5]" />
+                  <div className="my-5 border-t border-[#F2E8DE]" />
 
                   <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
                     <p className="text-sm">
@@ -635,7 +633,7 @@ export default function CustomerReminderViewHistory({
           </div>
         </section>
 
-        <footer className="pb-2 pt-1 text-center text-xs text-[#7A8799]">
+        <footer className="pb-2 pt-1 text-center text-xs text-[#8798AD]">
           Billomax · Customer Management
         </footer>
       </div>

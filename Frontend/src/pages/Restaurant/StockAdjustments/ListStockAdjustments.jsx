@@ -472,7 +472,7 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
               primary
               onClick={onAdd}
             >
-              Add adjustment
+              Add Stock Transfer
             </ActionButton>
           </div>
         </header>
@@ -579,15 +579,6 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
               <p className="app-description mt-1 text-[#577B9F]">
                 Browse adjustment details and manage records.
               </p>
-            </div>
-            <div className="no-print">
-              <ActionButton
-                icon={Plus}
-                primary
-                onClick={onAdd}
-              >
-                Add
-              </ActionButton>
             </div>
           </div>
 

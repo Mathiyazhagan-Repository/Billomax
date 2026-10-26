@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Pill,
   Home,
@@ -146,23 +146,27 @@ const menuItems = [
   { name: "Settings", icon: Settings, expandable: true },
 ];
 
-export default function Sidebar({ onNavigate }) {
-  const [activeItem, setActiveItem] = useState("Home");
+export default function Sidebar({ activePage = "Home", onNavigate }) {
   const [expandedItems, setExpandedItems] = useState(["Expenses"]);
   const [showAllProducts, setShowAllProducts] = useState(false);
   const [showAllSales, setShowAllSales] = useState(false);
 
+  useEffect(() => {
+    const activeParent = menuItems.find(({ children }) =>
+      children?.some(({ name }) => name === activePage)
+    );
+
+    if (activeParent) {
+      setExpandedItems([activeParent.name]);
+    }
+  }, [activePage]);
+
   const navigateTo = (name) => {
-    setActiveItem(name);
     onNavigate?.(name);
   };
 
   const toggleExpanded = (name) => {
-    setExpandedItems((current) =>
-      current.includes(name)
-        ? current.filter((item) => item !== name)
-        : [...current, name]
-    );
+    setExpandedItems((current) => (current.includes(name) ? [] : [name]));
   };
 
   return (
@@ -190,6 +194,7 @@ export default function Sidebar({ onNavigate }) {
         aria-label="Main navigation"
       >
         {menuItems.map(({ name, icon: Icon, expandable, children }) => {
+<<<<<<< HEAD
           const isActive =
             activeItem === name || children?.some((child) => child.name === activeItem);
           const isExpanded = expandedItems.includes(name);
@@ -206,6 +211,65 @@ export default function Sidebar({ onNavigate }) {
               <button
                 type="button"
                 onClick={() => {
+=======
+          const isActive = activePage === name;
+          const isExpanded = expandedItems.includes(name);
+          const hasChildren = Boolean(children?.length);
+          const hasActiveChild = children?.some(
+            ({ name: childName }) => activePage === childName
+          );
+
+          return (
+            <div key={name} className="shrink-0">
+              <div
+                className={`group flex min-h-[40px] w-full items-center rounded-[9px] transition-colors duration-150 ${
+                  isActive
+                    ? "bg-[#FF711A] text-white shadow-[0_3px_8px_rgba(255,113,26,0.18)]"
+                    : hasActiveChild
+                    ? "bg-[#FFF1E5] text-[#19366F]"
+                    : "text-[#15336E] hover:bg-[#FFF0E3]"
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => {
+                  if (name === "Expenses") {
+                    setExpandedItems([name]);
+                    navigateTo("List Expenses");
+                    return;
+                  }
+
+                  if (name === "Reports") {
+                    setExpandedItems([name]);
+                    navigateTo("Profit / Loss Report");
+                    return;
+                  }
+
+                  if (name === "Pharmacy") {
+                    setExpandedItems([name]);
+                    navigateTo("Doctors");
+                    return;
+                  }
+
+                  if (name === "Settings") {
+                    setExpandedItems([name]);
+                    navigateTo("Business Settings");
+                    return;
+                  }
+
+                  if (name === "Stock Adjustment") {
+                    setExpandedItems([name]);
+                    navigateTo("List Stock Adjustments");
+                    return;
+                  }
+
+                  if (name === "Stock Transfers") {
+                    setExpandedItems([name]);
+                    navigateTo("List Stock Transfers");
+                    return;
+                  }
+
+>>>>>>> refs/remotes/origin/main
                   if (expandable || hasChildren) {
                     toggleExpanded(name);
                   }
@@ -253,9 +317,15 @@ export default function Sidebar({ onNavigate }) {
 
               {/* All submenu rows use the original Expenses styling */}
               {hasChildren && isExpanded && (
+<<<<<<< HEAD
                 <div className="ml-5 border-l border-[#E0E8F2] pl-2">
                   {visibleChildren.map(({ name: childName, icon: ChildIcon }) => {
                     const isChildActive = activeItem === childName;
+=======
+                <div className="ml-[18px] mt-1 mb-1 space-y-0.5 border-l border-[#F1D8C5] pl-2">
+                  {children.map(({ name: childName, icon: ChildIcon }) => {
+                    const isChildActive = activePage === childName;
+>>>>>>> refs/remotes/origin/main
 
                     return (
                       <button

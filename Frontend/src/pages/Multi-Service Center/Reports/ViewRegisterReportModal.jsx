@@ -75,9 +75,9 @@ export default function ViewRegisterReportModal({
     "mb-4 flex items-center gap-2 text-lg font-bold text-[#10234F]";
 
   const th =
-    "border-b border-[#E6EDF5] bg-[#F8FAFC] px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wide text-[#10234F]";
+    "border-b border-[#F2E8DE] bg-[#FFF7EF] px-3 py-2.5 text-left text-xs font-bold uppercase tracking-wide text-[#19366F]";
 
-  const td = "border-b border-[#EEF1F5] px-3 py-2 text-sm text-slate-700";
+  const td = "border-b border-[#F2E8DE] px-3 py-2 text-sm text-[#577B9F]";
 
   return (
     <div
@@ -90,12 +90,12 @@ export default function ViewRegisterReportModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby="register-report-title"
-        className="flex max-h-[96vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-[#E6EDF5] bg-[#FFFAF5] shadow-2xl print:max-h-none print:overflow-visible print:rounded-none print:border-0 print:shadow-none"
+        className="flex max-h-[96vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-[#F8EBDD] bg-[#FFFAF5] shadow-2xl print:max-h-none print:overflow-visible print:rounded-none print:border-0 print:shadow-none"
       >
         {/* Modal header */}
-        <header className="flex shrink-0 items-center justify-between gap-4 border-b border-[#E6EDF5] bg-white px-5 py-4 sm:px-7">
+        <header className="flex shrink-0 items-center justify-between gap-4 border-b border-[#F2E8DE] bg-gradient-to-r from-[#FFF7EF] via-white to-white px-5 py-4 sm:px-7">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-[#FF6814]">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFE9D9] text-[#F04A13]">
               <Receipt size={21} />
             </div>
             <div className="min-w-0">
@@ -105,8 +105,8 @@ export default function ViewRegisterReportModal({
               >
                 Register Details
               </h2>
-              <p className="mt-1 flex items-start gap-1.5 text-xs text-slate-500 sm:text-sm">
-                <CalendarDays size={14} className="mt-0.5 shrink-0" />
+              <p className="mt-1 flex items-start gap-1.5 text-xs text-[#577B9F] sm:text-sm">
+                <CalendarDays size={14} className="mt-0.5 shrink-0 text-[#8798AD]" />
                 <span>{details.dateRange}</span>
               </p>
             </div>
@@ -116,7 +116,7 @@ export default function ViewRegisterReportModal({
             type="button"
             onClick={onClose}
             aria-label="Close register report"
-            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-[#10234F] print:hidden"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-[#8798AD] transition hover:bg-[#FFF1E5] hover:text-[#19366F] print:hidden"
           >
             <X size={20} />
           </button>
@@ -125,10 +125,10 @@ export default function ViewRegisterReportModal({
         {/* Scrollable report content */}
         <main className="min-h-0 flex-1 space-y-5 overflow-y-auto p-4 sm:p-6 print:overflow-visible print:p-0">
           {/* Payment method breakdown */}
-          <section className="rounded-xl border border-[#E6EDF5] bg-white p-3 sm:p-5">
+          <section className="rounded-xl border border-[#F8EBDD] bg-white/95 p-3 shadow-[0_3px_12px_rgba(224,133,65,0.04)] sm:p-5">
             <div className="mb-3">
               <h3 className={sectionTitle}>Payment Method Breakdown</h3>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-[#577B9F]">
                 Sell and expense totals by payment method
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function ViewRegisterReportModal({
                 </thead>
                 <tbody>
                   {paymentRows.map((row) => (
-                    <tr key={row.method} className="transition hover:bg-orange-50/40">
+                    <tr key={row.method} className="transition hover:bg-[#FFF7EF]">
                       <td className={td}>{row.method}</td>
                       <td className={td}>{money(row.sell)}</td>
                       <td className={td}>{money(row.expense)}</td>
@@ -154,13 +154,13 @@ export default function ViewRegisterReportModal({
               </table>
             </div>
 
-            <div className="mt-5 border-t border-slate-300 pt-4">
-              <div className="overflow-hidden rounded-lg border border-[#E6EDF5]">
+            <div className="mt-5 border-t border-[#F2E8DE] pt-4">
+              <div className="overflow-hidden rounded-lg border border-[#F2E8DE]">
                 {summaryRows.map((row, index) => {
                   const tones = {
                     normal: "bg-white",
                     red: "bg-[#F4DEDE]",
-                    green: "bg-[#E0F1D9]",
+                    green: "bg-[#EAF7ED]",
                   };
 
                   return (
@@ -171,13 +171,13 @@ export default function ViewRegisterReportModal({
                       <span
                         className={`text-sm ${
                           row.tone === "normal"
-                            ? "font-medium text-slate-600"
-                            : "font-bold text-[#17212B]"
+                            ? "font-medium text-[#577B9F]"
+                            : "font-bold text-[#19366F]"
                         }`}
                       >
                         {row.label}
                       </span>
-                      <span className="text-right text-sm font-bold text-[#17212B]">
+                      <span className="text-right text-sm font-bold text-[#19366F]">
                         {money(row.value)}
                       </span>
                     </div>
@@ -188,7 +188,7 @@ export default function ViewRegisterReportModal({
           </section>
 
           {/* Products sold */}
-          <section className="rounded-xl border border-[#E6EDF5] bg-white p-3 sm:p-5">
+          <section className="rounded-xl border border-[#F8EBDD] bg-white/95 p-3 shadow-[0_3px_12px_rgba(224,133,65,0.04)] sm:p-5">
             <h3 className={sectionTitle}>Details of products sold</h3>
 
             <div className="overflow-x-auto">
@@ -204,7 +204,7 @@ export default function ViewRegisterReportModal({
                 </thead>
                 <tbody>
                   {products.map((product, index) => (
-                    <tr key={product.sku} className="hover:bg-orange-50/40">
+                    <tr key={product.sku} className="hover:bg-[#FFF7EF]">
                       <td className={td}>{index + 1}.</td>
                       <td className={td}>{product.sku}</td>
                       <td className={td}>{product.name}</td>
@@ -214,7 +214,7 @@ export default function ViewRegisterReportModal({
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="bg-[#E0F1D9]">
+                  <tr className="bg-[#EAF7ED]">
                     <td className={`${td} font-bold`} colSpan={3}>
                       Total
                     </td>
@@ -239,7 +239,7 @@ export default function ViewRegisterReportModal({
           </section>
 
           {/* Brand summary */}
-          <section className="rounded-xl border border-[#E6EDF5] bg-white p-3 sm:p-5">
+          <section className="rounded-xl border border-[#F8EBDD] bg-white/95 p-3 shadow-[0_3px_12px_rgba(224,133,65,0.04)] sm:p-5">
             <h3 className={sectionTitle}>
               Details of products sold (By Brand)
             </h3>
@@ -265,7 +265,7 @@ export default function ViewRegisterReportModal({
                   ))}
                 </tbody>
                 <tfoot>
-                  <tr className="bg-[#E0F1D9]">
+                  <tr className="bg-[#EAF7ED]">
                     <td className={`${td} font-bold`}>#</td>
                     <td className={td}></td>
                     <td className={`${td} font-extrabold`}>0.00</td>
@@ -287,13 +287,13 @@ export default function ViewRegisterReportModal({
           </section>
 
           {/* User and business details */}
-          <section className="grid grid-cols-1 gap-4 rounded-xl border border-[#E6EDF5] bg-white p-4 sm:grid-cols-3 sm:p-5">
+          <section className="grid grid-cols-1 gap-4 rounded-xl border border-[#F8EBDD] bg-white/95 p-4 shadow-[0_3px_12px_rgba(224,133,65,0.04)] sm:grid-cols-3 sm:p-5">
             <div className="flex items-start gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#EDF4FF] text-[#4276B5]">
                 <UserRound size={17} />
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#577B9F]">
                   User
                 </p>
                 <p className="mt-1 text-sm font-semibold text-[#10234F]">
@@ -303,11 +303,11 @@ export default function ViewRegisterReportModal({
             </div>
 
             <div className="flex min-w-0 items-start gap-3">
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#EDF4FF] text-[#4276B5]">
                 <Mail size={17} />
               </div>
               <div className="min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#577B9F]">
                   Email
                 </p>
                 <p className="mt-1 break-all text-sm text-[#10234F]">
@@ -317,11 +317,11 @@ export default function ViewRegisterReportModal({
             </div>
 
             <div className="flex items-start gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#EDF4FF] text-[#4276B5]">
                 <MapPin size={17} />
               </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#577B9F]">
                   Business Location
                 </p>
                 <p className="mt-1 text-sm font-semibold text-[#10234F]">
@@ -333,11 +333,11 @@ export default function ViewRegisterReportModal({
         </main>
 
         {/* Actions */}
-        <footer className="flex shrink-0 flex-col-reverse gap-3 border-t border-[#E6EDF5] bg-white px-5 py-4 sm:flex-row sm:justify-end sm:px-7 print:hidden">
+        <footer className="flex shrink-0 flex-col-reverse gap-3 border-t border-[#F2E8DE] bg-white px-5 py-4 sm:flex-row sm:justify-end sm:px-7 print:hidden">
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex items-center justify-center rounded-xl bg-[#26313D] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#17212B]"
+            className="inline-flex items-center justify-center rounded-xl border border-[#E8EDF4] bg-white px-6 py-3 text-sm font-semibold text-[#19366F] transition hover:bg-[#FFF1E5]"
           >
             Cancel
           </button>
@@ -345,7 +345,7 @@ export default function ViewRegisterReportModal({
           <button
             type="button"
             onClick={handlePrint}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6814] to-[#FF812B] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:brightness-95"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF711A] px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#F04A13]"
           >
             <Printer size={17} />
             Print

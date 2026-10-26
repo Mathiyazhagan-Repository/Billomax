@@ -362,14 +362,18 @@ export default function TrendingProducts() {
                           className="relative border-t border-[#E9EDF3]"
                           style={{ height: "58px" }}
                         >
-                          <span className="absolute -left-12 top-0 w-9 -translate-y-1/2 text-right text-xs tabular-nums text-slate-400">
+                          <span
+                            className={`absolute -left-12 w-9 text-right text-xs tabular-nums text-slate-400 ${
+                              index === 0 ? "top-1" : "top-0 -translate-y-1/2"
+                            }`}
+                          >
                             {Math.round((maxTick / 5) * (5 - index))}
                           </span>
                         </div>
                       );
                     })}
 
-                    <div className="absolute inset-0 flex items-end justify-around gap-5 px-3">
+                    <div className="absolute inset-x-0 bottom-0 top-7 flex items-end justify-around gap-5 px-3">
                       {filteredProducts.map((item, index) => {
                         const maxTick =
                           Math.max(Math.ceil(highestValue / 5) * 5, 5);
@@ -388,7 +392,7 @@ export default function TrendingProducts() {
                               className="relative w-[55%] max-w-24 rounded-t-lg bg-gradient-to-t from-[#4F91D8] to-[#80B6EE] shadow-[0_3px_10px_rgba(79,145,216,0.16)] transition-all duration-300 group-hover:from-[#FF6814] group-hover:to-[#FF9B59]"
                               style={{ height: `${height}%` }}
                             >
-                              <span className="absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#10234F] px-2 py-1 text-xs font-bold text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
+                              <span className="absolute -top-7 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#10234F] px-2 py-1 text-xs font-bold text-white opacity-0 shadow-sm transition-opacity group-hover:opacity-100">
                                 {item.unitsSold}
                               </span>
                             </div>

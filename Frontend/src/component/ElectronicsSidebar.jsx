@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Pill,
   Home,
@@ -117,21 +117,25 @@ const menuItems = [
   },
 ];
 
-export default function Sidebar({ onNavigate }) {
-  const [activeItem, setActiveItem] = useState("Home");
+export default function Sidebar({ activePage = "Home", onNavigate }) {
   const [expandedItems, setExpandedItems] = useState(["Expenses"]);
 
+  useEffect(() => {
+    const activeParent = menuItems.find(({ children }) =>
+      children?.some(({ name }) => name === activePage)
+    );
+
+    if (activeParent) {
+      setExpandedItems([activeParent.name]);
+    }
+  }, [activePage]);
+
   const navigateTo = (name) => {
-    setActiveItem(name);
     onNavigate?.(name);
   };
 
   const toggleExpanded = (name) => {
-    setExpandedItems((current) =>
-      current.includes(name)
-        ? current.filter((item) => item !== name)
-        : [...current, name]
-    );
+    setExpandedItems((current) => (current.includes(name) ? [] : [name]));
   };
 
   return (
@@ -159,11 +163,11 @@ export default function Sidebar({ onNavigate }) {
         aria-label="Main navigation"
       >
         {menuItems.map(({ name, icon: Icon, expandable, children }) => {
-          const isActive = activeItem === name;
+          const isActive = activePage === name;
           const isExpanded = expandedItems.includes(name);
           const hasChildren = Boolean(children?.length);
           const hasActiveChild = children?.some(
-            ({ name: childName }) => activeItem === childName
+            ({ name: childName }) => activePage === childName
           );
 
           return (
@@ -181,34 +185,32 @@ export default function Sidebar({ onNavigate }) {
                   type="button"
                   onClick={() => {
                   if (name === "Expenses") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
+                    setExpandedItems([name]);
                     navigateTo("List Expenses");
                     return;
                   }
 
                   if (name === "Reports") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
+                    setExpandedItems([name]);
                     navigateTo("Profit / Loss Report");
                     return;
                   }
 
                   if (name === "Settings") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
+                    setExpandedItems([name]);
                     navigateTo("Business Settings");
                     return;
                   }
 
                   if (name === "Stock Adjustment") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
+                    setExpandedItems([name]);
                     navigateTo("List Stock Adjustments");
+                    return;
+                  }
+
+                  if (name === "Stock Transfers") {
+                    setExpandedItems([name]);
+                    navigateTo("List Stock Transfers");
                     return;
                   }
 
@@ -268,7 +270,7 @@ export default function Sidebar({ onNavigate }) {
               {hasChildren && isExpanded && (
                 <div className="ml-[18px] mt-1 mb-1 space-y-0.5 border-l border-[#F1D8C5] pl-2">
                   {children.map(({ name: childName, icon: ChildIcon }) => {
-                    const isChildActive = activeItem === childName;
+                    const isChildActive = activePage === childName;
 
                     return (
                       <button

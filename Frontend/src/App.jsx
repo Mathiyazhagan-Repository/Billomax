@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { useState } from 'react'
 import { setActiveBusinessStorage } from './utils/businessStorage.js'
+=======
+import { useEffect, useState } from 'react'
+>>>>>>> refs/remotes/origin/main
 import './App.css'
 import AdminSidebar from './component/Admin-Sidebar.jsx'
 import ElectronicsSidebar from './component/ElectronicsSidebar.jsx'
@@ -48,9 +52,17 @@ import SalseData from './pages/Pharmacy/Home/SalseData.jsx'
 import ListExpenses from './pages/Pharmacy/Expenses/Expences.jsx'
 import AddExpense from './pages/Pharmacy/Expenses/AddExpense.jsx'
 import ExpenseCategory from './pages/Pharmacy/Expenses/ExpenseCategory.jsx'
+import AdminListExpenses from './pages/Admin/Expenses/Expences.jsx'
+import AdminAddExpense from './pages/Admin/Expenses/AddExpense.jsx'
+import ElectronicsListExpenses from './pages/Electronics/Expenses/Expences.jsx'
+import ElectronicsAddExpense from './pages/Electronics/Expenses/AddExpense.jsx'
 import MSCListExpenses from './pages/Multi-Service Center/Expenses/Expences.jsx'
 import MSCAddExpense from './pages/Multi-Service Center/Expenses/AddExpense.jsx'
 import MSCExpenseCategory from './pages/Multi-Service Center/Expenses/ExpenseCategory.jsx'
+import RestaurantListExpenses from './pages/Restaurant/Expenses/Expences.jsx'
+import RestaurantAddExpense from './pages/Restaurant/Expenses/AddExpense.jsx'
+import SuperMarketListExpenses from './pages/SuperMarket/Expenses/Expences.jsx'
+import SuperMarketAddExpense from './pages/SuperMarket/Expenses/AddExpense.jsx'
 import ProfitLoss from './pages/Pharmacy/Reports/ProfiteLoss.jsx'
 import MSCProfitLoss from './pages/Multi-Service Center/Reports/ProfiteLoss.jsx'
 import SalesReport from './pages/Pharmacy/Reports/Sales.jsx'
@@ -112,11 +124,29 @@ import ListStockAdjustments from './pages/Pharmacy/StockAdjustments/ListStockAdj
 import AddStockAdjustment from './pages/Pharmacy/StockAdjustments/AddStockAdjustment.jsx'
 import MSCListStockAdjustments from './pages/Multi-Service Center/StockAdjustments/ListStockAdjustments.jsx'
 import MSCAddStockAdjustment from './pages/Multi-Service Center/StockAdjustments/AddStockAdjustment.jsx'
+import AdminListStockAdjustments from './pages/Admin/StockAdjustments/ListStockAdjustments.jsx'
+import AdminAddStockAdjustment from './pages/Admin/StockAdjustments/AddStockAdjustment.jsx'
+import ElectronicsListStockAdjustments from './pages/Electronics/StockAdjustments/ListStockAdjustments.jsx'
+import ElectronicsAddStockAdjustment from './pages/Electronics/StockAdjustments/AddStockAdjustment.jsx'
+import RestaurantListStockAdjustments from './pages/Restaurant/StockAdjustments/ListStockAdjustments.jsx'
+import RestaurantAddStockAdjustment from './pages/Restaurant/StockAdjustments/AddStockAdjustment.jsx'
+import SuperMarketListStockAdjustments from './pages/SuperMarket/StockAdjustments/ListStockAdjustments.jsx'
+import SuperMarketAddStockAdjustment from './pages/SuperMarket/StockAdjustments/AddStockAdjustment.jsx'
 import Stocks from './pages/Pharmacy/Stocks/Stocks.jsx'
 import ModifyBill from './pages/Pharmacy/Modify Bill/ModifyBill.jsx'
 import EWayBill from './pages/Pharmacy/E-WayBill/E-WayBill.jsx'
 import ListStockTransfers from './pages/Pharmacy/StockTransfers/ListStockTransfers.jsx'
+import AdminListStockTransfers from './pages/Admin/StockTransfers/ListStockTransfers.jsx'
+import ElectronicsListStockTransfers from './pages/Electronics/StockTransfers/ListStockTransfers.jsx'
+import MSCListStockTransfers from './pages/Multi-Service Center/StockTransfers/ListStockTransfers.jsx'
+import RestaurantListStockTransfers from './pages/Restaurant/StockTransfers/ListStockTransfers.jsx'
+import SuperMarketListStockTransfers from './pages/SuperMarket/StockTransfers/ListStockTransfers.jsx'
 import AddStockTransfer from './pages/Pharmacy/StockTransfers/AddStockTransfer.jsx'
+import AdminAddStockTransfer from './pages/Admin/StockTransfers/AddStockTransfer.jsx'
+import ElectronicsAddStockTransfer from './pages/Electronics/StockTransfers/AddStockTransfer.jsx'
+import MSCAddStockTransfer from './pages/Multi-Service Center/StockTransfers/AddStockTransfer.jsx'
+import RestaurantAddStockTransfer from './pages/Restaurant/StockTransfers/AddStockTransfer.jsx'
+import SuperMarketAddStockTransfer from './pages/SuperMarket/StockTransfers/AddStockTransfer.jsx'
 import EditStockTransfer from './pages/Pharmacy/StockTransfers/EditStockTransfer.jsx'
 import PharmacyUsers from './pages/Pharmacy/User_Management/Users.jsx'
 import PharmacyRoles from './pages/Pharmacy/User_Management/Roles.jsx'
@@ -203,6 +233,25 @@ function App() {
   const [activePage, setActivePage] = useState('Home')
   const [selectedStockTransfer, setSelectedStockTransfer] = useState(null)
   const [activeBusiness, setActiveBusiness] = useState(null)
+  const [stockTransferReturnPage, setStockTransferReturnPage] = useState(
+    'List Stock Transfers'
+  )
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [activePage])
+
+  const sidebarActivePage =
+    activePage === 'Dashboard'
+      ? 'Home'
+      : activePage === 'Edit Stock Transfers'
+        ? 'List Stock Transfers'
+        : activePage
+
+  const openAddStockTransfer = (returnPage) => {
+    setStockTransferReturnPage(returnPage)
+    setActivePage('Add Stock Transfers')
+  }
 
   const pageContent = (() => {
     switch (activePage) {
@@ -357,15 +406,39 @@ function App() {
       case 'Billing & GST Settings':
         return <RestaurantBillingGSTSettings />
       case 'List Expenses':
+        if (activeBusiness === 'Admin') {
+          return <AdminListExpenses onNavigate={setActivePage} />
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return <ElectronicsListExpenses onNavigate={setActivePage} />
+        }
         if (activeBusiness === 'Multi-Service Center') {
           return <MSCListExpenses onNavigate={setActivePage} />
         }
+        if (activeBusiness === 'Restaurant') {
+          return <RestaurantListExpenses onNavigate={setActivePage} />
+        }
+        if (activeBusiness === 'Super Market') {
+          return <SuperMarketListExpenses onNavigate={setActivePage} />
+        }
         return <ListExpenses onNavigate={setActivePage} />
       case 'Add Expense':
-        if (activeBusiness === 'Multi-Service Center') {
-          return <MSCAddExpense />
+        if (activeBusiness === 'Admin') {
+          return <AdminAddExpense onBack={() => setActivePage('List Expenses')} />
         }
-        return <AddExpense />
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return <ElectronicsAddExpense onBack={() => setActivePage('List Expenses')} />
+        }
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCAddExpense onBack={() => setActivePage('List Expenses')} />
+        }
+        if (activeBusiness === 'Restaurant') {
+          return <RestaurantAddExpense onBack={() => setActivePage('List Expenses')} />
+        }
+        if (activeBusiness === 'Super Market') {
+          return <SuperMarketAddExpense onBack={() => setActivePage('List Expenses')} />
+        }
+        return <AddExpense onBack={() => setActivePage('List Expenses')} />
       case 'Expense Categories':
         if (activeBusiness === 'Multi-Service Center') {
           return <MSCExpenseCategory />
@@ -426,27 +499,102 @@ function App() {
       case 'E-Way Bill':
         return <EWayBill />
       case 'List Stock Adjustments':
+        if (activeBusiness === 'Admin') {
+          return (
+            <AdminListStockAdjustments
+              onAdd={() => openAddStockTransfer('List Stock Adjustments')}
+            />
+          )
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return (
+            <ElectronicsListStockAdjustments
+              onAdd={() => openAddStockTransfer('List Stock Adjustments')}
+            />
+          )
+        }
         if (activeBusiness === 'Multi-Service Center') {
           return (
             <MSCListStockAdjustments
-              onAdd={() => setActivePage('Add Stock Adjustments')}
+              onAdd={() => openAddStockTransfer('List Stock Adjustments')}
+            />
+          )
+        }
+        if (activeBusiness === 'Restaurant') {
+          return (
+            <RestaurantListStockAdjustments
+              onAdd={() => openAddStockTransfer('List Stock Adjustments')}
+            />
+          )
+        }
+        if (activeBusiness === 'Super Market') {
+          return (
+            <SuperMarketListStockAdjustments
+              onAdd={() => openAddStockTransfer('List Stock Adjustments')}
             />
           )
         }
         return (
           <ListStockAdjustments
-            onAdd={() => setActivePage('Add Stock Adjustments')}
+            onAdd={() => openAddStockTransfer('List Stock Adjustments')}
           />
         )
       case 'Add Stock Adjustments':
+        if (activeBusiness === 'Admin') {
+          return <AdminAddStockAdjustment />
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return <ElectronicsAddStockAdjustment />
+        }
         if (activeBusiness === 'Multi-Service Center') {
           return <MSCAddStockAdjustment />
         }
+        if (activeBusiness === 'Restaurant') {
+          return <RestaurantAddStockAdjustment />
+        }
+        if (activeBusiness === 'Super Market') {
+          return <SuperMarketAddStockAdjustment />
+        }
         return <AddStockAdjustment />
       case 'List Stock Transfers':
+        if (activeBusiness === 'Admin') {
+          return (
+            <AdminListStockTransfers
+              onAdd={() => openAddStockTransfer('List Stock Transfers')}
+            />
+          )
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return (
+            <ElectronicsListStockTransfers
+              onAdd={() => openAddStockTransfer('List Stock Transfers')}
+            />
+          )
+        }
+        if (activeBusiness === 'Multi-Service Center') {
+          return (
+            <MSCListStockTransfers
+              onAdd={() => openAddStockTransfer('List Stock Transfers')}
+            />
+          )
+        }
+        if (activeBusiness === 'Restaurant') {
+          return (
+            <RestaurantListStockTransfers
+              onAdd={() => openAddStockTransfer('List Stock Transfers')}
+            />
+          )
+        }
+        if (activeBusiness === 'Super Market') {
+          return (
+            <SuperMarketListStockTransfers
+              onAdd={() => openAddStockTransfer('List Stock Transfers')}
+            />
+          )
+        }
         return (
           <ListStockTransfers
-            onAdd={() => setActivePage('Add Stock Transfers')}
+            onAdd={() => openAddStockTransfer('List Stock Transfers')}
             onEdit={(transfer) => {
               setSelectedStockTransfer(transfer)
               setActivePage('Edit Stock Transfers')
@@ -454,7 +602,46 @@ function App() {
           />
         )
       case 'Add Stock Transfers':
-        return <AddStockTransfer />
+        if (activeBusiness === 'Admin') {
+          return (
+            <AdminAddStockTransfer
+              onCancel={() => setActivePage(stockTransferReturnPage)}
+            />
+          )
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return (
+            <ElectronicsAddStockTransfer
+              onCancel={() => setActivePage(stockTransferReturnPage)}
+            />
+          )
+        }
+        if (activeBusiness === 'Multi-Service Center') {
+          return (
+            <MSCAddStockTransfer
+              onCancel={() => setActivePage(stockTransferReturnPage)}
+            />
+          )
+        }
+        if (activeBusiness === 'Restaurant') {
+          return (
+            <RestaurantAddStockTransfer
+              onCancel={() => setActivePage(stockTransferReturnPage)}
+            />
+          )
+        }
+        if (activeBusiness === 'Super Market') {
+          return (
+            <SuperMarketAddStockTransfer
+              onCancel={() => setActivePage(stockTransferReturnPage)}
+            />
+          )
+        }
+        return (
+          <AddStockTransfer
+            onCancel={() => setActivePage(stockTransferReturnPage)}
+          />
+        )
       case 'Edit Stock Transfers':
         return (
           <EditStockTransfer
@@ -586,17 +773,17 @@ function App() {
   return (
     <div className="flex min-h-screen bg-white">
       {activeBusiness === 'Admin' ? (
-        <AdminSidebar onNavigate={setActivePage} />
+        <AdminSidebar activePage={sidebarActivePage} onNavigate={setActivePage} />
       ) : activeBusiness === 'Electronics & MobileShop' ? (
-        <ElectronicsSidebar onNavigate={setActivePage} />
+        <ElectronicsSidebar activePage={sidebarActivePage} onNavigate={setActivePage} />
       ) : activeBusiness === 'Multi-Service Center' ? (
-        <MSCSideBar onNavigate={setActivePage} />
+        <MSCSideBar activePage={sidebarActivePage} onNavigate={setActivePage} />
       ) : activeBusiness === 'Restaurant' ? (
-        <RestaurantSidebar onNavigate={setActivePage} />
+        <RestaurantSidebar activePage={sidebarActivePage} onNavigate={setActivePage} />
       ) : activeBusiness === 'Super Market' ? (
-        <SuperMarketSidebar onNavigate={setActivePage} />
+        <SuperMarketSidebar activePage={sidebarActivePage} onNavigate={setActivePage} />
       ) : (
-        <PharmacySidebar onNavigate={setActivePage} />
+        <PharmacySidebar activePage={sidebarActivePage} onNavigate={setActivePage} />
       )}
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <TopNavBar
