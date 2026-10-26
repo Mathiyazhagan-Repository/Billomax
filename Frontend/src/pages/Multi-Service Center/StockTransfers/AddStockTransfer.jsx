@@ -1,6 +1,7 @@
 
 import React, { useMemo, useState } from "react";
 import {
+  ArrowLeft,
   ArrowLeftRight,
   CalendarDays,
   Hash,
@@ -13,7 +14,6 @@ import {
   Info,
   Plus,
   Save,
-  X,
   IndianRupee,
 } from "lucide-react";
 
@@ -201,14 +201,26 @@ export default function AddStockTransfer({
               </p>
             </div>
 
-            <div className="flex h-12 w-fit items-center gap-3 rounded-xl border border-[#F2E8DE] bg-white px-4 shadow-[0_4px_12px_rgba(224,133,65,0.07)]">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#FFF1E5] text-[#F04A13]">
-                <ArrowLeftRight size={19} />
-              </span>
-              <span className="text-sm font-semibold text-[#19366F]">
-              New transfer
-            </span>
-          </div>
+            <div className="flex flex-wrap items-center gap-3">
+              {onCancel && (
+                <button
+                  type="button"
+                  onClick={onCancel}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#E8EDF4] bg-white px-5 py-3 text-sm font-bold text-[#19366F] transition hover:bg-[#FFF1E5]"
+                >
+                  <ArrowLeft size={17} />
+                  Back
+                </button>
+              )}
+              <div className="flex h-12 w-fit items-center gap-3 rounded-xl border border-[#F2E8DE] bg-white px-4 shadow-[0_4px_12px_rgba(224,133,65,0.07)]">
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#FFF1E5] text-[#F04A13]">
+                  <ArrowLeftRight size={19} />
+                </span>
+                <span className="text-sm font-semibold text-[#19366F]">
+                  New transfer
+                </span>
+              </div>
+            </div>
         </header>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -583,8 +595,8 @@ export default function AddStockTransfer({
                   onClick={onCancel}
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#E8EDF4] bg-white px-5 py-3 text-sm font-bold text-[#19366F] transition hover:bg-[#FFF1E5]"
                 >
-                  <X size={17} />
-                  Cancel
+                  <ArrowLeft size={17} />
+                  Back
                 </button>
               )}
 

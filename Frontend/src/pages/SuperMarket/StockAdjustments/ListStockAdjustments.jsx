@@ -580,15 +580,6 @@ export default function ListStockAdjustments({ openAddOnMount = false, onAdd }) 
                 Browse adjustment details and manage records.
               </p>
             </div>
-            <div className="no-print">
-              <ActionButton
-                icon={Plus}
-                primary
-                onClick={onAdd}
-              >
-                Add
-              </ActionButton>
-            </div>
           </div>
 
           <div className="no-print flex flex-col gap-4 border-b border-[#F2E8DE] bg-[#FFFCF8] px-5 py-4 sm:px-6 xl:flex-row xl:items-center xl:justify-between">
