@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
+import logo from "../assets/logo.png";
 import {
-  Pill,
   Home,
   Users,
   Contact,
@@ -156,19 +156,18 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
   return (
     <aside className="sticky top-0 flex h-screen w-[224px] shrink-0 flex-col self-start border-r border-[#F0EAE3] bg-[#FFFCF8] px-3 py-4 font-sans">
       {/* Restaurant Header */}
-      <div className="mb-5 flex h-[40px] items-center justify-center gap-2">
-        <Pill
-          size={31}
-          strokeWidth={3.5}
-          className="shrink-0 rotate-[-42deg] text-[#FF790F]"
+      <div className="mb-5 flex h-[40px] items-center gap-2 px-1">
+        <img
+          src={logo}
+          alt="Web Digital Mantra Logo"
+          className="h-8 w-auto shrink-0 object-contain"
         />
 
-        <span className="whitespace-nowrap text-[16px] font-extrabold tracking-[-0.6px] text-[#10265F]">
+        <span
+          className="min-w-0 flex-1 truncate text-[14px] font-bold tracking-[-0.4px] text-[#10265F]"
+          title="Restaurant"
+        >
           Restaurant
-        </span>
-
-        <span className="ml-auto rounded-[7px] bg-[#19A83B] px-[9px] py-[3px] text-[10px] font-bold leading-none text-white">
-          Rx
         </span>
       </div>
 

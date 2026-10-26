@@ -249,7 +249,7 @@ export default function ExpenseCategory() {
               setEditingCategory(null);
               setModalOpen(true);
             }}
-            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-lg bg-[#FF711A] px-4 text-xs font-bold text-white shadow-[0_4px_10px_rgba(255,113,26,0.18)] transition hover:bg-[#F04A13]"
+            className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-[14px] bg-[#FF621F] px-6 py-2.5 text-[15px] font-bold text-white shadow-[0_4px_14px_rgba(255,98,31,0.28)] transition-all hover:bg-[#E95510] hover:shadow-[0_6px_18px_rgba(255,98,31,0.38)] active:translate-y-px"
           >
             <Plus size={15} />
             Add Category

@@ -96,6 +96,7 @@ export default function Login({ onSelectBusiness }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    onSelectBusiness?.(selectedBusiness || "Pharmacy");
   };
 
   return (

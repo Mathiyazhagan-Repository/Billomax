@@ -150,7 +150,7 @@ function TaxModal({ mode, initial, onClose, onSave }) {
   };
 
   const inputClass =
-    "mt-1.5 h-11 w-full rounded-lg border border-[#E8EDF4] px-3 text-sm text-[#19366F] outline-none focus:border-[#FF8A37] focus:ring-2 focus:ring-[#FF8A37]/10";
+    "mt-1.5 h-11 w-full rounded-xl border border-[#DCE4EF] bg-white px-3.5 text-sm text-[#102454] outline-none transition focus:border-[#FF711A] focus:ring-[3px] focus:ring-[#FF711A]/15";
 
   return (
     <div
@@ -233,13 +233,13 @@ function TaxModal({ mode, initial, onClose, onSave }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg border border-[#E8EDF4] px-5 py-2.5 text-sm font-bold text-[#19366F] transition hover:bg-[#FFF1E5]"
+            className="rounded-[12px] border border-[#DCE4EF] bg-white px-6 py-2.5 text-sm font-bold text-[#102454] transition-all hover:bg-[#F8FAFC] hover:border-[#CBD5E1]"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="rounded-lg bg-[#FF711A] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#F04A13] hover:shadow-md"
+            className="rounded-[12px] bg-[#FF621F] px-6 py-2.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(255,98,31,0.25)] transition-all hover:bg-[#E95510] hover:shadow-[0_6px_18px_rgba(255,98,31,0.35)]"
           >
             {editing ? "Save Changes" : "Add"}
           </button>
@@ -384,9 +384,9 @@ function TaxTable({
         <button
           type="button"
           onClick={() => setModal({ row: null })}
-          className="inline-flex min-h-10 items-center justify-center gap-2 self-start rounded-lg bg-[#FF711A] px-5 py-2.5 text-sm font-bold text-white shadow-[0_4px_10px_rgba(255,113,26,0.18)] transition hover:-translate-y-0.5 hover:bg-[#F04A13] hover:shadow-md sm:self-auto"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[14px] bg-[#FF621F] px-6 py-2.5 text-[15px] font-bold text-white shadow-[0_4px_14px_rgba(255,98,31,0.28)] transition-all hover:bg-[#E95510] hover:shadow-[0_6px_18px_rgba(255,98,31,0.38)] active:translate-y-px sm:self-auto"
         >
-          <span className="text-xl font-normal leading-none">+</span>
+          <Plus size={18} />
           Add
         </button>
       </div>

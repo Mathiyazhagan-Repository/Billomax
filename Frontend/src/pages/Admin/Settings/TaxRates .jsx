@@ -156,7 +156,7 @@ function TaxModal({ mode, initial, rates, onClose, onSave }) {
   const editing = Boolean(initial);
 
   const inputClass =
-    "mt-1.5 h-11 w-full rounded-xl border border-[#E6EDF5] bg-white px-3 text-sm text-[#19366F] outline-none transition placeholder:text-slate-400 focus:border-[#FF812B] focus:ring-2 focus:ring-orange-100";
+    "mt-1.5 h-11 w-full rounded-xl border border-[#DCE4EF] bg-white px-3.5 text-sm text-[#102454] outline-none transition placeholder:text-slate-400 focus:border-[#FF711A] focus:ring-[3px] focus:ring-[#FF711A]/15";
 
   const submit = (event) => {
     event.preventDefault();
@@ -313,13 +313,13 @@ function TaxModal({ mode, initial, rates, onClose, onSave }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl border border-[#E6EDF5] px-5 py-2.5 text-sm font-bold text-[#19366F] transition hover:bg-white"
+            className="rounded-[12px] border border-[#DCE4EF] bg-white px-6 py-2.5 text-sm font-bold text-[#102454] transition-all hover:bg-[#F8FAFC] hover:border-[#CBD5E1]"
           >
             Close
           </button>
           <button
             type="submit"
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6814] to-[#FF812B] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:shadow-md"
+            className="inline-flex items-center justify-center gap-2 rounded-[12px] bg-[#FF621F] px-6 py-2.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(255,98,31,0.25)] transition-all hover:bg-[#E95510] hover:shadow-[0_6px_18px_rgba(255,98,31,0.35)]"
           >
             <Check size={16} />
             {editing ? "Save Changes" : "Save"}
@@ -484,7 +484,7 @@ function TaxTable({
         <button
           type="button"
           onClick={() => setModal({ row: null })}
-          className="inline-flex min-h-11 items-center justify-center gap-2 self-start rounded-xl bg-gradient-to-r from-[#FF6814] to-[#FF812B] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:brightness-95 hover:shadow-md lg:self-auto"
+          className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[14px] bg-[#FF621F] px-6 py-2.5 text-[15px] font-bold text-white shadow-[0_4px_14px_rgba(255,98,31,0.28)] transition-all hover:bg-[#E95510] hover:shadow-[0_6px_18px_rgba(255,98,31,0.38)] active:translate-y-px lg:self-auto"
         >
           <Plus size={17} />
           Add

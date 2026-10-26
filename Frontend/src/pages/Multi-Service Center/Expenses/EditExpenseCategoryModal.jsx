@@ -60,7 +60,7 @@ export default function EditExpenseCategoryModal({
   };
 
   const inputClass =
-    "mt-2 w-full rounded-lg border border-[#D9E0EA] bg-white px-3 py-2.5 text-sm text-[#10234F] outline-none transition placeholder:text-slate-400 focus:border-[#FF812B] focus:ring-2 focus:ring-orange-100";
+    "mt-1.5 w-full rounded-xl border border-[#DCE4EF] bg-white px-3.5 py-2.5 text-sm text-[#102454] outline-none transition placeholder:text-slate-400 focus:border-[#FF711A] focus:ring-[3px] focus:ring-[#FF711A]/15";
 
   return (
     <div
@@ -190,7 +190,7 @@ export default function EditExpenseCategoryModal({
             <button
               type="submit"
               disabled={saving || !formData.name.trim()}
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF6814] to-[#FF812B] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60"
+              className="inline-flex items-center gap-2 rounded-[12px] bg-[#FF621F] px-6 py-2.5 text-sm font-bold text-white shadow-[0_4px_14px_rgba(255,98,31,0.25)] transition-all hover:bg-[#E95510] hover:shadow-[0_6px_18px_rgba(255,98,31,0.35)] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <Save size={16} />
               {saving
@@ -204,7 +204,7 @@ export default function EditExpenseCategoryModal({
               type="button"
               onClick={onClose}
               disabled={saving}
-              className="rounded-xl bg-[#10234F] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1B376E] disabled:opacity-50"
+              className="rounded-[12px] border border-[#DCE4EF] bg-white px-6 py-2.5 text-sm font-bold text-[#102454] transition-all hover:bg-[#F8FAFC] hover:border-[#CBD5E1] disabled:opacity-50"
             >
               Cancel
             </button>

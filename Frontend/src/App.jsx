@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { useState } from 'react'
 import { setActiveBusinessStorage } from './utils/businessStorage.js'
-=======
-import { useEffect, useState } from 'react'
->>>>>>> refs/remotes/origin/main
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './App.css'
 import AdminSidebar from './component/Admin-Sidebar.jsx'
 import ElectronicsSidebar from './component/ElectronicsSidebar.jsx'
@@ -233,6 +229,8 @@ function App() {
   const [activePage, setActivePage] = useState('Home')
   const [selectedStockTransfer, setSelectedStockTransfer] = useState(null)
   const [activeBusiness, setActiveBusiness] = useState(null)
+  const pageContentRef = useRef(null)
+  const appFooterRef = useRef(null)
   const [stockTransferReturnPage, setStockTransferReturnPage] = useState(
     'List Stock Transfers'
   )
@@ -749,6 +747,18 @@ function App() {
     }
   })()
 
+  useLayoutEffect(() => {
+    const pageFooters = pageContentRef.current?.querySelectorAll('footer') ?? []
+    const hasBrandedFooter = Array.from(pageFooters).some((footer) => {
+      const text = footer.textContent ?? ''
+      return text.includes('Billomax') && text.includes('Copyright')
+    })
+
+    if (appFooterRef.current) {
+      appFooterRef.current.hidden = hasBrandedFooter
+    }
+  }, [activePage, activeBusiness])
+
   if (!activeBusiness) {
     return (
       <Login
@@ -761,10 +771,25 @@ function App() {
             business === 'Super Market' ||
             business === 'Electronics & MobileShop'
           ) {
-            setActivePage('Home')
             setActiveBusinessStorage(business)
             setActiveBusiness(business)
+            setActivePage('POS')
           }
+        }}
+      />
+    )
+  }
+
+  if (activePage === 'POS') {
+    return (
+      <PharmacyPOS
+        activeBusiness={activeBusiness}
+        onNavigate={setActivePage}
+        onLogout={() => {
+          setActivePage('Home')
+          setSelectedStockTransfer(null)
+          setActiveBusinessStorage(null)
+          setActiveBusiness(null)
         }}
       />
     )
@@ -788,6 +813,7 @@ function App() {
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         <TopNavBar
           businessName={activeBusiness}
+          onNavigate={setActivePage}
           onLogout={() => {
             setActivePage('Home')
             setSelectedStockTransfer(null)
@@ -796,6 +822,7 @@ function App() {
           }}
         />
         <div
+          ref={pageContentRef}
           className={`min-h-0 flex-1 ${
             businessTablePages.includes(activePage)
               ? 'pharmacy-report-table-theme'
@@ -804,6 +831,14 @@ function App() {
         >
           {pageContent}
         </div>
+        <footer
+          ref={appFooterRef}
+          className="border-t border-[#F0EAE3] bg-[#FFFAF5] px-4 py-3 text-center text-xs leading-5 text-[#8798AD]"
+        >
+          Billomax - Your Trusted Partner in Billing &amp; Invoicing - Your
+          Trusted Partner in Billing &amp; Invoicing - V6.3 | Copyright © 2026
+          All rights reserved.
+        </footer>
       </div>
     </div>
   )

@@ -533,7 +533,7 @@ export default function AdministerBackup({
                     value={backupName}
                     onChange={(event) => setBackupName(event.target.value)}
                     placeholder="Enter backup name"
-                    className="mt-1.5 h-11 w-full rounded-xl border border-[#E6EDF5] bg-white px-3 text-sm text-[#19366F] outline-none transition placeholder:text-slate-400 focus:border-[#FF812B] focus:ring-2 focus:ring-orange-100"
+                    className="mt-1.5 h-11 w-full rounded-xl border border-[#DCE4EF] bg-white px-3.5 text-sm text-[#102454] outline-none transition placeholder:text-slate-400 focus:border-[#FF711A] focus:ring-[3px] focus:ring-[#FF711A]/15"
                   />
                 </label>
 
@@ -564,7 +564,7 @@ export default function AdministerBackup({
                   type="button"
                   onClick={() => setShowAddBackup(false)}
                   disabled={creating}
-                  className="rounded-xl border border-[#E6EDF5] px-5 py-2.5 text-sm font-bold text-[#19366F] transition hover:bg-white disabled:opacity-50"
+                  className="rounded-[12px] border border-[#DCE4EF] bg-white px-6 py-2.5 text-sm font-bold text-[#102454] transition-all hover:bg-[#F8FAFC] hover:border-[#CBD5E1] disabled:opacity-50"
                 >
                   Cancel
                 </button>
