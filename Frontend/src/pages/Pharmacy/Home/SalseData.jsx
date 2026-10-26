@@ -60,9 +60,9 @@ const financialYearData = [
 ];
 
 const chartColors = {
-  pharmacy: "#1680FF",
-  soojanya: "#17375E",
-  allLocations: "#FF790B",
+  pharmacy: "#2D8DFF",
+  soojanya: "#2E4B6E",
+  allLocations: "#FF8623",
 };
 
 const legendNames = {
@@ -76,16 +76,16 @@ function CustomTooltip({ active, payload, label }) {
 
   return (
     <div className="rounded-xl border border-[#E6EAF1] bg-white px-4 py-3 shadow-lg">
-      <p className="mb-2 text-sm font-bold text-[#183253]">{label}</p>
-      {payload.map((item, index) => (
+      <p className="mb-2 text-sm font-semibold text-[#2F4664]">{label}</p>
+      {payload.map((item) => (
         <div
-          key={`${item.dataKey}-${index}`}
+          key={item.dataKey}
           className="flex items-center justify-between gap-5 py-1 text-xs"
         >
           <span style={{ color: item.color }}>
             {legendNames[item.dataKey]}
           </span>
-          <span className="font-bold text-[#173253]">
+          <span className="font-semibold text-[#2E4664]">
             {Number(item.value).toLocaleString("en-IN")} K
           </span>
         </div>
@@ -99,13 +99,13 @@ function ChartLegend({ payload }) {
 
   return (
     <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 px-2 pb-2 pt-1 sm:gap-x-6">
-      {payload.map((item, index) => (
-        <div key={`${item.dataKey}-${index}`} className="flex items-center gap-2">
+      {payload.map((item) => (
+        <div key={item.dataKey} className="flex items-center gap-2">
           <span
             className="h-[3px] w-6 rounded-full"
             style={{ backgroundColor: item.color }}
           />
-          <span className="text-[11px] font-medium text-[#183253] sm:text-xs">
+          <span className="text-[11px] font-medium text-[#2F4664] sm:text-xs">
             {legendNames[item.dataKey]}
           </span>
         </div>
@@ -126,15 +126,15 @@ function SalesChartCard({
   showArea = false,
 }) {
   const isOrange = theme === "orange";
-  const stroke = isOrange ? "#FF812B" : "#3996FF";
+  const stroke = isOrange ? "#FF8E40" : "#4DA0FF";
   const gradientId = `sales-area-${dataKey}`;
 
   return (
     <section
       className={`min-w-0 overflow-hidden rounded-2xl border p-3 shadow-[0_6px_18px_rgba(30,50,80,0.04)] ${
         isOrange
-          ? "border-[#FF9A55]/70 bg-gradient-to-br from-[#FFFAF5] to-white"
-          : "border-[#71B1FF]/70 bg-gradient-to-br from-[#F5F9FF] to-white"
+          ? "border-[#FFA466]/70 bg-gradient-to-br from-[#FFFAF5] to-white"
+          : "border-[#7FB9FF]/70 bg-gradient-to-br from-[#F5F9FF] to-white"
       }`}
     >
       {/* Card heading */}
@@ -147,13 +147,13 @@ function SalesChartCard({
           <Icon
             size={22}
             strokeWidth={2.5}
-            className={isOrange ? "text-[#F77712]" : "text-[#1680FF]"}
+            className={isOrange ? "text-[#F8852A]" : "text-[#2D8DFF]"}
           />
         </div>
 
-        <h2 className="app-section-title text-[#112D53]">
+        <h2 className="app-section-title text-[#294264]">
           {title}{" "}
-          <span className={isOrange ? "text-[#F56B12]" : "text-[#1680FF]"}>
+          <span className={isOrange ? "text-[#F67A2A]" : "text-[#2D8DFF]"}>
             {highlight}
           </span>
         </h2>
@@ -201,7 +201,7 @@ function SalesChartCard({
             <XAxis
               dataKey={dataKey}
               tick={{
-                fill: "#647E9E",
+                fill: "#748BA8",
                 fontSize: 9,
               }}
               angle={-42}
@@ -217,7 +217,7 @@ function SalesChartCard({
               domain={[0, yMax]}
               ticks={yTicks}
               tick={{
-                fill: "#7187A3",
+                fill: "#7F93AC",
                 fontSize: 10,
               }}
               tickLine={false}
@@ -227,7 +227,7 @@ function SalesChartCard({
                 value: "Total Sales (K)",
                 angle: -90,
                 position: "insideLeft",
-                fill: "#637E9F",
+                fill: "#738BA9",
                 fontSize: 10,
                 offset: 0,
               }}

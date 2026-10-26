@@ -51,19 +51,19 @@ export default function Remainders() {
               <BellRing
                 size={24}
                 strokeWidth={2.4}
-                className="text-[#FF690F]"
+                className="text-[#FF7827]"
               />
             </div>
 
             <div className="min-w-0">
-              <h2 className="app-section-title text-[#10294F]">
+              <h2 className="app-section-title text-[#283E61]">
                 Customers{" "}
-                <span className="text-[#FF6814]">
+                <span className="text-[#FF772C]">
                   Due For Reminder
                 </span>
               </h2>
 
-              <p className="app-description mt-1 text-[#6B829D]">
+              <p className="app-description mt-1 text-[#7A8EA7]">
                 Customers who likely completed medicine and have not
                 returned yet.
               </p>
@@ -73,7 +73,7 @@ export default function Remainders() {
           <button
             type="button"
             onClick={() => setShowReport(true)}
-            className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#FF6814] to-[#FF7417] px-3.5 text-[11px] font-bold text-white shadow-[0_4px_10px_rgba(255,105,20,0.15)] transition hover:brightness-105 sm:text-[13px]"
+            className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#FF772C] to-[#FF822E] px-3.5 text-[11px] font-semibold text-white shadow-[0_4px_10px_rgba(255,105,20,0.15)] transition hover:brightness-105 sm:text-[13px]"
           >
             View Full Report
             <ArrowRight size={15} />
@@ -84,7 +84,7 @@ export default function Remainders() {
         <div className="overflow-x-auto rounded-xl border border-[#F8EEE4]">
           <table className="w-full min-w-[850px] table-auto border-collapse text-left">
             <thead>
-              <tr className="bg-[#FFF8F0] text-[#152C4C]">
+              <tr className="bg-[#FFF8F0] text-[#2C415E]">
                 <th className="app-table-heading border-r border-[#F6EEE6] px-3.5 py-3.5">
                   Customer
                 </th>
@@ -117,27 +117,27 @@ export default function Remainders() {
                     index % 2 === 0 ? "bg-white" : "bg-[#FFFCF8]"
                   }`}
                 >
-                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#29486F]">
+                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#3E5A7D]">
                     {item.customer}
                   </td>
 
-                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#29486F]">
+                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#3E5A7D]">
                     {item.mobile}
                   </td>
 
-                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#29486F]">
+                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#3E5A7D]">
                     {item.lastVisit}
                   </td>
 
-                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#29486F]">
+                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#3E5A7D]">
                     {item.expectedCompletion}
                   </td>
 
-                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#29486F]">
+                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#3E5A7D]">
                     {item.daysSinceCompletion}
                   </td>
 
-                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#29486F]">
+                  <td className="app-table-cell whitespace-nowrap border-r border-t border-[#F6EEE6] px-3.5 py-3.5 text-[#3E5A7D]">
                     {item.medicine}
                   </td>
 
@@ -145,7 +145,7 @@ export default function Remainders() {
                     <button
                       type="button"
                       onClick={() => setSelectedCustomer(item)}
-                      className="inline-flex min-w-[120px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#FF781F] px-3 py-2 text-[11px] font-bold text-[#FF6814] transition hover:bg-[#FFF0E4]"
+                      className="inline-flex min-w-[120px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#FF8635] px-3 py-2 text-[11px] font-semibold text-[#FF772C] transition hover:bg-[#FFF0E4]"
                     >
                       <span>View History</span>
                     </button>
@@ -157,7 +157,7 @@ export default function Remainders() {
                 <tr>
                   <td
                     colSpan={7}
-                    className="px-4 py-6 text-center text-xs text-[#7A8CA4]"
+                    className="px-4 py-6 text-center text-xs text-[#8798AD]"
                   >
                     No customers due for reminders.
                   </td>
@@ -171,7 +171,7 @@ export default function Remainders() {
       {/* Customer history dialog */}
       {selectedCustomer && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#10294F]/40 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#283E61]/40 p-4"
           onClick={() => setSelectedCustomer(null)}
         >
           <div
@@ -182,34 +182,34 @@ export default function Remainders() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-5 flex items-center gap-3">
-              <History className="text-[#FF6814]" size={25} />
+              <History className="text-[#FF772C]" size={25} />
               <h3
                 id="history-title"
-                className="text-xl font-bold text-[#10294F]"
+                className="text-xl font-semibold text-[#283E61]"
               >
                 Customer History
               </h3>
             </div>
 
-            <div className="space-y-4 text-sm text-[#526B88]">
+            <div className="space-y-4 text-sm text-[#637A94]">
               <p>
-                <strong className="text-[#10294F]">Customer:</strong>{" "}
+                <strong className="text-[#283E61]">Customer:</strong>{" "}
                 {selectedCustomer.customer}
               </p>
               <p>
-                <strong className="text-[#10294F]">Mobile:</strong>{" "}
+                <strong className="text-[#283E61]">Mobile:</strong>{" "}
                 {selectedCustomer.mobile}
               </p>
               <p>
-                <strong className="text-[#10294F]">Last visit:</strong>{" "}
+                <strong className="text-[#283E61]">Last visit:</strong>{" "}
                 {selectedCustomer.lastVisit}
               </p>
               <p>
-                <strong className="text-[#10294F]">Medicine:</strong>{" "}
+                <strong className="text-[#283E61]">Medicine:</strong>{" "}
                 {selectedCustomer.medicine}
               </p>
               <p>
-                <strong className="text-[#10294F]">
+                <strong className="text-[#283E61]">
                   Expected completion:
                 </strong>{" "}
                 {selectedCustomer.expectedCompletion}
@@ -219,7 +219,7 @@ export default function Remainders() {
             <button
               type="button"
               onClick={() => setSelectedCustomer(null)}
-              className="mt-6 w-full rounded-xl bg-[#FF6814] px-5 py-3 font-semibold text-white hover:bg-[#ED5A0B]"
+              className="mt-6 w-full rounded-xl bg-[#FF772C] px-5 py-3 font-semibold text-white hover:bg-[#EF6A23]"
             >
               Close
             </button>
@@ -230,7 +230,7 @@ export default function Remainders() {
       {/* Full report dialog */}
       {showReport && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#10294F]/40 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#283E61]/40 p-4"
           onClick={() => setShowReport(false)}
         >
           <div
@@ -239,17 +239,17 @@ export default function Remainders() {
             className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-xl font-bold text-[#10294F]">
+            <h3 className="text-xl font-semibold text-[#283E61]">
               Customers Due For Reminder
             </h3>
-            <p className="mt-3 text-sm text-[#6B829D]">
+            <p className="mt-3 text-sm text-[#7A8EA7]">
               Total customers requiring follow-up:{" "}
               <strong>{reminders.length}</strong>
             </p>
             <button
               type="button"
               onClick={() => setShowReport(false)}
-              className="mt-6 w-full rounded-xl bg-[#FF6814] px-5 py-3 font-semibold text-white hover:bg-[#ED5A0B]"
+              className="mt-6 w-full rounded-xl bg-[#FF772C] px-5 py-3 font-semibold text-white hover:bg-[#EF6A23]"
             >
               Close Report
             </button>

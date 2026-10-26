@@ -20,14 +20,14 @@ body {
 @layer components {
   .app-page-title {
     font-size: var(--app-page-title-size);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.04em;
   }
 
   .app-section-title {
     font-size: var(--app-section-title-size);
-    font-weight: 800;
+    font-weight: 600;
     line-height: 1.25;
     letter-spacing: -0.025em;
   }
@@ -39,10 +39,76 @@ body {
 
   .app-table-heading {
     font-size: var(--app-small-size);
-    font-weight: 800;
+    font-weight: 600;
   }
 
   .app-table-cell {
     font-size: var(--app-table-size);
   }
+
+  .app-themed-scrollbar {
+    scrollbar-color: #9bb5d1 #f5f7fa;
+    scrollbar-width: thin;
+  }
+
+  .app-themed-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .app-themed-scrollbar::-webkit-scrollbar-track {
+    border-radius: 9999px;
+    background: #f5f7fa;
+  }
+
+  .app-themed-scrollbar::-webkit-scrollbar-thumb {
+    border: 2px solid #f5f7fa;
+    border-radius: 9999px;
+    background: #9bb5d1;
+  }
+
+  .app-themed-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #f5a15d;
+  }
+
+  .app-themed-scrollbar::-webkit-scrollbar-corner {
+    background: #f5f7fa;
+  }
+}
+
+.pharmacy-report-table-theme table thead,
+.pharmacy-report-table-theme table thead tr {
+  background-color: #fff7ef;
+  color: #19366f;
+}
+
+.pharmacy-report-table-theme table thead th {
+  border-color: #f2e8de;
+  color: #19366f;
+}
+
+.pharmacy-report-table-theme table tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.pharmacy-report-table-theme table tbody tr:nth-child(even) {
+  background-color: #fffcf8;
+}
+
+.pharmacy-report-table-theme table tbody tr:hover {
+  background-color: #fff1e5;
+}
+
+.pharmacy-report-table-theme table tbody td {
+  border-color: #f2e8de;
+  color: #19366f;
+}
+
+.pharmacy-report-table-theme table tfoot tr {
+  background-color: #fff1e5;
+  color: #10234f;
+}
+
+.pharmacy-report-table-theme table tfoot td {
+  border-color: #f2e8de;
 }

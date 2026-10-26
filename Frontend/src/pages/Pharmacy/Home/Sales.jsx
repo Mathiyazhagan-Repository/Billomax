@@ -82,12 +82,12 @@ function LocationSelect({ value, onChange }) {
     <div className="relative w-full sm:w-[180px]">
       <MapPin
         size={16}
-        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#425779]"
+        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#556886]"
       />
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-8 w-full appearance-none rounded-lg border border-[#E8EDF5] bg-white pl-8 pr-8 text-xs font-medium text-[#253858] shadow-sm outline-none focus:border-blue-400"
+        className="h-8 w-full appearance-none rounded-lg border border-[#E8EDF5] bg-white pl-8 pr-8 text-xs font-medium text-[#3B4C69] shadow-sm outline-none focus:border-blue-400"
       >
         <option value="">Select location</option>
         <option value="Pharmacy">Pharmacy</option>
@@ -95,7 +95,7 @@ function LocationSelect({ value, onChange }) {
       </select>
       <ChevronDown
         size={15}
-        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#253858]"
+        className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#3B4C69]"
       />
     </div>
   );
@@ -105,7 +105,7 @@ function ExportToolbar({ color, rows, filename, onColumns, onPdf }) {
   const isOrange = color === "orange";
 
   const buttonClass = `inline-flex h-8 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-2.5 text-[11px] font-semibold text-white shadow-sm transition hover:brightness-105 ${
-    isOrange ? "bg-[#FF711A]" : "bg-[#1475F8]"
+    isOrange ? "bg-[#FF7F31]" : "bg-[#2C83F9]"
   }`;
 
   return (
@@ -162,11 +162,11 @@ function Pagination({ count, page, setPage, color }) {
   const pages = Math.max(1, Math.ceil(count / 5));
   const activeClass =
     color === "orange"
-      ? "bg-[#FF711A]"
-      : "bg-[#1475F8]";
+      ? "bg-[#FF7F31]"
+      : "bg-[#2C83F9]";
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 text-xs text-[#647DA0]">
+    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 text-xs text-[#748AAA]">
       <span>
         Showing {count ? (page - 1) * 5 + 1 : 0} to{" "}
         {Math.min(page * 5, count)} of {count} entries
@@ -177,7 +177,7 @@ function Pagination({ count, page, setPage, color }) {
           type="button"
           disabled={page === 1}
           onClick={() => setPage((p) => Math.max(1, p - 1))}
-          className="flex h-8 items-center gap-1 rounded-lg border border-[#DFE7F2] bg-white px-2.5 text-[#8A9BB8] disabled:opacity-60"
+          className="flex h-8 items-center gap-1 rounded-lg border border-[#DFE7F2] bg-white px-2.5 text-[#96A5BF] disabled:opacity-60"
         >
           <ChevronLeft size={15} />
           Previous
@@ -186,7 +186,7 @@ function Pagination({ count, page, setPage, color }) {
         {count > 0 && (
           <button
             type="button"
-            className={`h-8 min-w-8 rounded-lg px-2.5 font-bold text-white ${activeClass}`}
+            className={`h-8 min-w-8 rounded-lg px-2.5 font-semibold text-white ${activeClass}`}
           >
             {page}
           </button>
@@ -196,7 +196,7 @@ function Pagination({ count, page, setPage, color }) {
           type="button"
           disabled={page >= pages}
           onClick={() => setPage((p) => Math.min(pages, p + 1))}
-          className="flex h-8 items-center gap-1 rounded-lg border border-[#DFE7F2] bg-white px-2.5 text-[#8A9BB8] disabled:opacity-60"
+          className="flex h-8 items-center gap-1 rounded-lg border border-[#DFE7F2] bg-white px-2.5 text-[#96A5BF] disabled:opacity-60"
         >
           Next
           <ChevronRight size={15} />
@@ -220,27 +220,27 @@ function EmptyState({ type, color, title, description }) {
           <CirclePlus
             size={28}
             strokeWidth={1.8}
-            className="text-[#FF9B45]"
+            className="text-[#FFA558]"
           />
         ) : (
           <div className="relative">
             <ReceiptText
               size={26}
               strokeWidth={1.8}
-              className={isOrange ? "text-[#FFB36B]" : "text-[#8BB9FF]"}
+              className={isOrange ? "text-[#FFBB7A]" : "text-[#97C0FF]"}
             />
             <X
               size={14}
               className={`absolute -bottom-1 -right-2 rounded-full text-white ${
-                isOrange ? "bg-[#FF711A]" : "bg-[#1475F8]"
+                isOrange ? "bg-[#FF7F31]" : "bg-[#2C83F9]"
               }`}
             />
           </div>
         )}
       </div>
 
-      <p className="text-[13px] font-bold text-[#152C53]">{title}</p>
-      <p className="mt-1 text-[11px] text-[#6F86A8]">{description}</p>
+      <p className="text-[13px] font-semibold text-[#2C4164]">{title}</p>
+      <p className="mt-1 text-[11px] text-[#7D92B1]">{description}</p>
     </div>
   );
 }
@@ -266,14 +266,14 @@ function Panel({
     <section
       className={`relative min-w-0 overflow-hidden rounded-2xl border bg-gradient-to-br p-3.5 shadow-[0_6px_18px_rgba(33,53,85,0.035)] ${
         isOrange
-          ? "border-[#FF7D31] from-[#FFFAF5] to-white"
-          : "border-[#3989FF] from-[#F2F7FF] to-white"
+          ? "border-[#FF8A46] from-[#FFFAF5] to-white"
+          : "border-[#4D95FF] from-[#F2F7FF] to-white"
       }`}
     >
       {/* Decorative background waves */}
       <div
         className={`pointer-events-none absolute -right-8 top-16 h-24 w-28 rounded-full opacity-40 blur-2xl ${
-          isOrange ? "bg-[#FFD5B1]" : "bg-[#B9D6FF]"
+          isOrange ? "bg-[#FFD9B9]" : "bg-[#C0DAFF]"
         }`}
       />
 
@@ -294,14 +294,14 @@ function Panel({
             </div>
 
             <div className="min-w-0">
-              <h2 className="app-section-title flex flex-wrap items-center gap-1 text-[#10264D]">
+              <h2 className="app-section-title flex flex-wrap items-center gap-1 text-[#283C5F]">
                 {title}
-                <span className={isOrange ? "text-[#FF6814]" : "text-[#1475F8]"}>
+                <span className={isOrange ? "text-[#FF772C]" : "text-[#2C83F9]"}>
                   {highlight}
                 </span>
                 <Info size={14} className="ml-1 text-[#0BB9E9]" />
               </h2>
-              <p className="app-description mt-1 text-[#627C9E]">
+              <p className="app-description mt-1 text-[#7289A8]">
                 {description}
               </p>
             </div>
@@ -322,7 +322,7 @@ function Panel({
         </div>
 
         {showColumns && (
-          <div className="mb-3 rounded-xl border border-[#E3EAF4] bg-white p-2.5 text-[11px] text-[#526986]">
+          <div className="mb-3 rounded-xl border border-[#E3EAF4] bg-white p-2.5 text-[11px] text-[#637892]">
             <p className="font-semibold">Column visibility</p>
             <p className="mt-1">
               All available columns are currently displayed.
@@ -356,7 +356,7 @@ function DataTable({ columns, rows, color, empty, rowKey }) {
               {columns.map((column) => (
                 <th
                   key={column.key}
-                  className="app-table-heading whitespace-nowrap border border-[#E9EEF5] px-2.5 py-2.5 text-[#142B50]"
+                  className="app-table-heading whitespace-nowrap border border-[#E9EEF5] px-2.5 py-2.5 text-[#2C4062]"
                 >
                   {column.label}
                 </th>
@@ -373,7 +373,7 @@ function DataTable({ columns, rows, color, empty, rowKey }) {
                 {columns.map((column) => (
                   <td
                     key={column.key}
-                    className="app-table-cell whitespace-nowrap border border-[#E9EEF5] px-2.5 py-2.5 text-[#29466E]"
+                    className="app-table-cell whitespace-nowrap border border-[#E9EEF5] px-2.5 py-2.5 text-[#3E587C]"
                   >
                     {column.render
                       ? column.render(row)
@@ -453,7 +453,7 @@ export default function Sales() {
     alert("Connect a PDF generation library to export this report as PDF.");
 
   return (
-    <main className="bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
+    <main className="bg-[#FFFAF5] px-4 py-4 font-sans text-[#283961] sm:px-5">
       <div className="grid grid-cols-1 items-stretch gap-3 xl:grid-cols-2">
         {/* 1. Sales Payment Due */}
         <Panel
@@ -508,7 +508,7 @@ export default function Sales() {
                 key: "reference",
                 label: "REFERENCE NO.",
                 render: (row) => (
-                  <span className="font-medium text-[#1475F8]">
+                  <span className="font-medium text-[#2C83F9]">
                     {row.reference}
                   </span>
                 ),
@@ -583,7 +583,7 @@ export default function Sales() {
                 key: "stock",
                 label: "CURRENT STOCK",
                 render: (row) => (
-                  <span className={row.low ? "font-bold text-red-500" : ""}>
+                  <span className={row.low ? "font-semibold text-red-500" : ""}>
                     {row.stock}
                   </span>
                 ),
@@ -610,12 +610,12 @@ export default function Sales() {
           onPdf={pdfNotice}
         >
           <div className="mb-2 flex h-9 max-w-[255px] items-center gap-2 rounded-lg border border-[#E0E9F5] bg-white px-3">
-            <Search size={16} className="shrink-0 text-[#54719A]" />
+            <Search size={16} className="shrink-0 text-[#657FA4]" />
             <input
               value={orderSearch}
               onChange={(e) => setOrderSearch(e.target.value)}
               placeholder="Search ..."
-              className="w-full bg-transparent text-[13px] text-[#19365F] outline-none placeholder:text-[#8397B6]"
+              className="w-full bg-transparent text-[13px] text-[#304A6F] outline-none placeholder:text-[#8FA1BD]"
             />
           </div>
 
@@ -645,7 +645,7 @@ export default function Sales() {
       {/* Add Payment Modal */}
       {paymentItem && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#12284A]/40 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#2A3E5C]/40 p-4"
           onClick={() => setPaymentItem(null)}
         >
           <div
@@ -658,7 +658,7 @@ export default function Sales() {
             <div className="mb-5 flex items-center justify-between">
               <h2
                 id="payment-title"
-                className="text-xl font-bold text-[#142B50]"
+                className="text-xl font-semibold text-[#2C4062]"
               >
                 Add Purchase Payment
               </h2>
@@ -672,20 +672,20 @@ export default function Sales() {
               </button>
             </div>
 
-            <p className="mb-4 text-sm text-[#637B99]">
+            <p className="mb-4 text-sm text-[#7388A3]">
               Supplier:{" "}
-              <strong className="text-[#142B50]">
+              <strong className="text-[#2C4062]">
                 {paymentItem.supplier}
               </strong>
             </p>
-            <p className="mb-4 text-sm text-[#637B99]">
+            <p className="mb-4 text-sm text-[#7388A3]">
               Reference:{" "}
-              <strong className="text-[#142B50]">
+              <strong className="text-[#2C4062]">
                 {paymentItem.reference}
               </strong>
             </p>
 
-            <label className="block text-sm font-semibold text-[#142B50]">
+            <label className="block text-sm font-semibold text-[#2C4062]">
               Payment amount (₹)
               <input
                 type="number"
@@ -700,7 +700,7 @@ export default function Sales() {
             <button
               type="button"
               onClick={handlePayment}
-              className="mt-5 w-full rounded-xl bg-[#1475F8] px-4 py-3 font-semibold text-white hover:bg-blue-700"
+              className="mt-5 w-full rounded-xl bg-[#2C83F9] px-4 py-3 font-semibold text-white hover:bg-blue-700"
             >
               Confirm Payment
             </button>

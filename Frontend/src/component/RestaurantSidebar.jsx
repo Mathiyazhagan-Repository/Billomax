@@ -26,6 +26,13 @@ import {
   Tags,
   Utensils,
 } from "lucide-react";
+import {
+  contactsChildren,
+  productChildren,
+  purchaseChildren,
+  salesChildren,
+  userManagementChildren,
+} from "./businessOperationalMenus.js";
 
 const reportItems = [
   "Profit / Loss Report",
@@ -54,12 +61,12 @@ const reportItems = [
 
 const menuItems = [
   { name: "Home", icon: Home },
-  { name: "User Management", icon: Users, expandable: true },
-  { name: "Contacts", icon: Contact, expandable: true },
+  { name: "User Management", icon: Users, children: userManagementChildren },
+  { name: "Contacts", icon: Contact, children: contactsChildren },
   { name: "Wishes", icon: Building2, expandable: true },
-  { name: "Products", icon: Boxes, expandable: true },
-  { name: "Purchases", icon: ShoppingCart, expandable: true },
-  { name: "Sell", icon: Truck, expandable: true },
+  { name: "Products", icon: Boxes, children: productChildren },
+  { name: "Purchases", icon: ShoppingCart, children: purchaseChildren },
+  { name: "Sales", icon: Truck, children: salesChildren },
   {
     name: "Stock Transfers",
     icon: Truck,

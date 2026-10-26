@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { setActiveBusinessStorage } from './utils/businessStorage.js'
 import './App.css'
 import AdminSidebar from './component/Admin-Sidebar.jsx'
 import ElectronicsSidebar from './component/ElectronicsSidebar.jsx'
@@ -117,6 +118,86 @@ import EWayBill from './pages/Pharmacy/E-WayBill/E-WayBill.jsx'
 import ListStockTransfers from './pages/Pharmacy/StockTransfers/ListStockTransfers.jsx'
 import AddStockTransfer from './pages/Pharmacy/StockTransfers/AddStockTransfer.jsx'
 import EditStockTransfer from './pages/Pharmacy/StockTransfers/EditStockTransfer.jsx'
+import PharmacyUsers from './pages/Pharmacy/User_Management/Users.jsx'
+import PharmacyRoles from './pages/Pharmacy/User_Management/Roles.jsx'
+import PharmacySalesCommissionAgents from './pages/Pharmacy/User_Management/SCA.jsx'
+import PharmacySuppliers from './pages/Pharmacy/Contacts/Suppliers.jsx'
+import PharmacyCustomers from './pages/Pharmacy/Contacts/Customers.jsx'
+import PharmacyCustomerGroups from './pages/Pharmacy/Contacts/Customer_Groups.jsx'
+import PharmacyImportContacts from './pages/Pharmacy/Contacts/Import_Contacts.jsx'
+import PharmacyWishes from './pages/Pharmacy/Wishes/Wishes.jsx'
+import PharmacyListProducts from './pages/Pharmacy/Products/List_Products.jsx'
+import PharmacyAddProduct from './pages/Pharmacy/Products/Add_Product.jsx'
+import PharmacyUpdatePrice from './pages/Pharmacy/Products/Update_Price.jsx'
+import PharmacyPrintLabels from './pages/Pharmacy/Products/Print_Labels.jsx'
+import PharmacyVariations from './pages/Pharmacy/Products/Variations.jsx'
+import PharmacyImportProducts from './pages/Pharmacy/Products/Import_Products.jsx'
+import PharmacyImportOpeningStock from './pages/Pharmacy/Products/IOS.jsx'
+import PharmacySellingPriceGroups from './pages/Pharmacy/Products/SPG.jsx'
+import PharmacyUnits from './pages/Pharmacy/Products/Units.jsx'
+import PharmacyCategories from './pages/Pharmacy/Products/Categories.jsx'
+import PharmacyBrands from './pages/Pharmacy/Products/Brands.jsx'
+import PharmacyWarranties from './pages/Pharmacy/Products/Warranties.jsx'
+import PharmacyListPurchases from './pages/Pharmacy/Purchases/List_Purchases.jsx'
+import PharmacyAddPurchase from './pages/Pharmacy/Purchases/Add_Purchase.jsx'
+import PharmacyListPurchaseReturn from './pages/Pharmacy/Purchases/List_Purchase_Return.jsx'
+import PharmacySalesOrder from './pages/Pharmacy/Sell/Sales_order.jsx'
+import PharmacyAllSales from './pages/Pharmacy/Sell/All_Sales.jsx'
+import PharmacyAddSale from './pages/Pharmacy/Sell/Add_Sale.jsx'
+import PharmacyAddDraft from './pages/Pharmacy/Sell/Add_Draft.jsx'
+import PharmacyAddQuotation from './pages/Pharmacy/Sell/Add_Quotation.jsx'
+import PharmacyListDraft from './pages/Pharmacy/Sell/List_Draft.jsx'
+import PharmacyListQuotation from './pages/Pharmacy/Sell/List_Quotation.jsx'
+import PharmacyListSellReturn from './pages/Pharmacy/Sell/LSR.jsx'
+import PharmacyShipments from './pages/Pharmacy/Sell/Shipments.jsx'
+import PharmacyDiscounts from './pages/Pharmacy/Sell/Discounts.jsx'
+import PharmacyImportSales from './pages/Pharmacy/Sell/Import_Sales.jsx'
+import PharmacyListPOS from './pages/Pharmacy/Sell/List_POS.jsx'
+import PharmacyPOS from './pages/Pharmacy/Sell/POS.jsx'
+
+const businessTablePages = [
+  'User Management',
+  'Users',
+  'Roles',
+  'Sales Commission Agents',
+  'Contacts',
+  'Suppliers',
+  'Customers',
+  'Customer Groups',
+  'Import Contacts',
+  'Wishes',
+  'Products',
+  'List Products',
+  'Add Product',
+  'Update Price',
+  'Print Labels',
+  'Variations',
+  'Import Products',
+  'Import Opening Stock',
+  'Selling Price Group',
+  'Units',
+  'Categories',
+  'Brands',
+  'Warranties',
+  'Purchases',
+  'List Purchases',
+  'Add Purchase',
+  'List Purchase Return',
+  'Sales',
+  'Sales Order',
+  'All Sales',
+  'Add Sale',
+  'List POS',
+  'POS',
+  'Add Draft',
+  'List Draft',
+  'Add Quotation',
+  'List Quotations',
+  'List Sell Return',
+  'Shipments',
+  'Discounts',
+  'Import Sales',
+]
 
 function App() {
   const [activePage, setActivePage] = useState('Home')
@@ -183,6 +264,84 @@ function App() {
             <SalseData />
           </>
         )
+      case 'User Management':
+      case 'Users':
+        return <PharmacyUsers />
+      case 'Roles':
+        return <PharmacyRoles />
+      case 'Sales Commission Agents':
+        return <PharmacySalesCommissionAgents />
+      case 'Contacts':
+      case 'Suppliers':
+        return <PharmacySuppliers />
+      case 'Customers':
+        return <PharmacyCustomers />
+      case 'Customer Groups':
+        return <PharmacyCustomerGroups />
+      case 'Import Contacts':
+        return <PharmacyImportContacts />
+      case 'Wishes':
+        return <PharmacyWishes />
+      case 'Products':
+      case 'List Products':
+        return <PharmacyListProducts onNavigate={setActivePage} />
+      case 'Add Product':
+        return <PharmacyAddProduct onNavigate={setActivePage} />
+      case 'Update Price':
+        return <PharmacyUpdatePrice onNavigate={setActivePage} />
+      case 'Print Labels':
+        return <PharmacyPrintLabels />
+      case 'Variations':
+        return <PharmacyVariations />
+      case 'Import Products':
+        return <PharmacyImportProducts />
+      case 'Import Opening Stock':
+        return <PharmacyImportOpeningStock />
+      case 'Selling Price Group':
+        return <PharmacySellingPriceGroups />
+      case 'Units':
+        return <PharmacyUnits />
+      case 'Categories':
+        return <PharmacyCategories />
+      case 'Brands':
+        return <PharmacyBrands />
+      case 'Warranties':
+        return <PharmacyWarranties />
+      case 'Purchases':
+      case 'List Purchases':
+        return <PharmacyListPurchases onNavigate={setActivePage} />
+      case 'Add Purchase':
+        return <PharmacyAddPurchase onNavigate={setActivePage} />
+      case 'List Purchase Return':
+        return <PharmacyListPurchaseReturn />
+      case 'Sales Order':
+        return <PharmacySalesOrder />
+      case 'Sales':
+      case 'Sell':
+      case 'All Sales':
+        return <PharmacyAllSales />
+      case 'List POS':
+        return <PharmacyListPOS />
+      case 'POS':
+        return <PharmacyPOS onNavigate={setActivePage} />
+      case 'Add Sale':
+        return <PharmacyAddSale onNavigate={setActivePage} />
+      case 'Add Draft':
+        return <PharmacyAddDraft onNavigate={setActivePage} />
+      case 'List Draft':
+        return <PharmacyListDraft onNavigate={setActivePage} />
+      case 'Add Quotation':
+        return <PharmacyAddQuotation onNavigate={setActivePage} />
+      case 'List Quotations':
+        return <PharmacyListQuotation onNavigate={setActivePage} />
+      case 'List Sell Return':
+        return <PharmacyListSellReturn />
+      case 'Shipments':
+        return <PharmacyShipments />
+      case 'Discounts':
+        return <PharmacyDiscounts />
+      case 'Import Sales':
+        return <PharmacyImportSales />
       case 'Menu Categories':
         return <RestaurantCategories />
       case 'Menu Items':
@@ -416,6 +575,7 @@ function App() {
             business === 'Electronics & MobileShop'
           ) {
             setActivePage('Home')
+            setActiveBusinessStorage(business)
             setActiveBusiness(business)
           }
         }}
@@ -444,10 +604,19 @@ function App() {
           onLogout={() => {
             setActivePage('Home')
             setSelectedStockTransfer(null)
+            setActiveBusinessStorage(null)
             setActiveBusiness(null)
           }}
         />
-        <div className="min-h-0 flex-1">{pageContent}</div>
+        <div
+          className={`min-h-0 flex-1 ${
+            businessTablePages.includes(activePage)
+              ? 'pharmacy-report-table-theme'
+              : ''
+          }`}
+        >
+          {pageContent}
+        </div>
       </div>
     </div>
   )

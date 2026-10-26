@@ -82,7 +82,7 @@ const themes = {
   blue: {
     card: "border-[#E6EDF5] bg-white",
     iconBox: "bg-[#CDE6FF]",
-    icon: "text-[#087AF0]",
+    icon: "text-[#2187F2]",
   },
   purple: {
     card: "border-[#E6EDF5] bg-white",
@@ -101,8 +101,8 @@ const themes = {
   },
   yellow: {
     card: "border-[#E6EDF5] bg-white",
-    iconBox: "bg-[#FFE5AD]",
-    icon: "text-[#F47700]",
+    iconBox: "bg-[#FFE8B5]",
+    icon: "text-[#F5851A]",
   },
   pink: {
     card: "border-[#E6EDF5] bg-white",
@@ -113,7 +113,7 @@ const themes = {
 
 function TrendIcon({ trend }) {
   if (trend === "right") return <ChevronRight size={13} strokeWidth={3} />;
-  if (trend === "minus") return <span className="text-sm font-bold">−</span>;
+  if (trend === "minus") return <span className="text-sm font-semibold">−</span>;
   if (trend === "down") return <ArrowDown size={13} strokeWidth={2.8} />;
   return <ArrowUpRight size={13} strokeWidth={3} />;
 }
@@ -135,15 +135,15 @@ function StatCard({ item }) {
 
       {/* Text */}
       <div className="relative z-10 min-w-0 flex-1 self-center">
-        <h3 className="mb-1 whitespace-nowrap text-[11px] font-bold tracking-[-0.2px] text-[#526D8D]">
+        <h3 className="mb-1 whitespace-nowrap text-[11px] font-semibold tracking-[-0.2px] text-[#637C98]">
           {item.title}
         </h3>
 
-        <p className="whitespace-nowrap text-[18px] font-extrabold leading-none tracking-[-0.3px] text-[#101C3D]">
+        <p className="whitespace-nowrap text-[18px] font-semibold leading-none tracking-[-0.3px] text-[#283350]">
           {item.value}
         </p>
 
-        <p className="mt-1 whitespace-nowrap text-[10px] font-medium text-[#587696]">
+        <p className="mt-1 whitespace-nowrap text-[10px] font-medium text-[#6984A0]">
           Since last month
         </p>
       </div>
@@ -165,7 +165,7 @@ export default function Dashboard() {
   const [dateFilter, setDateFilter] = useState("today");
 
   return (
-    <main className="min-h-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
+    <main className="min-h-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#283961] sm:px-5">
       {/* Welcome section */}
       <section className="relative mb-4 overflow-hidden rounded-2xl">
         <img
@@ -183,16 +183,16 @@ export default function Dashboard() {
           <div className="pb-1 pt-0.5">
             <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-lg bg-[#FFE9D9] px-3 py-2 text-[#F04A13]">
               <House size={15} strokeWidth={2.5} />
-              <span className="text-[11px] font-extrabold">
+              <span className="text-[11px] font-semibold">
                 PHARMACY DASHBOARD
               </span>
             </div>
 
-            <h1 className="app-page-title text-[#10234F]">
+            <h1 className="app-page-title text-[#283961]">
               Welcome pharmacy, <span>👋</span>
             </h1>
 
-            <p className="mt-1 text-xs leading-relaxed text-[#577B9F] sm:text-sm">
+            <p className="mt-1 text-xs leading-relaxed text-[#6888A9] sm:text-sm">
               Here’s what’s happening with your pharmacy today.
             </p>
           </div>
@@ -200,7 +200,7 @@ export default function Dashboard() {
           {/* Filters */}
           <div className="relative z-10 grid grid-cols-1 gap-2.5 pb-1 sm:grid-cols-2">
             <label className="block min-w-0">
-              <span className="mb-1 flex items-center gap-1 text-[11px] font-semibold text-[#557493]">
+              <span className="mb-1 flex items-center gap-1 text-[11px] font-semibold text-[#66829E]">
                 <MapPin size={14} />
                 Location
               </span>
@@ -209,7 +209,7 @@ export default function Dashboard() {
                 <select
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="h-8 w-full appearance-none rounded-md border border-[#E8EDF4] bg-white px-2.5 pr-7 text-[11px] font-semibold text-[#132653] shadow-sm outline-none focus:border-[#FF8A37]"
+                  className="h-8 w-full appearance-none rounded-md border border-[#E8EDF4] bg-white px-2.5 pr-7 text-[11px] font-semibold text-[#2B3C64] shadow-sm outline-none focus:border-[#FF964B]"
                 >
                   <option value="">Select location</option>
                   <option value="main">Main Pharmacy</option>
@@ -230,12 +230,12 @@ export default function Dashboard() {
               <div className="relative">
                 <CalendarDays
                   size={15}
-                  className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-[#19366F]"
+                  className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-[#304A7D]"
                 />
                 <select
                   value={dateFilter}
                   onChange={(e) => setDateFilter(e.target.value)}
-                  className="h-8 w-full appearance-none rounded-md border border-[#E8EDF4] bg-white pl-8 pr-7 text-[11px] font-semibold text-[#132653] shadow-sm outline-none focus:border-[#FF8A37]"
+                  className="h-8 w-full appearance-none rounded-md border border-[#E8EDF4] bg-white pl-8 pr-7 text-[11px] font-semibold text-[#2B3C64] shadow-sm outline-none focus:border-[#FF964B]"
                 >
                   <option value="today">Filter by date</option>
                   <option value="today">Today</option>

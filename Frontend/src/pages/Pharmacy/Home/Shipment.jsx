@@ -90,13 +90,13 @@ function LocationSelect({ value, onChange }) {
     <div className="relative w-full sm:w-[190px]">
       <MapPin
         size={20}
-        className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#19365F]"
+        className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-[#304A6F]"
       />
 
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-8 w-full appearance-none rounded-lg border border-[#E2E9F2] bg-white pl-9 pr-8 text-xs font-semibold text-[#203958] outline-none transition focus:border-orange-400"
+        className="h-8 w-full appearance-none rounded-lg border border-[#E2E9F2] bg-white pl-9 pr-8 text-xs font-semibold text-[#364D69] outline-none transition focus:border-orange-400"
       >
         <option value="">Select location</option>
         <option value="Pharmacy">Pharmacy</option>
@@ -105,7 +105,7 @@ function LocationSelect({ value, onChange }) {
 
       <ChevronDown
         size={19}
-        className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#19365F]"
+        className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[#304A6F]"
       />
     </div>
   );
@@ -114,14 +114,14 @@ function LocationSelect({ value, onChange }) {
 function ExportButton({ icon: Icon, children, onClick, color = "orange" }) {
   const colors =
     color === "orange"
-      ? "bg-[#FF650C] hover:bg-[#EF5905]"
-      : "bg-[#1976F8] hover:bg-[#0865E5]";
+      ? "bg-[#FF7424] hover:bg-[#F16A1E]"
+      : "bg-[#3084F9] hover:bg-[#2174E8]";
 
   return (
     <button
       type="button"
       onClick={onClick}
-      className={`inline-flex h-8 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-3 text-[11px] font-bold text-white shadow-sm transition ${colors}`}
+      className={`inline-flex h-8 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg px-3 text-[11px] font-semibold text-white shadow-sm transition ${colors}`}
     >
       <Icon size={15} strokeWidth={2.5} />
       {children}
@@ -134,7 +134,7 @@ function Pagination({ total, page, setPage }) {
 
   return (
     <div className="mt-3 flex flex-col items-start gap-2">
-      <p className="text-xs font-medium text-[#18365F]">
+      <p className="text-xs font-medium text-[#2F4A6F]">
         Showing {total ? (page - 1) * 5 + 1 : 0} to{" "}
         {Math.min(page * 5, total)} of {total} entries
       </p>
@@ -144,7 +144,7 @@ function Pagination({ total, page, setPage }) {
           type="button"
           disabled={page === 1}
           onClick={() => setPage((p) => Math.max(1, p - 1))}
-          className="flex h-8 items-center gap-1 rounded-lg border border-[#E0E7F0] bg-white px-3 text-[11px] font-semibold text-[#8CA0BE] transition hover:bg-[#F8FAFD] disabled:opacity-70"
+          className="flex h-8 items-center gap-1 rounded-lg border border-[#E0E7F0] bg-white px-3 text-[11px] font-semibold text-[#98AAC4] transition hover:bg-[#F8FAFD] disabled:opacity-70"
         >
           <ChevronLeft size={20} />
           Previous
@@ -153,7 +153,7 @@ function Pagination({ total, page, setPage }) {
         {total > 0 && (
           <button
             type="button"
-            className="h-8 min-w-8 rounded-lg bg-[#FF650C] px-3 text-xs font-semibold text-white"
+            className="h-8 min-w-8 rounded-lg bg-[#FF7424] px-3 text-xs font-semibold text-white"
           >
             {page}
           </button>
@@ -163,7 +163,7 @@ function Pagination({ total, page, setPage }) {
           type="button"
           disabled={page >= pageCount}
           onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-          className="flex h-8 items-center gap-1 rounded-lg border border-[#E0E7F0] bg-white px-3 text-[11px] font-semibold text-[#8CA0BE] transition hover:bg-[#F8FAFD] disabled:opacity-70"
+          className="flex h-8 items-center gap-1 rounded-lg border border-[#E0E7F0] bg-white px-3 text-[11px] font-semibold text-[#98AAC4] transition hover:bg-[#F8FAFD] disabled:opacity-70"
         >
           Next
           <ChevronRight size={20} />
@@ -179,12 +179,12 @@ function StatusBadge({ type, value }) {
 
   return (
     <span
-      className={`inline-flex items-center gap-2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[13px] font-bold ${
+      className={`inline-flex items-center gap-2 whitespace-nowrap rounded-[10px] px-3 py-2 text-[13px] font-semibold ${
         isPaid
           ? "bg-[#A3F9AC] text-[#087D2B]"
           : isShipped
-            ? "bg-[#123963] text-white"
-            : "bg-[#FFF0CF] text-[#9B6400]"
+            ? "bg-[#2A4D73] text-white"
+            : "bg-[#FFF0CF] text-[#A5741A]"
       }`}
     >
       {isPaid ? (
@@ -204,7 +204,7 @@ function ShipmentModal({ shipment, onClose, onUpdate }) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#11294A]/40 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#293E5C]/40 p-4"
       onClick={onClose}
     >
       <div
@@ -217,7 +217,7 @@ function ShipmentModal({ shipment, onClose, onUpdate }) {
         <div className="mb-5 flex items-center justify-between">
           <h3
             id="shipment-dialog-title"
-            className="text-xl font-bold text-[#11294A]"
+            className="text-xl font-semibold text-[#293E5C]"
           >
             Shipment Details
           </h3>
@@ -232,26 +232,26 @@ function ShipmentModal({ shipment, onClose, onUpdate }) {
           </button>
         </div>
 
-        <div className="space-y-3 text-sm text-[#506783]">
+        <div className="space-y-3 text-sm text-[#62768F]">
           <p>
             Invoice:{" "}
-            <strong className="text-[#142D50]">{shipment.invoice}</strong>
+            <strong className="text-[#2C4262]">{shipment.invoice}</strong>
           </p>
           <p>
             Customer:{" "}
-            <strong className="text-[#142D50]">{shipment.customer}</strong>
+            <strong className="text-[#2C4262]">{shipment.customer}</strong>
           </p>
           <p>
             Location:{" "}
-            <strong className="text-[#142D50]">{shipment.location}</strong>
+            <strong className="text-[#2C4262]">{shipment.location}</strong>
           </p>
           <p>
             Payment:{" "}
-            <strong className="text-[#142D50]">{shipment.paymentStatus}</strong>
+            <strong className="text-[#2C4262]">{shipment.paymentStatus}</strong>
           </p>
         </div>
 
-        <label className="mt-5 block text-sm font-semibold text-[#142D50]">
+        <label className="mt-5 block text-sm font-semibold text-[#2C4262]">
           Shipping status
           <select
             value={status}
@@ -271,7 +271,7 @@ function ShipmentModal({ shipment, onClose, onUpdate }) {
             onUpdate(shipment.id, status);
             onClose();
           }}
-          className="mt-5 w-full rounded-xl bg-[#FF650C] px-4 py-3 font-semibold text-white hover:bg-[#EF5905]"
+          className="mt-5 w-full rounded-xl bg-[#FF7424] px-4 py-3 font-semibold text-white hover:bg-[#F16A1E]"
         >
           Save Status
         </button>
@@ -361,19 +361,19 @@ export default function Shipment() {
   return (
     <main className="space-y-4 bg-[#FFFAF5] px-4 py-4 font-sans sm:px-5">
       {/* Pending Shipments */}
-      <section className="relative rounded-2xl border border-[#FF8A43]/50 bg-gradient-to-br from-[#FFFAF5] to-white p-3.5 shadow-[0_6px_18px_rgba(235,127,51,0.06)]">
+      <section className="relative rounded-2xl border border-[#FF9656]/50 bg-gradient-to-br from-[#FFFAF5] to-white p-3.5 shadow-[0_6px_18px_rgba(235,127,51,0.06)]">
         <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-center">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#FFEBDD]">
               <Truck
                 size={22}
                 strokeWidth={2.5}
-                className="text-[#FF740D]"
+                className="text-[#FF8225]"
               />
             </div>
 
-            <h1 className="app-section-title text-[#102B51]">
-              Pending <span className="text-[#FF650C]">Shipments</span>
+            <h1 className="app-section-title text-[#284062]">
+              Pending <span className="text-[#FF7424]">Shipments</span>
             </h1>
           </div>
 
@@ -414,7 +414,7 @@ export default function Shipment() {
 
               {columnsOpen && (
                 <div className="absolute left-0 top-full z-30 mt-2 max-h-72 w-64 overflow-y-auto rounded-xl border border-[#E3E9F1] bg-white p-3 shadow-xl">
-                  <p className="mb-2 text-sm font-bold text-[#142D50]">
+                  <p className="mb-2 text-sm font-semibold text-[#2C4262]">
                     Show columns
                   </p>
 
@@ -423,7 +423,7 @@ export default function Shipment() {
                     .map((column) => (
                       <label
                         key={column.key}
-                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-xs text-[#344B68] hover:bg-gray-50"
+                        className="flex cursor-pointer items-center gap-2 rounded-lg px-2 py-2 text-xs text-[#485D77] hover:bg-gray-50"
                       >
                         <input
                           type="checkbox"
@@ -453,7 +453,7 @@ export default function Shipment() {
           </div>
 
           <div className="flex h-9 w-full items-center gap-2 rounded-lg border border-[#DFE7F1] bg-white px-3 lg:max-w-[250px]">
-            <Search size={17} className="shrink-0 text-[#19365F]" />
+            <Search size={17} className="shrink-0 text-[#304A6F]" />
             <input
               value={search}
               onChange={(e) => {
@@ -461,7 +461,7 @@ export default function Shipment() {
                 setPage(1);
               }}
               placeholder="Search ..."
-              className="w-full bg-transparent text-xs text-[#1B365C] outline-none placeholder:text-[#8CA0BA]"
+              className="w-full bg-transparent text-xs text-[#324A6C] outline-none placeholder:text-[#8CA0BA]"
             />
           </div>
         </div>
@@ -480,7 +480,7 @@ export default function Shipment() {
                   .map((column) => (
                     <th
                       key={column.key}
-                      className="app-table-heading whitespace-nowrap border-r border-[#E9E9E9] px-3 py-3 text-[#183253] last:border-r-0"
+                      className="app-table-heading whitespace-nowrap border-r border-[#E9E9E9] px-3 py-3 text-[#2F4664] last:border-r-0"
                     >
                       {column.key === "action" ? (
                         column.label
@@ -495,7 +495,7 @@ export default function Shipment() {
                             size={15}
                             className={
                               sort.key === column.key
-                                ? "text-[#FF711A]"
+                                ? "text-[#FF7F31]"
                                 : "text-[#9AADC4]"
                             }
                           />
@@ -521,7 +521,7 @@ export default function Shipment() {
                             menuShipment === shipment.id ? null : shipment.id
                           )
                         }
-                        className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#FF7927] px-2.5 py-1.5 text-[11px] font-semibold text-[#FF650C] hover:bg-[#FFF1E5]"
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[#FF863D] px-2.5 py-1.5 text-[11px] font-semibold text-[#FF7424] hover:bg-[#FFF1E5]"
                       >
                         Actions
                         <ChevronDown size={16} />
@@ -535,7 +535,7 @@ export default function Shipment() {
                               setActiveShipment(shipment);
                               setMenuShipment(null);
                             }}
-                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm text-[#243D5D] hover:bg-[#FFF4EA]"
+                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm text-[#3A506D] hover:bg-[#FFF4EA]"
                           >
                             <Eye size={15} />
                             View details
@@ -547,7 +547,7 @@ export default function Shipment() {
                               setActiveShipment(shipment);
                               setMenuShipment(null);
                             }}
-                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm text-[#243D5D] hover:bg-[#FFF4EA]"
+                            className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-left text-sm text-[#3A506D] hover:bg-[#FFF4EA]"
                           >
                             <PackageCheck size={15} />
                             Update shipment
@@ -558,7 +558,7 @@ export default function Shipment() {
                   </td>
 
                   {visibleColumns.includes("date") && (
-                    <td className="app-table-cell whitespace-nowrap border-r border-t border-[#E9EDF3] px-3 py-3 text-[#29466A]">
+                    <td className="app-table-cell whitespace-nowrap border-r border-t border-[#E9EDF3] px-3 py-3 text-[#3E5879]">
                       {shipment.date.split(" ")[0]}
                       <br />
                       {shipment.date.split(" ")[1]}
@@ -566,25 +566,25 @@ export default function Shipment() {
                   )}
 
                   {visibleColumns.includes("invoice") && (
-                    <td className="app-table-cell border-r border-t border-[#E9EDF3] px-3 py-3 text-[#29466A]">
+                    <td className="app-table-cell border-r border-t border-[#E9EDF3] px-3 py-3 text-[#3E5879]">
                       {shipment.invoice}
                     </td>
                   )}
 
                   {visibleColumns.includes("customer") && (
-                    <td className="app-table-cell whitespace-nowrap border-r border-t border-[#E9EDF3] px-3 py-3 text-[#29466A]">
+                    <td className="app-table-cell whitespace-nowrap border-r border-t border-[#E9EDF3] px-3 py-3 text-[#3E5879]">
                       {shipment.customer}
                     </td>
                   )}
 
                   {visibleColumns.includes("contact") && (
-                    <td className="app-table-cell border-r border-t border-[#E9EDF3] px-3 py-3 text-[#29466A]">
+                    <td className="app-table-cell border-r border-t border-[#E9EDF3] px-3 py-3 text-[#3E5879]">
                       {shipment.contact || "--"}
                     </td>
                   )}
 
                   {visibleColumns.includes("location") && (
-                    <td className="app-table-cell border-r border-t border-[#E9EDF3] px-3 py-3 text-[#29466A]">
+                    <td className="app-table-cell border-r border-t border-[#E9EDF3] px-3 py-3 text-[#3E5879]">
                       {shipment.location}
                     </td>
                   )}
@@ -619,7 +619,7 @@ export default function Shipment() {
                           visibleColumns.includes(column.key)
                       ).length
                     }
-                    className="px-4 py-7 text-center text-xs text-[#7B8EA8]"
+                    className="px-4 py-7 text-center text-xs text-[#8899B1]"
                   >
                     No shipments found.
                   </td>
@@ -637,15 +637,15 @@ export default function Shipment() {
       </section>
 
       {/* Pharmacy Quick Actions */}
-      <section className="relative overflow-hidden rounded-2xl border border-[#4194FF]/70 bg-gradient-to-br from-[#F4F9FF] to-white p-3.5 shadow-[0_6px_18px_rgba(43,120,220,0.05)]">
+      <section className="relative overflow-hidden rounded-2xl border border-[#549FFF]/70 bg-gradient-to-br from-[#F4F9FF] to-white p-3.5 shadow-[0_6px_18px_rgba(43,120,220,0.05)]">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#50D7AE] to-[#36C69D] text-white">
             <Plus size={22} strokeWidth={3} />
           </div>
 
-          <h2 className="app-section-title text-[#102B51]">
+          <h2 className="app-section-title text-[#284062]">
             Pharmacy{" "}
-            <span className="text-[#3183F5]">Quick Actions</span>
+            <span className="text-[#468FF6]">Quick Actions</span>
           </h2>
         </div>
 
@@ -653,7 +653,7 @@ export default function Shipment() {
           <button
             type="button"
             onClick={() => setQuickAction("Prescriptions")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#2E7DF1] px-4 text-xs font-bold text-white shadow-sm transition hover:bg-[#176BE0]"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#438AF2] px-4 text-xs font-semibold text-white shadow-sm transition hover:bg-[#2E7AE3]"
           >
             <Pill size={16} />
             Prescriptions
@@ -662,7 +662,7 @@ export default function Shipment() {
           <button
             type="button"
             onClick={() => setQuickAction("Doctors")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#9650F4] px-4 text-xs font-bold text-white shadow-sm transition hover:bg-[#8339E8]"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#9650F4] px-4 text-xs font-semibold text-white shadow-sm transition hover:bg-[#8339E8]"
           >
             <UserRound size={17} fill="currentColor" />
             Doctors
@@ -671,7 +671,7 @@ export default function Shipment() {
           <button
             type="button"
             onClick={() => setQuickAction("Batch Recalls")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#F44750] px-4 text-xs font-bold text-white shadow-sm transition hover:bg-[#DF333D]"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#F44750] px-4 text-xs font-semibold text-white shadow-sm transition hover:bg-[#DF333D]"
           >
             <TriangleAlert size={16} fill="currentColor" />
             Batch Recalls
@@ -679,7 +679,7 @@ export default function Shipment() {
         </div>
 
         {quickAction && (
-          <div className="mt-5 flex items-center justify-between rounded-xl border border-[#DFEAF8] bg-white p-4 text-sm text-[#244265]">
+          <div className="mt-5 flex items-center justify-between rounded-xl border border-[#DFEAF8] bg-white p-4 text-sm text-[#3A5574]">
             <span>
               <strong>{quickAction}</strong> selected. Connect this action to
               the corresponding pharmacy page.
@@ -688,7 +688,7 @@ export default function Shipment() {
               type="button"
               onClick={() => setQuickAction("")}
               aria-label="Dismiss"
-              className="ml-3 text-[#7186A2] hover:text-[#17365E]"
+              className="ml-3 text-[#7F92AB] hover:text-[#2E4A6E]"
             >
               <X size={17} />
             </button>
@@ -701,7 +701,7 @@ export default function Shipment() {
         type="button"
         aria-label="Scroll to top"
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-xl bg-[#2D7FF4] text-white shadow-[0_6px_18px_rgba(45,127,244,0.3)] transition hover:bg-[#176BE0]"
+        className="fixed bottom-5 right-5 z-30 flex h-11 w-11 items-center justify-center rounded-xl bg-[#428CF5] text-white shadow-[0_6px_18px_rgba(45,127,244,0.3)] transition hover:bg-[#2E7AE3]"
       >
         <ChevronUp size={21} strokeWidth={3} />
       </button>

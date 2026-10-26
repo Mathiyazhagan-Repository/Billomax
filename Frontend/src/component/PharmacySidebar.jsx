@@ -29,10 +29,10 @@ import {
 
 const reportItems = [
   "Profit / Loss Report",
-  "Sales Report",
+  "Sale Report",
   "Purchase & Sale",
   "Tax Report",
-  "Customers & Suppliers Reports",
+  "Supplier & Customer Report",
   "Customer Reminders",
   "Customer Groups Report",
   "Stock Report",
@@ -54,31 +54,77 @@ const reportItems = [
 
 const menuItems = [
   { name: "Home", icon: Home },
-  { name: "User Management", icon: Users, expandable: true },
-  { name: "Contacts", icon: Contact, expandable: true },
-  { name: "Wishes", icon: Building2, expandable: true },
-  { name: "Products", icon: Boxes, expandable: true },
-  { name: "Purchases", icon: ShoppingCart, expandable: true },
-  { name: "Sell", icon: Truck, expandable: true },
   {
-    name: "Stock Transfers",
+    name: "User Management",
+    icon: Users,
+    children: [
+      { name: "Users" },
+      { name: "Roles" },
+      { name: "Sales Commission Agents" },
+    ],
+  },
+  {
+    name: "Contacts",
+    icon: Contact,
+    children: [
+      { name: "Suppliers" },
+      { name: "Customers" },
+      { name: "Customer Groups" },
+      { name: "Import Contacts" },
+    ],
+  },
+  { name: "Wishes", icon: Building2 },
+  {
+    name: "Products",
+    icon: Boxes,
+    children: [
+      { name: "List Products" },
+      { name: "Add Product" },
+      { name: "Update Price" },
+      { name: "Print Labels" },
+      { name: "Variations" },
+      { name: "Import Products" },
+      { name: "Import Opening Stock" },
+      { name: "Selling Price Group" },
+      { name: "Units" },
+      { name: "Categories" },
+      { name: "Brands" },
+      { name: "Warranties" },
+    ],
+  },
+  {
+    name: "Purchases",
+    icon: ShoppingCart,
+    children: [
+      { name: "List Purchases" },
+      { name: "Add Purchase" },
+      { name: "List Purchase Return" },
+    ],
+  },
+  {
+    name: "Sales",
     icon: Truck,
     children: [
-      { name: "List Stock Transfers", icon: List },
-      { name: "Add Stock Transfers", icon: Plus },
+      { name: "Sales Order" },
+      { name: "All Sales" },
+      { name: "Add Sale" },
+      { name: "List POS" },
+      { name: "POS" },
+      { name: "Add Draft" },
+      { name: "List Draft" },
+      { name: "Add Quotation" },
+      { name: "List Quotations" },
+      { name: "List Sell Return" },
+      { name: "Shipments" },
+      { name: "Discounts" },
+      { name: "Import Sales" },
     ],
   },
-  { name: "E-Way Bill", icon: ArrowLeftRight },
+  { name: "Stock Transfers", icon: Truck, expandable: true },
+  { name: "E-Way Bill", icon: ArrowLeftRight, expandable: true },
   { name: "Modify Bill", icon: SquarePen },
   { name: "Stocks (Expiry/Dump/Faulty)", icon: Warehouse },
-  {
-    name: "Stock Adjustment",
-    icon: SlidersHorizontal,
-    children: [
-      { name: "List Stock Adjustments", icon: List },
-      { name: "Add Stock Adjustments", icon: Plus },
-    ],
-  },
+  { name: "Stock Adjustment", icon: SlidersHorizontal, expandable: true },
   {
     name: "Expenses",
     icon: Banknote,
@@ -95,34 +141,16 @@ const menuItems = [
   },
   { name: "Notification Templates", icon: Mail },
   { name: "AI Offer Suggestions", icon: Lightbulb },
-  {
-    name: "Pharmacy",
-    icon: BriefcaseMedical,
-    children: [
-      { name: "Doctors" },
-      { name: "Prescriptions" },
-      { name: "Batch Recalls" },
-    ],
-  },
+  { name: "Pharmacy", icon: BriefcaseMedical, expandable: true },
   { name: "Yearly renewal", icon: RefreshCw },
-  {
-    name: "Settings",
-    icon: Settings,
-    children: [
-      { name: "Business Settings" },
-      { name: "Business Locations" },
-      { name: "Invoice Settings" },
-      { name: "Barcode Settings" },
-      { name: "Receipt Printers" },
-      { name: "Tax Rates" },
-      { name: "Package Subscription" },
-    ],
-  },
+  { name: "Settings", icon: Settings, expandable: true },
 ];
 
 export default function Sidebar({ onNavigate }) {
   const [activeItem, setActiveItem] = useState("Home");
   const [expandedItems, setExpandedItems] = useState(["Expenses"]);
+  const [showAllProducts, setShowAllProducts] = useState(false);
+  const [showAllSales, setShowAllSales] = useState(false);
 
   const navigateTo = (name) => {
     setActiveItem(name);
@@ -144,141 +172,89 @@ export default function Sidebar({ onNavigate }) {
         <Pill
           size={31}
           strokeWidth={3.5}
-          className="shrink-0 rotate-[-42deg] text-[#FF790F]"
+          className="shrink-0 rotate-[-42deg] text-[#FF8627]"
         />
 
-        <span className="whitespace-nowrap text-[16px] font-extrabold tracking-[-0.6px] text-[#10265F]">
+        <span className="whitespace-nowrap text-[16px] font-semibold tracking-[-0.6px] text-[#283C6F]">
           Pharmacy
         </span>
 
-        <span className="ml-auto rounded-[7px] bg-[#19A83B] px-[9px] py-[3px] text-[10px] font-bold leading-none text-white">
+        <span className="ml-auto rounded-[7px] bg-[#19A83B] px-[9px] py-[3px] text-[10px] font-semibold leading-none text-white">
           Rx
         </span>
       </div>
 
       {/* Navigation */}
       <nav
-        className="flex min-h-0 flex-1 flex-col gap-[2px] overflow-y-auto overflow-x-hidden pb-2"
+        className="app-themed-scrollbar flex min-h-0 flex-1 flex-col gap-[2px] overflow-y-auto overflow-x-hidden pb-2"
         aria-label="Main navigation"
       >
         {menuItems.map(({ name, icon: Icon, expandable, children }) => {
-          const isActive = activeItem === name;
+          const isActive =
+            activeItem === name || children?.some((child) => child.name === activeItem);
           const isExpanded = expandedItems.includes(name);
           const hasChildren = Boolean(children?.length);
-          const hasActiveChild = children?.some(
-            ({ name: childName }) => activeItem === childName
-          );
+          const showAllChildren =
+            name === "Products" ? showAllProducts : showAllSales;
+          const visibleChildren =
+            (name === "Products" || name === "Sales") && !showAllChildren
+              ? children.slice(0, 5)
+              : children;
 
           return (
             <div key={name} className="shrink-0">
-              <div
-                className={`group flex min-h-[40px] w-full items-center rounded-[9px] transition-colors duration-150 ${
-                  isActive
-                    ? "bg-[#FF711A] text-white shadow-[0_3px_8px_rgba(255,113,26,0.18)]"
-                    : hasActiveChild
-                    ? "bg-[#FFF1E5] text-[#19366F]"
-                    : "text-[#15336E] hover:bg-[#FFF0E3]"
-                }`}
-              >
-                <button
-                  type="button"
-                  onClick={() => {
-                  if (name === "Expenses") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
-                    navigateTo("List Expenses");
-                    return;
-                  }
-
-                  if (name === "Reports") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
-                    navigateTo("Profit / Loss Report");
-                    return;
-                  }
-
-                  if (name === "Pharmacy") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
-                    navigateTo("Doctors");
-                    return;
-                  }
-
-                  if (name === "Settings") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
-                    navigateTo("Business Settings");
-                    return;
-                  }
-
-                  if (name === "Stock Adjustment") {
-                    setExpandedItems((current) =>
-                      current.includes(name) ? current : [...current, name]
-                    );
-                    navigateTo("List Stock Adjustments");
-                    return;
-                  }
-
+              <button
+                type="button"
+                onClick={() => {
                   if (expandable || hasChildren) {
                     toggleExpanded(name);
                   }
                   navigateTo(name);
-                  }}
-                  aria-current={isActive ? "page" : undefined}
-                  className="flex min-w-0 flex-1 items-center gap-3 rounded-l-[9px] py-2.5 pl-[11px] text-left"
-                >
-                  <Icon
-                    size={18}
-                    strokeWidth={isActive || hasActiveChild ? 2.4 : 2.2}
-                    className={`shrink-0 ${
-                      isActive ? "text-white" : "text-[#4276B5]"
-                    }`}
-                  />
+                }}
+                aria-current={isActive ? "page" : undefined}
+                aria-expanded={
+                  expandable || hasChildren ? isExpanded : undefined
+                }
+                className={`group flex min-h-[38px] w-full items-center gap-[13px] rounded-[8px] px-[11px] text-left transition-colors duration-150 ${
+                  isActive
+                    ? "bg-[#FF8C30] text-white shadow-sm"
+                    : "text-[#2C477C] hover:bg-[#FFF0E3]"
+                }`}
+              >
+                <Icon
+                  size={18}
+                  strokeWidth={isActive ? 2.5 : 2.8}
+                  className={`shrink-0 ${
+                    isActive ? "text-white" : "text-[#5584BC]"
+                  }`}
+                />
 
-                  <span className={`min-w-0 flex-1 whitespace-nowrap text-[12px] tracking-[-0.2px] ${
-                    isActive || hasActiveChild ? "font-semibold" : "font-medium"
-                  }`}>
-                    {name}
-                  </span>
-                </button>
+                <span className="min-w-0 flex-1 whitespace-nowrap text-[12px] font-medium tracking-[-0.2px]">
+                  {name}
+                </span>
 
-                {(expandable || hasChildren) && (
-                  <button
-                    type="button"
-                    aria-label={`${isExpanded ? "Collapse" : "Expand"} ${name}`}
-                    aria-expanded={isExpanded}
-                    onClick={() => toggleExpanded(name)}
-                    className="flex min-h-[40px] shrink-0 items-center rounded-r-[9px] px-[11px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-3px] focus-visible:outline-orange-300"
-                  >
-                    {isExpanded ? (
-                      <ChevronDown
-                        size={12}
-                        strokeWidth={1.7}
-                        className={`shrink-0 ${
-                          isActive ? "text-white/80" : hasActiveChild ? "text-[#F04A13]" : "text-[#8DAACB]"
-                        }`}
-                      />
-                    ) : (
-                      <ChevronRight
-                        size={12}
-                        strokeWidth={1.7}
-                        className={`shrink-0 ${
-                          isActive ? "text-white/80" : hasActiveChild ? "text-[#F04A13]" : "text-[#8DAACB]"
-                        }`}
-                      />
-                    )}
-                  </button>
-                )}
-              </div>
+                {(expandable || hasChildren) &&
+                  (isExpanded ? (
+                    <ChevronDown
+                      size={12}
+                      strokeWidth={1.7}
+                      className="ml-auto shrink-0 text-[#98B2D0]"
+                    />
+                  ) : (
+                    <ChevronRight
+                      size={12}
+                      strokeWidth={1.7}
+                      className={`ml-auto shrink-0 ${
+                        isActive ? "text-white/80" : "text-[#98B2D0]"
+                      }`}
+                    />
+                  ))}
+              </button>
 
               {/* All submenu rows use the original Expenses styling */}
               {hasChildren && isExpanded && (
-                <div className="ml-[18px] mt-1 mb-1 space-y-0.5 border-l border-[#F1D8C5] pl-2">
-                  {children.map(({ name: childName, icon: ChildIcon }) => {
+                <div className="ml-5 border-l border-[#E0E8F2] pl-2">
+                  {visibleChildren.map(({ name: childName, icon: ChildIcon }) => {
                     const isChildActive = activeItem === childName;
 
                     return (
@@ -287,25 +263,23 @@ export default function Sidebar({ onNavigate }) {
                         type="button"
                         onClick={() => navigateTo(childName)}
                         aria-current={isChildActive ? "page" : undefined}
-                        className={`flex min-h-[34px] w-full items-center gap-2 rounded-md px-2.5 text-left text-[11px] transition-colors ${
+                        className={`flex min-h-[34px] w-full items-center gap-2 rounded-md px-2 text-left text-[11px] transition-colors ${
                           isChildActive
-                            ? "bg-[#FFF1E5] font-bold text-[#F04A13]"
-                            : "text-[#19366F] hover:bg-[#FFF7EF] hover:text-[#F04A13]"
+                            ? "bg-[#FFF0E3] font-semibold text-[#EB7A28]"
+                            : "text-[#2C477C] hover:bg-[#FFF0E3]"
                         }`}
                       >
                         {ChildIcon ? (
                           <ChildIcon
                             size={13}
-                            className={`shrink-0 ${
-                              isChildActive ? "text-[#F04A13]" : "text-[#6C91B9]"
-                            }`}
+                            className="shrink-0 text-[#7B9CC0]"
                           />
                         ) : (
                           <span
                             className={`shrink-0 text-[13px] leading-none ${
                               isChildActive
-                                ? "text-[#F04A13]"
-                                : "text-[#8DAACB]"
+                                ? "text-[#EB7A28]"
+                                : "text-[#98B2D0]"
                             }`}
                           >
                             •
@@ -318,6 +292,25 @@ export default function Sidebar({ onNavigate }) {
                       </button>
                     );
                   })}
+                  {(name === "Products" || name === "Sales") &&
+                    children.length > 5 && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (name === "Products") {
+                          setShowAllProducts((showAll) => !showAll);
+                        } else {
+                          setShowAllSales((showAll) => !showAll);
+                        }
+                      }}
+                      aria-expanded={showAllChildren}
+                      className="flex min-h-[34px] w-full items-center rounded-md px-2 text-left text-[11px] font-semibold text-[#5584BC] transition-colors hover:bg-[#EEF4FB] hover:text-[#3F6FA8]"
+                    >
+                      {(name === "Products" ? showAllProducts : showAllSales)
+                        ? "Show less"
+                        : `+${children.length - 5} more`}
+                    </button>
+                  )}
                 </div>
               )}
             </div>
