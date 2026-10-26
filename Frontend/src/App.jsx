@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { useState } from 'react'
-import { setActiveBusinessStorage } from './utils/businessStorage.js'
-=======
 import { useEffect, useState } from 'react'
->>>>>>> refs/remotes/origin/main
+import { setActiveBusinessStorage } from './utils/businessStorage.js'
 import './App.css'
 import AdminSidebar from './component/Admin-Sidebar.jsx'
 import ElectronicsSidebar from './component/ElectronicsSidebar.jsx'
@@ -20,6 +16,14 @@ import AdminShipment from './pages/Admin/Home/Shipment.jsx'
 import AdminSalseData from './pages/Admin/Home/SalseData.jsx'
 import AdministerBackup from './pages/Admin/Administer Backup/AdministerBackup.jsx'
 import ManageModules from './pages/Admin/Modules/ManageModules.jsx'
+import SuperAdminDashboard from './pages/Admin/Superadmin/SuperAdminDashboard.jsx'
+import WebsiteDashboard from './pages/Admin/Website/Dashboard.jsx'
+import WebsiteBlogs from './pages/Admin/Website/Blogs.jsx'
+import WebsitePages from './pages/Admin/Website/Pages.jsx'
+import WebsiteSEOPanel from './pages/Admin/Website/SEOPanel.jsx'
+import WebsiteCreatePage from './pages/Admin/Website/CreatePage.jsx'
+import WebsiteAddBlogPost from './pages/Admin/Website/AddBlogPost.jsx'
+import WebsiteImportBlogPost from './pages/Admin/Website/ImportBlogPost.jsx'
 import StockExpiryReport from './pages/Admin/Reports/StockExpiryReport.jsx'
 import RestaurantDashboard from './pages/Restaurant/Home/Dashboard.jsx'
 import RestaurantRemainders from './pages/Restaurant/Home/Remainders.jsx'
@@ -236,17 +240,64 @@ function App() {
   const [stockTransferReturnPage, setStockTransferReturnPage] = useState(
     'List Stock Transfers'
   )
+  const [websiteCreatePageReturnPage, setWebsiteCreatePageReturnPage] = useState(
+    'Website Dashboard'
+  )
+  const [websiteAddBlogReturnPage, setWebsiteAddBlogReturnPage] = useState(
+    'Website Dashboard'
+  )
+  const [websiteImportBlogReturnPage, setWebsiteImportBlogReturnPage] =
+    useState('Website Blogs')
+  const [websiteBlogEditContext, setWebsiteBlogEditContext] = useState(null)
+  const [websiteBlogUpdate, setWebsiteBlogUpdate] = useState(null)
+  const [websitePageEditContext, setWebsitePageEditContext] = useState(null)
+  const [websitePageUpdate, setWebsitePageUpdate] = useState(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [activePage])
 
   const sidebarActivePage =
-    activePage === 'Dashboard'
+    activePage === 'Website Import Blog Post'
+      ? websiteImportBlogReturnPage
+      : activePage === 'Website Add Blog Post'
+      ? websiteAddBlogReturnPage
+      : activePage === 'Website Create Page'
+      ? websiteCreatePageReturnPage
+      : activePage === 'Dashboard'
       ? 'Home'
       : activePage === 'Edit Stock Transfers'
         ? 'List Stock Transfers'
         : activePage
+
+  const openWebsiteCreatePage = (returnPage) => {
+    setWebsitePageEditContext(null)
+    setWebsiteCreatePageReturnPage(returnPage)
+    setActivePage('Website Create Page')
+  }
+
+  const openWebsitePageEdit = (item, returnPage, source) => {
+    setWebsitePageEditContext({ item, returnPage, source })
+    setWebsiteCreatePageReturnPage(returnPage)
+    setActivePage('Website Create Page')
+  }
+
+  const openWebsiteAddBlogPost = (returnPage) => {
+    setWebsiteBlogEditContext(null)
+    setWebsiteAddBlogReturnPage(returnPage)
+    setActivePage('Website Add Blog Post')
+  }
+
+  const openWebsiteBlogEdit = (item, returnPage, source) => {
+    setWebsiteBlogEditContext({ item, returnPage, source })
+    setWebsiteAddBlogReturnPage(returnPage)
+    setActivePage('Website Add Blog Post')
+  }
+
+  const openWebsiteImportBlogPost = (returnPage) => {
+    setWebsiteImportBlogReturnPage(returnPage)
+    setActivePage('Website Import Blog Post')
+  }
 
   const openAddStockTransfer = (returnPage) => {
     setStockTransferReturnPage(returnPage)
@@ -255,6 +306,175 @@ function App() {
 
   const pageContent = (() => {
     switch (activePage) {
+      case 'SuperAdmin':
+        if (activeBusiness === 'Admin') {
+          return <SuperAdminDashboard />
+        }
+        return null
+      case 'Website Dashboard':
+        if (activeBusiness === 'Admin') {
+          return (
+            <WebsiteDashboard
+              onNavigate={setActivePage}
+              onCreatePage={() => openWebsiteCreatePage('Website Dashboard')}
+              onCreateBlog={() =>
+                openWebsiteAddBlogPost('Website Dashboard')
+              }
+              onOpenSeo={() => setActivePage('Website SEO Panel')}
+              onEditPage={(item) =>
+                openWebsitePageEdit(item, 'Website Dashboard', 'dashboard')
+              }
+              editedPage={websitePageUpdate}
+              onEditBlog={(item) =>
+                openWebsiteBlogEdit(item, 'Website Dashboard', 'dashboard')
+              }
+              editedBlog={websiteBlogUpdate}
+            />
+          )
+        }
+        return null
+      case 'Website Blogs':
+        if (activeBusiness === 'Admin') {
+          return (
+            <WebsiteBlogs
+              onAddBlog={() => openWebsiteAddBlogPost('Website Blogs')}
+              onImportBlog={() =>
+                openWebsiteImportBlogPost('Website Blogs')
+              }
+              onEditBlog={(item) =>
+                openWebsiteBlogEdit(item, 'Website Blogs', 'blogs')
+              }
+              editedBlog={websiteBlogUpdate}
+            />
+          )
+        }
+        return null
+      case 'Website Pages':
+        if (activeBusiness === 'Admin') {
+          return (
+            <WebsitePages
+              onAddPage={() => openWebsiteCreatePage('Website Pages')}
+              onEditPage={(item) =>
+                openWebsitePageEdit(item, 'Website Pages', 'pages')
+              }
+              editedPage={websitePageUpdate}
+            />
+          )
+        }
+        return null
+      case 'Website Create Page':
+        if (activeBusiness === 'Admin') {
+          return (
+            <WebsiteCreatePage
+              initialData={
+                websitePageEditContext
+                  ? websitePageEditContext.source === 'dashboard'
+                    ? {
+                        ...websitePageEditContext.item,
+                        excerpt: websitePageEditContext.item.description || '',
+                        publishImmediately:
+                          websitePageEditContext.item.status === 'Published',
+                      }
+                    : {
+                        ...websitePageEditContext.item,
+                        excerpt: '',
+                        metaTitle: websitePageEditContext.item.seoTitle || '',
+                        publishImmediately:
+                          websitePageEditContext.item.status === 'Published',
+                        showInNavigation: Boolean(
+                          websitePageEditContext.item.navbar
+                        ),
+                      }
+                  : undefined
+              }
+              isEditing={Boolean(websitePageEditContext)}
+              onBack={() =>
+                setActivePage(
+                  websitePageEditContext?.returnPage ||
+                    websiteCreatePageReturnPage
+                )
+              }
+              onSave={
+                websitePageEditContext
+                  ? (data) => {
+                      setWebsitePageUpdate({
+                        source: websitePageEditContext.source,
+                        id: websitePageEditContext.item.id,
+                        data,
+                      })
+                      setActivePage(websitePageEditContext.returnPage)
+                      setWebsitePageEditContext(null)
+                    }
+                  : undefined
+              }
+              backLabel={
+                (websitePageEditContext?.returnPage ||
+                  websiteCreatePageReturnPage) === 'Website Pages'
+                  ? 'Back to Website Pages'
+                  : 'Back to Dashboard'
+              }
+            />
+          )
+        }
+        return null
+      case 'Website Add Blog Post':
+        if (activeBusiness === 'Admin') {
+          return (
+            <WebsiteAddBlogPost
+              initialData={websiteBlogEditContext
+                ? {
+                    ...websiteBlogEditContext.item,
+                    metaTitle:
+                      websiteBlogEditContext.item.metaTitle ||
+                      websiteBlogEditContext.item.seoTitle ||
+                      '',
+                    publishedAt:
+                      websiteBlogEditContext.item.publishedAt ||
+                      websiteBlogEditContext.item.published ||
+                      websiteBlogEditContext.item.updated ||
+                      '',
+                    publishImmediately:
+                      websiteBlogEditContext.item.status === 'Published',
+                  }
+                : undefined}
+              isEditing={Boolean(websiteBlogEditContext)}
+              onSave={
+                websiteBlogEditContext
+                  ? (data) => {
+                      setWebsiteBlogUpdate({
+                        source: websiteBlogEditContext.source,
+                        id: websiteBlogEditContext.item.id,
+                        data,
+                      })
+                      setActivePage(websiteBlogEditContext.returnPage)
+                      setWebsiteBlogEditContext(null)
+                    }
+                  : undefined
+              }
+              onCancel={() => setActivePage(websiteAddBlogReturnPage)}
+              cancelLabel={
+                websiteAddBlogReturnPage === 'Website Blogs'
+                  ? 'Back to Blogs'
+                  : 'Back to Dashboard'
+              }
+            />
+          )
+        }
+        return null
+      case 'Website Import Blog Post':
+        if (activeBusiness === 'Admin') {
+          return (
+            <WebsiteImportBlogPost
+              onCancel={() => setActivePage(websiteImportBlogReturnPage)}
+            />
+          )
+        }
+        return null
+      case 'Website SEO Panel':
+        if (activeBusiness === 'Admin') {
+          return <WebsiteSEOPanel />
+        }
+        return null
       case 'Dashboard':
       case 'Home':
         if (activeBusiness === 'Multi-Service Center') {

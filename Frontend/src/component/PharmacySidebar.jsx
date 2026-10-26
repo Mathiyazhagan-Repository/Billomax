@@ -194,30 +194,18 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
         aria-label="Main navigation"
       >
         {menuItems.map(({ name, icon: Icon, expandable, children }) => {
-<<<<<<< HEAD
-          const isActive =
-            activeItem === name || children?.some((child) => child.name === activeItem);
-          const isExpanded = expandedItems.includes(name);
-          const hasChildren = Boolean(children?.length);
-          const showAllChildren =
-            name === "Products" ? showAllProducts : showAllSales;
-          const visibleChildren =
-            (name === "Products" || name === "Sales") && !showAllChildren
-              ? children.slice(0, 5)
-              : children;
-
-          return (
-            <div key={name} className="shrink-0">
-              <button
-                type="button"
-                onClick={() => {
-=======
           const isActive = activePage === name;
           const isExpanded = expandedItems.includes(name);
           const hasChildren = Boolean(children?.length);
           const hasActiveChild = children?.some(
             ({ name: childName }) => activePage === childName
           );
+          const showAllChildren =
+            name === "Products" ? showAllProducts : showAllSales;
+          const visibleChildren =
+            (name === "Products" || name === "Sales") && !showAllChildren
+              ? children.slice(0, 5)
+              : children;
 
           return (
             <div key={name} className="shrink-0">
@@ -233,99 +221,95 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
                 <button
                   type="button"
                   onClick={() => {
-                  if (name === "Expenses") {
-                    setExpandedItems([name]);
-                    navigateTo("List Expenses");
-                    return;
-                  }
+                    if (name === "Expenses") {
+                      setExpandedItems([name]);
+                      navigateTo("List Expenses");
+                      return;
+                    }
 
-                  if (name === "Reports") {
-                    setExpandedItems([name]);
-                    navigateTo("Profit / Loss Report");
-                    return;
-                  }
+                    if (name === "Reports") {
+                      setExpandedItems([name]);
+                      navigateTo("Profit / Loss Report");
+                      return;
+                    }
 
-                  if (name === "Pharmacy") {
-                    setExpandedItems([name]);
-                    navigateTo("Doctors");
-                    return;
-                  }
+                    if (name === "Pharmacy") {
+                      setExpandedItems([name]);
+                      navigateTo("Doctors");
+                      return;
+                    }
 
-                  if (name === "Settings") {
-                    setExpandedItems([name]);
-                    navigateTo("Business Settings");
-                    return;
-                  }
+                    if (name === "Settings") {
+                      setExpandedItems([name]);
+                      navigateTo("Business Settings");
+                      return;
+                    }
 
-                  if (name === "Stock Adjustment") {
-                    setExpandedItems([name]);
-                    navigateTo("List Stock Adjustments");
-                    return;
-                  }
+                    if (name === "Stock Adjustment") {
+                      setExpandedItems([name]);
+                      navigateTo("List Stock Adjustments");
+                      return;
+                    }
 
-                  if (name === "Stock Transfers") {
-                    setExpandedItems([name]);
-                    navigateTo("List Stock Transfers");
-                    return;
-                  }
+                    if (name === "Stock Transfers") {
+                      setExpandedItems([name]);
+                      navigateTo("List Stock Transfers");
+                      return;
+                    }
 
->>>>>>> refs/remotes/origin/main
-                  if (expandable || hasChildren) {
-                    toggleExpanded(name);
+                    if (expandable || hasChildren) {
+                      toggleExpanded(name);
+                    }
+                    navigateTo(name);
+                  }}
+                  aria-current={isActive ? "page" : undefined}
+                  aria-expanded={
+                    expandable || hasChildren ? isExpanded : undefined
                   }
-                  navigateTo(name);
-                }}
-                aria-current={isActive ? "page" : undefined}
-                aria-expanded={
-                  expandable || hasChildren ? isExpanded : undefined
-                }
-                className={`group flex min-h-[38px] w-full items-center gap-[13px] rounded-[8px] px-[11px] text-left transition-colors duration-150 ${
-                  isActive
-                    ? "bg-[#FF8C30] text-white shadow-sm"
-                    : "text-[#2C477C] hover:bg-[#FFF0E3]"
-                }`}
-              >
-                <Icon
-                  size={18}
-                  strokeWidth={isActive ? 2.5 : 2.8}
-                  className={`shrink-0 ${
-                    isActive ? "text-white" : "text-[#5584BC]"
+                  className={`flex min-h-[40px] w-full items-center gap-[13px] rounded-[9px] px-[11px] text-left transition-colors duration-150 ${
+                    isActive
+                      ? "text-white"
+                      : hasActiveChild
+                        ? "text-[#19366F]"
+                        : "text-[#15336E]"
                   }`}
-                />
+                >
+                  <Icon
+                    size={18}
+                    strokeWidth={isActive ? 2.5 : 2.8}
+                    className={`shrink-0 ${
+                      isActive ? "text-white" : "text-[#5584BC]"
+                    }`}
+                  />
 
-                <span className="min-w-0 flex-1 whitespace-nowrap text-[12px] font-medium tracking-[-0.2px]">
-                  {name}
-                </span>
+                  <span className="min-w-0 flex-1 whitespace-nowrap text-[12px] font-medium tracking-[-0.2px]">
+                    {name}
+                  </span>
 
-                {(expandable || hasChildren) &&
-                  (isExpanded ? (
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={1.7}
-                      className="ml-auto shrink-0 text-[#98B2D0]"
-                    />
-                  ) : (
-                    <ChevronRight
-                      size={12}
-                      strokeWidth={1.7}
-                      className={`ml-auto shrink-0 ${
-                        isActive ? "text-white/80" : "text-[#98B2D0]"
-                      }`}
-                    />
-                  ))}
-              </button>
+                  {(expandable || hasChildren) &&
+                    (isExpanded ? (
+                      <ChevronDown
+                        size={12}
+                        strokeWidth={1.7}
+                        className="ml-auto shrink-0 text-[#98B2D0]"
+                      />
+                    ) : (
+                      <ChevronRight
+                        size={12}
+                        strokeWidth={1.7}
+                        className={`ml-auto shrink-0 ${
+                          isActive ? "text-white/80" : "text-[#98B2D0]"
+                        }`}
+                      />
+                    ))}
+                </button>
+              </div>
 
               {/* All submenu rows use the original Expenses styling */}
               {hasChildren && isExpanded && (
-<<<<<<< HEAD
-                <div className="ml-5 border-l border-[#E0E8F2] pl-2">
-                  {visibleChildren.map(({ name: childName, icon: ChildIcon }) => {
-                    const isChildActive = activeItem === childName;
-=======
                 <div className="ml-[18px] mt-1 mb-1 space-y-0.5 border-l border-[#F1D8C5] pl-2">
-                  {children.map(({ name: childName, icon: ChildIcon }) => {
+                  {visibleChildren.map(({ name: childName, icon: ChildIcon }) => {
                     const isChildActive = activePage === childName;
->>>>>>> refs/remotes/origin/main
 
                     return (
                       <button
