@@ -406,7 +406,7 @@ function ImportProducts() {
             </div>
 
             <div className="flex flex-wrap gap-2 lg:flex-col">
-              <button type="button" disabled={!validRows.length || invalidRows > 0 || isImporting} onClick={importValidProducts} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50">
+              <button type="button" disabled={!validRows.length || invalidRows > 0 || isImporting} onClick={importValidProducts} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50">
                 <Upload size={16} /> {isImporting ? "Importing..." : "Submit import"}
               </button>
               <button type="button" onClick={() => downloadCsv([createSampleRow()], "sample_products.csv")} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[#08A878] px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#078E66]">

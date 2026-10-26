@@ -76,7 +76,7 @@ function BrandModal({ brand, onClose, onSave }) {
         </label>
         <div className="mt-6 flex justify-end gap-2">
           <button type="button" onClick={onClose} className="h-9 rounded-lg border border-[#D8E0EA] px-4 text-sm font-medium text-[#60738D] hover:bg-[#FFFCF8]">Cancel</button>
-          <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF7] px-4 text-sm font-semibold text-white transition hover:brightness-105">
+          <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white transition hover:brightness-105">
             <Check size={15} /> {brand ? "Save changes" : "Add brand"}
           </button>
         </div>
@@ -181,7 +181,7 @@ function Brands() {
         <section className="overflow-hidden rounded-2xl border border-[#F0E4D7] bg-white shadow-[0_8px_28px_rgba(40,57,97,0.06)]">
           <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 sm:px-7">
             <h2 className="text-lg font-semibold text-[#F5852A]">All your brands</h2>
-            <button type="button" onClick={() => { setIsAdding(true); setNotice(""); }} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#6250EF] to-[#397FF7] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+            <button type="button" onClick={() => { setIsAdding(true); setNotice(""); }} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
               <Plus size={17} /> Add
             </button>
           </div>

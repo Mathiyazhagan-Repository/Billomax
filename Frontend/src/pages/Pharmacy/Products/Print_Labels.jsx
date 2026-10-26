@@ -311,7 +311,7 @@ function PrintLabels() {
 
           <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[#EDF0F3] pt-5">
             <p className="text-sm text-[#71809A]">Selected <span className="font-semibold text-[#344B70]">{selectedProducts.length}</span> products · <span className="font-semibold text-[#344B70]">{totalLabels}</span> labels</p>
-            <button type="button" disabled={!selectedProducts.length} onClick={() => setPreviewOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-7 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50">
+            <button type="button" disabled={!selectedProducts.length} onClick={() => setPreviewOpen(true)} className="inline-flex h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-7 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50">
               Preview labels <ChevronDown size={15} className="-rotate-90" />
             </button>
           </div>
@@ -327,7 +327,7 @@ function PrintLabels() {
                 <h2 id="label-preview-heading" className="text-lg font-semibold text-[#283961]">Label preview</h2>
               </div>
               <div className="flex items-center gap-2">
-                <button type="button" onClick={() => window.print()} className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white"><Printer size={15} /> Print</button>
+                <button type="button" onClick={() => window.print()} className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white"><Printer size={15} /> Print</button>
                 <button type="button" onClick={() => setPreviewOpen(false)} aria-label="Close preview" className="rounded-lg p-2 text-[#8798AD] hover:bg-[#FFF0E3] hover:text-[#E87928]"><X size={18} /></button>
               </div>
             </header>

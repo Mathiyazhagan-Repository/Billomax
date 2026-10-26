@@ -176,7 +176,7 @@ function UserModal({ user, readOnly = false, onClose, onSave }) {
           {!readOnly && (
             <button
               type="submit"
-              className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+              className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
             >
               {user ? "Save changes" : "Add user"}
             </button>
@@ -311,7 +311,7 @@ export default function Users() {
           <button
             type="button"
             onClick={() => setAddingUser(true)}
-            className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
+            className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
           >
             <Plus size={16} />
             Add
@@ -380,7 +380,7 @@ export default function Users() {
                               : [...current, column.key]
                           )
                         }
-                        className="accent-[#5145EF]"
+                        className="accent-[#FF711A]"
                       />
                       {column.label}
                     </label>

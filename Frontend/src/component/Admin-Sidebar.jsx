@@ -78,7 +78,7 @@ const menuItems = [
   },
   { name: "User Management", icon: Users, children: userManagementChildren },
   { name: "Contacts", icon: Contact, children: contactsChildren },
-  { name: "Wishes", icon: Building2, expandable: true },
+  { name: "Wishes", icon: Building2 },
   { name: "Products", icon: Boxes, children: productChildren },
   { name: "Purchases", icon: ShoppingCart, children: purchaseChildren },
   { name: "Sales", icon: Truck, children: salesChildren },
@@ -183,13 +183,14 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
         aria-label="Main navigation"
       >
         {menuItems.map(({ name, icon: Icon, expandable, children }) => {
-          const isActive = activePage === name;
           const isExpanded = expandedItems.includes(name);
           const hasChildren = Boolean(children?.length);
           const hasActiveChild = children?.some(
             ({ name: childName, page }) =>
               activePage === childName || activePage === page
           );
+          const isActive =
+            activePage === name || (name === "Website" && hasActiveChild);
 
           return (
             <div key={name} className="shrink-0">
@@ -232,6 +233,12 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
                   if (name === "Stock Transfers") {
                     setExpandedItems([name]);
                     navigateTo("List Stock Transfers");
+                    return;
+                  }
+
+                  if (name === "Website") {
+                    setExpandedItems([name]);
+                    navigateTo("Website Dashboard");
                     return;
                   }
 

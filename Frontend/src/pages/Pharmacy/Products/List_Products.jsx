@@ -440,18 +440,18 @@ function ListProducts({ onNavigate }) {
               </div>
               {activeTab === "products" ? (
                 <div className="flex flex-wrap items-center gap-2">
-                  <button type="button" onClick={() => onNavigate?.("Add Product")} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+                  <button type="button" onClick={() => onNavigate?.("Add Product")} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
                     <Plus size={17} /> Add
                   </button>
                   <button type="button" onClick={() => setNotice("Bulk upload is not connected to an import workflow yet.")} className="inline-flex h-10 items-center gap-2 rounded-full bg-[#273445] px-4 text-sm font-semibold text-white transition hover:bg-[#1D2938]">
                     <Upload size={16} /> Bulk Upload
                   </button>
-                  <button type="button" onClick={() => downloadCsv(filteredProducts)} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+                  <button type="button" onClick={() => downloadCsv(filteredProducts)} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
                     <ArrowDownToLine size={16} /> Download Excel
                   </button>
                 </div>
               ) : (
-                <button type="button" onClick={() => { setCustomFieldName(""); setIsCustomFieldModalOpen(true); }} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+                <button type="button" onClick={() => { setCustomFieldName(""); setIsCustomFieldModalOpen(true); }} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
                   <Plus size={17} /> Add Custom Field
                 </button>
               )}
@@ -703,7 +703,7 @@ function ListProducts({ onNavigate }) {
             </label>
             <div className="mt-6 flex justify-end gap-2">
               <button type="button" onClick={() => setIsCustomFieldModalOpen(false)} className="h-9 rounded-lg border border-[#D8E0EA] px-4 text-sm font-medium text-[#60738D] hover:bg-[#FFFCF8]">Cancel</button>
-              <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white hover:brightness-105">
+              <button type="submit"               className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white hover:brightness-105">
                 <Plus size={15} /> Add field
               </button>
             </div>

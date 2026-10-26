@@ -559,7 +559,7 @@ function AddProduct({ onNavigate }) {
             <button type="button" onClick={(event) => saveProduct(event, "another")} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#D81B60] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#C2185B]">
               <Plus size={16} /> Save And Add Another
             </button>
-            <button type="submit" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+            <button type="submit" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
               <Check size={16} /> Save
             </button>
           </div>
@@ -601,7 +601,7 @@ function AddProduct({ onNavigate }) {
               <button
                 type="button"
                 onClick={() => setShowFullDescription(false)}
-                className="h-9 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white transition hover:brightness-105"
+                className="h-9 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white transition hover:brightness-105"
               >
                 Close
               </button>
@@ -623,7 +623,7 @@ function AddProduct({ onNavigate }) {
             <TextInput autoFocus required value={quickAddValue} onChange={(event) => setQuickAddValue(event.target.value)} placeholder={`Enter ${quickAdd.label.toLowerCase()} name`} />
             <div className="mt-5 flex justify-end gap-2">
               <button type="button" onClick={() => setQuickAdd(null)} className="h-9 rounded-lg border border-[#D8E0EA] px-4 text-sm font-medium text-[#60738D]">Cancel</button>
-              <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white"><Plus size={15} /> Add option</button>
+              <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white"><Plus size={15} /> Add option</button>
             </div>
           </form>
         </div>

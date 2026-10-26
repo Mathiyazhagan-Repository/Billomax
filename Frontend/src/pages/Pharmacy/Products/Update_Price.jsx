@@ -306,7 +306,7 @@ function UpdatePrice({ onNavigate }) {
                 <h3 className="text-sm font-semibold text-[#283961]">Export current prices</h3>
               </div>
               <p className="mb-5 text-sm leading-6 text-[#71809A]">Download a spreadsheet containing saved product prices. Edit price values only; keep product names, SKUs, headers, and column order unchanged.</p>
-              <button type="button" onClick={handleExport} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+              <button type="button" onClick={handleExport} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
                 <ArrowDownToLine size={17} /> Export product prices
               </button>
             </div>
@@ -332,7 +332,7 @@ function UpdatePrice({ onNavigate }) {
                   <button type="button" onClick={() => { setFile(null); if (inputRef.current) inputRef.current.value = ""; }} aria-label="Remove selected file" className="rounded p-1 text-[#8798AD] hover:bg-[#FFF0E3] hover:text-[#E87928]"><X size={15} /></button>
                 </div>
               )}
-              <button disabled={isImporting} type="submit" className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60">
+              <button disabled={isImporting} type="submit" className="mt-4 inline-flex min-h-10 items-center gap-2 rounded-xl bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60">
                 <Upload size={15} /> {isImporting ? "Validating..." : "Submit"}
               </button>
             </form>
