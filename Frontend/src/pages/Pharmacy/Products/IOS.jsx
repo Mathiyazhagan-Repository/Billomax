@@ -275,7 +275,7 @@ function ImportOpeningStock() {
                   </div>
                 )}
               </div>
-              <button type="button" disabled={!validRows.length || errors.length > 0 || isSubmitting} onClick={submitImport} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-6 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50">
+              <button type="button" disabled={!validRows.length || errors.length > 0 || isSubmitting} onClick={submitImport} className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-6 text-sm font-semibold text-white shadow-sm transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-50">
                 <Upload size={16} /> {isSubmitting ? "Importing..." : "Submit"}
               </button>
             </div>

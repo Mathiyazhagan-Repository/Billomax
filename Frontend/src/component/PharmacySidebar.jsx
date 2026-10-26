@@ -190,12 +190,11 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
         aria-label="Main navigation"
       >
         {menuItems.map(({ name, icon: Icon, expandable, children }) => {
-          const hasChildren = Boolean(children?.length);
-          const isActive = activePage === name;
-          const hasActiveChild = children?.some(
-            ({ name: childName }) => activePage === childName
-          );
+          const isActive =
+            activePage === name ||
+            children?.some((child) => child.name === activePage);
           const isExpanded = expandedItems.includes(name);
+          const hasChildren = Boolean(children?.length);
           const showAllChildren =
             name === "Products" ? showAllProducts : showAllSales;
           const visibleChildren =
@@ -205,79 +204,53 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
 
           return (
             <div key={name} className="shrink-0">
-              <div
-                className={`group flex min-h-[40px] w-full items-center rounded-[9px] transition-colors duration-150 ${
+              <button
+                type="button"
+                onClick={() => {
+                  const defaultPages = {
+                    Expenses: "List Expenses",
+                    Reports: "Profit / Loss Report",
+                    Pharmacy: "Doctors",
+                    Settings: "Business Settings",
+                    "Stock Adjustment": "List Stock Adjustments",
+                    "Stock Transfers": "List Stock Transfers",
+                  };
+                  const defaultPage = defaultPages[name];
+
+                  if (defaultPage) {
+                    setExpandedItems([name]);
+                    navigateTo(defaultPage);
+                    return;
+                  }
+
+                  if (expandable || hasChildren) {
+                    toggleExpanded(name);
+                  }
+                  navigateTo(name);
+                }}
+                aria-current={isActive ? "page" : undefined}
+                aria-expanded={
+                  expandable || hasChildren ? isExpanded : undefined
+                }
+                className={`group flex min-h-[38px] w-full items-center gap-[13px] rounded-[8px] px-[11px] text-left transition-colors duration-150 ${
                   isActive
-                    ? "bg-[#FF711A] text-white shadow-[0_3px_8px_rgba(255,113,26,0.18)]"
-                    : hasActiveChild
-                    ? "bg-[#FFF1E5] text-[#19366F]"
-                    : "text-[#15336E] hover:bg-[#FFF0E3]"
+                    ? "bg-[#FF8C30] text-white shadow-sm"
+                    : "text-[#2C477C] hover:bg-[#FFF0E3]"
                 }`}
               >
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (name === "Expenses") {
-                      setExpandedItems([name]);
-                      navigateTo("List Expenses");
-                      return;
-                    }
+                <Icon
+                  size={18}
+                  strokeWidth={isActive ? 2.5 : 2.8}
+                  className={`shrink-0 ${
+                    isActive ? "text-white" : "text-[#5584BC]"
+                  }`}
+                />
 
-                    if (name === "Reports") {
-                      setExpandedItems([name]);
-                      navigateTo("Profit / Loss Report");
-                      return;
-                    }
+                <span className="min-w-0 flex-1 whitespace-nowrap text-[12px] font-medium tracking-[-0.2px]">
+                  {name}
+                </span>
 
-                    if (name === "Pharmacy") {
-                      setExpandedItems([name]);
-                      navigateTo("Doctors");
-                      return;
-                    }
-
-                    if (name === "Settings") {
-                      setExpandedItems([name]);
-                      navigateTo("Business Settings");
-                      return;
-                    }
-
-                    if (name === "Stock Adjustment") {
-                      setExpandedItems([name]);
-                      navigateTo("List Stock Adjustments");
-                      return;
-                    }
-
-                    if (name === "Stock Transfers") {
-                      setExpandedItems([name]);
-                      navigateTo("List Stock Transfers");
-                      return;
-                    }
-
-                    if (expandable || hasChildren) {
-                      toggleExpanded(name);
-                    }
-                    navigateTo(name);
-                  }}
-                  aria-current={isActive ? "page" : undefined}
-                  aria-expanded={
-                    expandable || hasChildren ? isExpanded : undefined
-                  }
-                  className="flex min-h-[38px] min-w-0 flex-1 items-center gap-[13px] rounded-[8px] px-[11px] text-left"
-                >
-                  <Icon
-                    size={18}
-                    strokeWidth={isActive ? 2.5 : 2.8}
-                    className={`shrink-0 ${
-                      isActive ? "text-white" : "text-[#5584BC]"
-                    }`}
-                  />
-
-                  <span className="min-w-0 flex-1 whitespace-nowrap text-[12px] font-medium tracking-[-0.2px]">
-                    {name}
-                  </span>
-                </button>
-
-                {(expandable || hasChildren) && (
+                {(expandable || hasChildren) &&
                   (isExpanded ? (
                     <ChevronDown
                       size={12}
@@ -292,70 +265,70 @@ export default function Sidebar({ activePage = "Home", onNavigate }) {
                         isActive ? "text-white/80" : "text-[#98B2D0]"
                       }`}
                     />
-                  ))
-                )}
-              </div>
+                  ))}
+              </button>
 
-              {/* All submenu rows use the original Expenses styling */}
               {hasChildren && isExpanded && (
-                <div className="ml-5 border-l border-[#E0E8F2] pl-2">
-                  {visibleChildren.map(({ name: childName, icon: ChildIcon }) => {
-                    const isChildActive = activePage === childName;
+                <div className="ml-[18px] mt-1 mb-1 space-y-0.5 border-l border-[#F1D8C5] pl-2">
+                  {visibleChildren.map(
+                    ({ name: childName, icon: ChildIcon }) => {
+                      const isChildActive = activePage === childName;
 
-                    return (
-                      <button
-                        key={childName}
-                        type="button"
-                        onClick={() => navigateTo(childName)}
-                        aria-current={isChildActive ? "page" : undefined}
-                        className={`flex min-h-[34px] w-full items-center gap-2 rounded-md px-2 text-left text-[11px] transition-colors ${
-                          isChildActive
-                            ? "bg-[#FFF0E3] font-semibold text-[#EB7A28]"
-                            : "text-[#2C477C] hover:bg-[#FFF0E3]"
-                        }`}
-                      >
-                        {ChildIcon ? (
-                          <ChildIcon
-                            size={13}
-                            className="shrink-0 text-[#7B9CC0]"
-                          />
-                        ) : (
-                          <span
-                            className={`shrink-0 text-[13px] leading-none ${
-                              isChildActive
-                                ? "text-[#EB7A28]"
-                                : "text-[#98B2D0]"
-                            }`}
-                          >
-                            •
+                      return (
+                        <button
+                          key={childName}
+                          type="button"
+                          onClick={() => navigateTo(childName)}
+                          aria-current={isChildActive ? "page" : undefined}
+                          className={`flex min-h-[34px] w-full items-center gap-2 rounded-md px-2 text-left text-[11px] transition-colors ${
+                            isChildActive
+                              ? "bg-[#FFF0E3] font-semibold text-[#EB7A28]"
+                              : "text-[#2C477C] hover:bg-[#FFF0E3]"
+                          }`}
+                        >
+                          {ChildIcon ? (
+                            <ChildIcon
+                              size={13}
+                              className="shrink-0 text-[#7B9CC0]"
+                            />
+                          ) : (
+                            <span
+                              className={`shrink-0 text-[13px] leading-none ${
+                                isChildActive
+                                  ? "text-[#EB7A28]"
+                                  : "text-[#98B2D0]"
+                              }`}
+                            >
+                              •
+                            </span>
+                          )}
+
+                          <span className="whitespace-nowrap">
+                            {childName}
                           </span>
-                        )}
-
-                        <span className="whitespace-nowrap">
-                          {childName}
-                        </span>
-                      </button>
-                    );
-                  })}
+                        </button>
+                      );
+                    }
+                  )}
                   {(name === "Products" || name === "Sales") &&
                     children.length > 5 && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (name === "Products") {
-                          setShowAllProducts((showAll) => !showAll);
-                        } else {
-                          setShowAllSales((showAll) => !showAll);
-                        }
-                      }}
-                      aria-expanded={showAllChildren}
-                      className="flex min-h-[34px] w-full items-center rounded-md px-2 text-left text-[11px] font-semibold text-[#5584BC] transition-colors hover:bg-[#EEF4FB] hover:text-[#3F6FA8]"
-                    >
-                      {(name === "Products" ? showAllProducts : showAllSales)
-                        ? "Show less"
-                        : `+${children.length - 5} more`}
-                    </button>
-                  )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (name === "Products") {
+                            setShowAllProducts((showAll) => !showAll);
+                          } else {
+                            setShowAllSales((showAll) => !showAll);
+                          }
+                        }}
+                        aria-expanded={showAllChildren}
+                        className="flex min-h-[34px] w-full items-center rounded-md px-2 text-left text-[11px] font-semibold text-[#5584BC] transition-colors hover:bg-[#EEF4FB] hover:text-[#3F6FA8]"
+                      >
+                        {showAllChildren
+                          ? "Show less"
+                          : `+${children.length - 5} more`}
+                      </button>
+                    )}
                 </div>
               )}
             </div>

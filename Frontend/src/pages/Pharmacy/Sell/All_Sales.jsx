@@ -584,7 +584,7 @@ export default function AllSales({
                   setAddingSale(true);
                 }
               }}
-              className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#6250EF] to-[#397FF7] px-5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105"
+              className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-5 text-sm font-semibold text-white shadow-sm transition hover:brightness-105"
             >
               <Plus size={17} />
               Add

@@ -82,7 +82,7 @@ function VariationModal({ variation, onClose, onSave }) {
         </label>
         <div className="mt-6 flex justify-end gap-2">
           <button type="button" onClick={onClose} className="h-9 rounded-lg border border-[#D8E0EA] px-4 text-sm font-medium text-[#60738D] hover:bg-[#FFFCF8]">Cancel</button>
-          <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white transition hover:brightness-105">
+          <button type="submit" className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white transition hover:brightness-105">
             <Check size={15} /> {variation ? "Save changes" : "Add variation"}
           </button>
         </div>
@@ -186,7 +186,7 @@ function Variations() {
               <h2 className="text-lg font-semibold text-[#F5852A]">All variations</h2>
               <p className="mt-1 text-xs text-[#8798AD]">{variations.length} variation{variations.length === 1 ? "" : "s"} configured</p>
             </div>
-            <button type="button" onClick={() => { setAddingVariation(true); setNotice(""); }} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#6250EF] to-[#397FF1] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
+            <button type="button" onClick={() => { setAddingVariation(true); setNotice(""); }} className="inline-flex h-10 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white shadow-sm transition hover:brightness-105">
               <Plus size={17} /> Add
             </button>
           </div>

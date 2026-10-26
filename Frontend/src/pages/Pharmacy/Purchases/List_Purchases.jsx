@@ -300,7 +300,7 @@ function ListPurchases({ onNavigate }) {
                     setAppliedFilters(filters);
                     setPage(1);
                   }}
-                  className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF7] px-4 text-sm font-semibold text-white transition hover:brightness-105"
+                  className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-sm font-semibold text-white transition hover:brightness-105"
                 >
                   <SlidersHorizontal size={14} />
                   Apply filters
@@ -319,7 +319,7 @@ function ListPurchases({ onNavigate }) {
             <button
               type="button"
               onClick={() => onNavigate?.("Add Purchase")}
-              className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#6250EF] to-[#397FF7] px-3.5 text-xs font-semibold text-white transition hover:brightness-105"
+              className="inline-flex h-9 items-center gap-2 rounded-lg bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-3.5 text-xs font-semibold text-white transition hover:brightness-105"
             >
               <Plus size={14} />
               Add Purchase

@@ -267,7 +267,7 @@ function SupplierModal({
           {!readOnly && (
             <button
               type="submit"
-              className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+              className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
             >
               {supplier.id ? "Save changes" : "Add supplier"}
             </button>
@@ -670,7 +670,7 @@ export default function Suppliers() {
             <button
               type="button"
               onClick={() => setAddingSupplier(true)}
-              className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
+              className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
             >
               <Plus size={16} />
               Add
@@ -738,7 +738,7 @@ export default function Suppliers() {
                               : [...current, column.key]
                           )
                         }
-                        className="accent-[#5145EF]"
+                        className="accent-[#FF711A]"
                       />
                       {column.label}
                     </label>
@@ -1031,7 +1031,7 @@ export default function Suppliers() {
               </button>
               <button
                 type="submit"
-                className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+                className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
               >
                 Add field
               </button>
@@ -1064,7 +1064,7 @@ export default function Suppliers() {
               <button
                 type="button"
                 onClick={() => setSelectedSupplierAction(null)}
-                className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+                className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
               >
                 Close
               </button>

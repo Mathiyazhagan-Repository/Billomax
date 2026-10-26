@@ -270,7 +270,7 @@ function CustomerModal({ customer, customFields, onClose, onSave }) {
           </button>
           <button
             type="submit"
-            className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+            className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
           >
             {customer.id ? "Save changes" : "Add customer"}
           </button>
@@ -737,7 +737,7 @@ export default function Customers() {
             <button
               type="button"
               onClick={() => setAddingCustomer(true)}
-              className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
+              className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
             >
               <Plus size={16} />
               Add
@@ -805,7 +805,7 @@ export default function Customers() {
                               : [...current, column.key]
                           )
                         }
-                        className="accent-[#5145EF]"
+                        className="accent-[#FF711A]"
                       />
                       {column.label}
                     </label>
@@ -1099,7 +1099,7 @@ export default function Customers() {
               </button>
               <button
                 type="submit"
-                className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+                className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
               >
                 Add field
               </button>
@@ -1132,7 +1132,7 @@ export default function Customers() {
               <button
                 type="button"
                 onClick={() => setSelectedCustomerAction(null)}
-                className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+                className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
               >
                 Close
               </button>

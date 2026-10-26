@@ -79,7 +79,7 @@ function RoleModal({ role, readOnly = false, onClose, onSave }) {
           {!readOnly && (
             <button
               type="submit"
-              className="h-9 rounded-md bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white hover:brightness-105"
+              className="h-9 rounded-md bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white hover:brightness-105"
             >
               {role ? "Save changes" : "Add role"}
             </button>
@@ -166,7 +166,7 @@ export default function Roles() {
           <button
             type="button"
             onClick={() => setAddingRole(true)}
-            className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#5145EF] to-[#4D8FF7] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
+            className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
           >
             <Plus size={16} />
             Add
