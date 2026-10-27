@@ -9,6 +9,7 @@ import {
   LockKeyhole,
   UserRound,
 } from "lucide-react";
+import logo from "../../assets/vendor-login-logo.png";
 
 const businesses = [
   {
@@ -116,10 +117,8 @@ export default function Login({ onSelectBusiness }) {
           aria-label="Billomax home"
           className="flex flex-col leading-none no-underline"
         >
-          <span className="text-[26px] font-extrabold tracking-[-1.5px] text-[#10234F]">
-            ◉Bill<span className="text-[#FF711A]">omax</span>
-          </span>
-          <span className="ml-9 mt-0.5 text-[9px] font-semibold text-[#577B9F]">
+          <img src={logo} alt="Billomax" className="h-9 w-auto object-contain" />
+          <span className="mt-0.5 text-[9px] font-semibold text-[#577B9F]">
             Your Trusted Partner in Billing &amp; Invoicing
           </span>
         </a>
@@ -138,12 +137,12 @@ export default function Login({ onSelectBusiness }) {
 
       <div className="relative z-10 mx-auto grid min-h-[calc(100vh-69px)] max-w-[1480px] grid-cols-1 items-center gap-8 px-5 py-8 sm:px-10 lg:grid-cols-[minmax(0,1fr)_416px] lg:gap-6 lg:px-[4.5%] lg:py-10">
         <section className="min-w-0">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F2E8DE] bg-white/80 px-4 py-2 text-xs font-extrabold tracking-[0.08em] text-[#19366F]">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#F2E8DE] bg-white/80 px-4 py-2 text-xs font-semibold tracking-[0.08em] text-[#19366F]">
             <span className="h-2.5 w-2.5 rounded-full bg-[#FF711A]" />
             TRUSTED BILLING &amp; INVOICING
           </div>
 
-          <h1 className="max-w-[650px] text-[clamp(2.65rem,4.25vw,3.85rem)] font-extrabold leading-[0.99] tracking-[-0.055em] text-[#10234F]">
+          <h1 className="max-w-[650px] text-[clamp(2.65rem,4.25vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.04em] text-[#10234F]">
             One Platform for
             <br />
             Every <span className="text-[#FF711A]">Business</span>
@@ -190,7 +189,7 @@ export default function Login({ onSelectBusiness }) {
                     {business.icon}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[14px] font-extrabold leading-tight tracking-[-0.03em] text-[#10234F]">
+                    <span className="block text-[14px] font-semibold leading-tight tracking-[-0.025em] text-[#10234F]">
                       {business.name}
                     </span>
                     <span className="mt-1.5 block text-[10px] leading-[1.45] text-[#577B9F]">
@@ -222,7 +221,7 @@ export default function Login({ onSelectBusiness }) {
         </section>
 
         <section className="mx-auto w-full max-w-[440px] rounded-[20px] border border-[#F2E8DE] bg-white/95 p-7 shadow-[0_18px_55px_rgba(16,35,79,0.09)] backdrop-blur-sm sm:p-8">
-          <h2 className="text-[27px] font-extrabold tracking-[-0.055em] text-[#10234F]">
+          <h2 className="text-[27px] font-semibold tracking-[-0.04em] text-[#10234F]">
             Welcome Back <span aria-hidden="true">👋</span>
           </h2>
           <p className="mt-1 text-sm leading-5 text-[#577B9F]">
@@ -233,7 +232,7 @@ export default function Login({ onSelectBusiness }) {
           <form onSubmit={handleSubmit} className="mt-7">
             <label
               htmlFor="username"
-              className="mb-1.5 block text-[11px] font-extrabold text-[#19366F]"
+              className="mb-1.5 block text-[11px] font-semibold text-[#19366F]"
             >
               USERNAME
             </label>
@@ -254,7 +253,7 @@ export default function Login({ onSelectBusiness }) {
             <div className="mb-1.5 mt-5 flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="text-[11px] font-extrabold text-[#19366F]"
+                className="text-[11px] font-semibold text-[#19366F]"
               >
                 PASSWORD
               </label>
