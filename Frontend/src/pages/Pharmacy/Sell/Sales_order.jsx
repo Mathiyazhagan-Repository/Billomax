@@ -180,7 +180,7 @@ function SalesOrderModal({ onClose, onSave }) {
   );
 }
 
-export default function SalesOrder() {
+export default function SalesOrder({ onNavigate }) {
   const [orders, setOrders] = useState(readSalesOrders);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [filters, setFilters] = useState({ location: "", status: "" });
@@ -404,7 +404,11 @@ export default function SalesOrder() {
               type="button"
               onClick={() => {
                 setNotice("");
-                setAddingOrder(true);
+                if (onNavigate) {
+                  onNavigate("Add Sale");
+                } else {
+                  setAddingOrder(true);
+                }
               }}
               className="inline-flex h-10 items-center gap-2 rounded-lg bg-[#FF8627] px-4 text-sm font-semibold text-white shadow-sm transition hover:bg-[#EF7420]"
             >

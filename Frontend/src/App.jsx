@@ -923,13 +923,13 @@ function App() {
       case 'List Purchase Return':
         return <PharmacyListPurchaseReturn />
       case 'Sales Order':
-        return <PharmacySalesOrder />
+        return <PharmacySalesOrder onNavigate={setActivePage} />
       case 'Sales':
       case 'Sell':
       case 'All Sales':
-        return <PharmacyAllSales />
+        return <PharmacyAllSales onAdd={() => setActivePage('Add Sale')} />
       case 'List POS':
-        return <PharmacyListPOS />
+        return <PharmacyListPOS onNavigate={setActivePage} />
       case 'POS':
         return <PharmacyPOS onNavigate={setActivePage} />
       case 'Add Sale':

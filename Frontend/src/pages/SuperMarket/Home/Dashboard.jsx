@@ -17,7 +17,7 @@ import {
   ArrowDown,
   ChevronRight,
 } from "lucide-react";
-import dashboardBackground from "../../../assets/Home/Dashboard_bg.png";
+// import dashboardBackground from "../../../assets/Home/Dashboard_bg.png";
 
 const stats = [
   {
@@ -168,12 +168,12 @@ export default function Dashboard() {
     <main className="min-h-0 flex-1 overflow-x-hidden bg-[#FFFAF5] px-4 py-4 font-sans text-[#10234F] sm:px-5">
       {/* Welcome section */}
       <section className="relative mb-4 overflow-hidden rounded-2xl">
-        <img
+        {/* <img
           src={dashboardBackground}
           alt=""
           aria-hidden="true"
           className="pointer-events-none absolute right-0 top-0 h-full w-[40%] object-contain object-right"
-        />
+        /> */}
         {/* Soft background decoration */}
         <div className="pointer-events-none absolute -right-8 -top-12 h-36 w-48 rounded-full bg-[#FFE8D1]/70 blur-3xl" />
         <div className="pointer-events-none absolute right-[23%] top-0 h-28 w-28 rounded-full bg-white/60 blur-3xl" />
