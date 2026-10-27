@@ -405,7 +405,7 @@ function DataTable({ columns, rows, color, empty, rowKey }) {
   );
 }
 
-export default function Sales() {
+export default function Sales({ onAddPayment }) {
   const [salesLocation, setSalesLocation] = useState("");
   const [purchaseLocation, setPurchaseLocation] = useState("");
   const [stockLocation, setStockLocation] = useState("");
@@ -525,6 +525,10 @@ export default function Sales() {
                   <button
                     type="button"
                     onClick={() => {
+                      if (onAddPayment) {
+                        onAddPayment(row);
+                        return;
+                      }
                       setPaymentItem(row);
                       setPaymentAmount(String(row.amount));
                     }}

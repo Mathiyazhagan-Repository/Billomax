@@ -437,7 +437,7 @@ function DataTable({ columns, rows, color, empty, rowKey, minWidth = "460px" }) 
   );
 }
 
-export default function Sales({ showPaymentPanels = true }) {
+export default function Sales({ showPaymentPanels = true, onAddPayment }) {
   const [salesLocation, setSalesLocation] = useState("");
   const [purchaseLocation, setPurchaseLocation] = useState("");
   const [stockLocation, setStockLocation] = useState("");
@@ -565,6 +565,10 @@ export default function Sales({ showPaymentPanels = true }) {
                       <button
                         type="button"
                         onClick={() => {
+                          if (onAddPayment) {
+                            onAddPayment(row);
+                            return;
+                          }
                           setPaymentItem(row);
                           setPaymentAmount(String(row.amount));
                         }}

@@ -25,9 +25,15 @@ import WebsiteCreatePage from './pages/Admin/Website/CreatePage.jsx'
 import WebsiteAddBlogPost from './pages/Admin/Website/AddBlogPost.jsx'
 import WebsiteImportBlogPost from './pages/Admin/Website/ImportBlogPost.jsx'
 import StockExpiryReport from './pages/Admin/Reports/StockExpiryReport.jsx'
+import AdminCustomerReminder from './pages/Admin/Reports/CustomerReminder.jsx'
+import AdminReminderViewHistory from './pages/Admin/Home/ReminderViewHistory.jsx'
+import AdminHomeAddPayment from './pages/Admin/Home/HomeAddPayment.jsx'
 import RestaurantDashboard from './pages/Restaurant/Home/Dashboard.jsx'
 import RestaurantRemainders from './pages/Restaurant/Home/Remainders.jsx'
 import RestaurantSales from './pages/Restaurant/Home/Sales.jsx'
+import RestaurantCustomerReminder from './pages/Restaurant/Reports/CustomerReminder.jsx'
+import RestaurantReminderViewHistory from './pages/Restaurant/Home/ReminderViewHistory.jsx'
+import RestaurantHomeAddPayment from './pages/Restaurant/Home/HomeAddPayment.jsx'
 import RestaurantShipment from './pages/Restaurant/Home/Shipment.jsx'
 import RestaurantSalseData from './pages/Restaurant/Home/SalseData.jsx'
 import RestaurantCategories from './pages/Restaurant/Restaurant/Categories.jsx'
@@ -40,17 +46,29 @@ import RestaurantBillingGSTSettings from './pages/Restaurant/Restaurant/BillingG
 import SuperMarketDashboard from './pages/SuperMarket/Home/Dashboard.jsx'
 import SuperMarketRemainders from './pages/SuperMarket/Home/Remainders.jsx'
 import SuperMarketSales from './pages/SuperMarket/Home/Sales.jsx'
+import SuperMarketCustomerReminder from './pages/SuperMarket/Reports/CustomerReminder.jsx'
+import SuperMarketReminderViewHistory from './pages/SuperMarket/Home/ReminderViewHistory.jsx'
+import SuperMarketHomeAddPayment from './pages/SuperMarket/Home/HomeAddPayment.jsx'
 import SuperMarketShipment from './pages/SuperMarket/Home/Shipment.jsx'
 import SuperMarketSalseData from './pages/SuperMarket/Home/SalseData.jsx'
 import ElectronicsDashboard from './pages/Electronics/Home/Dashboard.jsx'
 import ElectronicsRemainders from './pages/Electronics/Home/Remainders.jsx'
 import ElectronicsSales from './pages/Electronics/Home/Sales.jsx'
+import ElectronicsCustomerReminder from './pages/Electronics/Reports/CustomerReminder.jsx'
+import ElectronicsReminderViewHistory from './pages/Electronics/Home/ReminderViewHistory.jsx'
+import ElectronicsHomeAddPayment from './pages/Electronics/Home/HomeAddPayment.jsx'
 import ElectronicsShipment from './pages/Electronics/Home/Shipment.jsx'
 import ElectronicsSalseData from './pages/Electronics/Home/SalseData.jsx'
 import Dashboard from './pages/Pharmacy/Home/Dashboard.jsx'
 import MSCDashboard from './pages/Multi-Service Center/Home/Dashboard.jsx'
+import MSCRemainders from './pages/Multi-Service Center/Home/Remainders.jsx'
+import MSCReminderViewHistory from './pages/Multi-Service Center/Home/ReminderViewHistory.jsx'
+import MSCHomeAddPayment from './pages/Multi-Service Center/Home/HomeAddPayment.jsx'
 import Remainders from './pages/Pharmacy/Home/Remainders.jsx'
 import Sales from './pages/Pharmacy/Home/Sales.jsx'
+import PharmacyCustomerReminder from './pages/Pharmacy/Reports/CustomerReminder.jsx'
+import PharmacyReminderViewHistory from './pages/Pharmacy/Home/ReminderViewHistory.jsx'
+import PharmacyHomeAddPayment from './pages/Pharmacy/Home/HomeAddPayment.jsx'
 import Shipment from './pages/Pharmacy/Home/Shipment.jsx'
 import SalseData from './pages/Pharmacy/Home/SalseData.jsx'
 import ListExpenses from './pages/Pharmacy/Expenses/Expences.jsx'
@@ -153,6 +171,9 @@ import RestaurantAddStockTransfer from './pages/Restaurant/StockTransfers/AddSto
 import SuperMarketAddStockTransfer from './pages/SuperMarket/StockTransfers/AddStockTransfer.jsx'
 import EditStockTransfer from './pages/Pharmacy/StockTransfers/EditStockTransfer.jsx'
 import PharmacyUsers from './pages/Pharmacy/User_Management/Users.jsx'
+import PharmacyAddUser from './pages/Pharmacy/User_Management/AddUser.jsx'
+import PharmacyViewUser from './pages/Pharmacy/User_Management/ViewUser.jsx'
+import PharmacyAddSalesCommissionAgent from './pages/Pharmacy/User_Management/AddSalesCommissionAgents.jsx'
 import PharmacyRoles from './pages/Pharmacy/User_Management/Roles.jsx'
 import PharmacySalesCommissionAgents from './pages/Pharmacy/User_Management/SCA.jsx'
 import PharmacySuppliers from './pages/Pharmacy/Contacts/Suppliers.jsx'
@@ -237,6 +258,11 @@ function App() {
   const [activePage, setActivePage] = useState('Home')
   const [selectedStockTransfer, setSelectedStockTransfer] = useState(null)
   const [activeBusiness, setActiveBusiness] = useState(null)
+  const [homePaymentDetails, setHomePaymentDetails] = useState(null)
+  const [userFormContext, setUserFormContext] = useState(null)
+  const [userUpdates, setUserUpdates] = useState([])
+  const [agentFormContext, setAgentFormContext] = useState(null)
+  const [agentUpdates, setAgentUpdates] = useState([])
   const pageContentRef = useRef(null)
   const appFooterRef = useRef(null)
   const [stockTransferReturnPage, setStockTransferReturnPage] = useState(
@@ -260,7 +286,11 @@ function App() {
   }, [activePage])
 
   const sidebarActivePage =
-    activePage === 'Website Import Blog Post'
+    activePage === 'Home Customer Reminder Report' ||
+    activePage === 'Home Reminder View History' ||
+    activePage === 'Home Add Payment'
+      ? 'Home'
+      : activePage === 'Website Import Blog Post'
       ? websiteImportBlogReturnPage
       : activePage === 'Website Add Blog Post'
       ? websiteAddBlogReturnPage
@@ -270,6 +300,10 @@ function App() {
       ? 'Home'
       : activePage === 'Edit Stock Transfers'
         ? 'List Stock Transfers'
+        : ['Add User', 'Edit User', 'View User'].includes(activePage)
+          ? 'Users'
+          : ['Add Sales Commission Agent', 'Edit Sales Commission Agent'].includes(activePage)
+            ? 'Sales Commission Agents'
         : activePage
 
   const openWebsiteCreatePage = (returnPage) => {
@@ -306,8 +340,208 @@ function App() {
     setActivePage('Add Stock Transfers')
   }
 
+  const openHomeAddPayment = (row) => {
+    setHomePaymentDetails({
+      supplier: row.supplier,
+      referenceNo: row.reference,
+      location: row.location || activeBusiness,
+      totalAmount: String(row.amount),
+      amount: String(row.amount),
+    })
+    setActivePage('Home Add Payment')
+  }
+
+  const openUserForm = (user = null) => {
+    if (!user) {
+      setUserFormContext({ mode: 'add', initialValues: {} })
+      setActivePage('Add User')
+      return
+    }
+
+    const [firstName, ...lastNameParts] = (user.name || '')
+      .split(' ')
+      .filter(Boolean)
+    setUserFormContext({
+      mode: 'edit',
+      initialValues: {
+        ...user,
+        firstName: user.firstName || firstName || '',
+        lastName: user.lastName || lastNameParts.join(' '),
+      },
+    })
+    setActivePage('Edit User')
+  }
+
+  const saveUserForm = async (form) => {
+    const userId =
+      userFormContext?.initialValues?.id ?? `user-${Date.now()}`
+    const name = [form.firstName, form.lastName]
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .join(' ')
+    const user = {
+      ...userFormContext?.initialValues,
+      ...form,
+      id: userId,
+      password: '',
+      confirmPassword: '',
+      name,
+      username: form.username,
+      role: form.role,
+      email: form.email,
+    }
+
+    setUserUpdates((current) => [
+      ...current.filter(
+        (entry) =>
+          entry.business !== activeBusiness || entry.id !== userId
+      ),
+      { business: activeBusiness, id: userId, data: user },
+    ])
+    setUserFormContext(null)
+    setActivePage('Users')
+  }
+
+  const openAgentForm = (agent = null) => {
+    if (!agent) {
+      setAgentFormContext({ mode: 'add', initialValues: {} })
+      setActivePage('Add Sales Commission Agent')
+      return
+    }
+
+    const nameParts = (agent.name || '').split(' ').filter(Boolean)
+    const knownPrefixes = ['Mr', 'Mrs', 'Miss', 'Ms', 'Dr']
+    const prefix = knownPrefixes.find(
+      (item) => item.toLowerCase() === nameParts[0]?.toLowerCase()
+    )
+    const nameWithoutPrefix = prefix ? nameParts.slice(1) : nameParts
+    const [firstName, ...lastNameParts] = nameWithoutPrefix
+    setAgentFormContext({
+      mode: 'edit',
+      initialValues: {
+        ...agent,
+        prefix: prefix || '',
+        firstName: agent.firstName || firstName || '',
+        lastName: agent.lastName || lastNameParts.join(' '),
+        salesCommissionPercentage:
+          agent.salesCommissionPercentage ?? agent.commission ?? '',
+      },
+    })
+    setActivePage('Edit Sales Commission Agent')
+  }
+
+  const saveAgentForm = async (form) => {
+    const agentId =
+      agentFormContext?.initialValues?.id ?? `agent-${Date.now()}`
+    const name = [form.prefix, form.firstName, form.lastName]
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .join(' ')
+    const agent = {
+      ...agentFormContext?.initialValues,
+      ...form,
+      id: agentId,
+      name,
+      commission:
+        form.salesCommissionPercentage === ''
+          ? ''
+          : String(form.salesCommissionPercentage),
+    }
+
+    setAgentUpdates((current) => [
+      ...current.filter(
+        (entry) =>
+          entry.business !== activeBusiness || entry.id !== agentId
+      ),
+      { business: activeBusiness, id: agentId, data: agent },
+    ])
+    setAgentFormContext(null)
+    setActivePage('Sales Commission Agents')
+  }
+
   const pageContent = (() => {
     switch (activePage) {
+      case 'Home Customer Reminder Report':
+        if (activeBusiness === 'Admin') {
+          return <AdminCustomerReminder onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Restaurant') {
+          return <RestaurantCustomerReminder onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Super Market') {
+          return <SuperMarketCustomerReminder onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return <ElectronicsCustomerReminder onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCCustomerReminder onBack={() => setActivePage('Home')} />
+        }
+        return <PharmacyCustomerReminder onBack={() => setActivePage('Home')} />
+      case 'Home Reminder View History':
+        if (activeBusiness === 'Admin') {
+          return <AdminReminderViewHistory onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Restaurant') {
+          return <RestaurantReminderViewHistory onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Super Market') {
+          return <SuperMarketReminderViewHistory onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return <ElectronicsReminderViewHistory onBack={() => setActivePage('Home')} />
+        }
+        if (activeBusiness === 'Multi-Service Center') {
+          return <MSCReminderViewHistory onBack={() => setActivePage('Home')} />
+        }
+        return <PharmacyReminderViewHistory onBack={() => setActivePage('Home')} />
+      case 'Home Add Payment':
+        if (activeBusiness === 'Admin') {
+          return (
+            <AdminHomeAddPayment
+              paymentDetails={homePaymentDetails || {}}
+              onClose={() => setActivePage('Home')}
+            />
+          )
+        }
+        if (activeBusiness === 'Restaurant') {
+          return (
+            <RestaurantHomeAddPayment
+              paymentDetails={homePaymentDetails || {}}
+              onClose={() => setActivePage('Home')}
+            />
+          )
+        }
+        if (activeBusiness === 'Super Market') {
+          return (
+            <SuperMarketHomeAddPayment
+              paymentDetails={homePaymentDetails || {}}
+              onClose={() => setActivePage('Home')}
+            />
+          )
+        }
+        if (activeBusiness === 'Electronics & MobileShop') {
+          return (
+            <ElectronicsHomeAddPayment
+              paymentDetails={homePaymentDetails || {}}
+              onClose={() => setActivePage('Home')}
+            />
+          )
+        }
+        if (activeBusiness === 'Multi-Service Center') {
+          return (
+            <MSCHomeAddPayment
+              paymentDetails={homePaymentDetails || {}}
+              onClose={() => setActivePage('Home')}
+            />
+          )
+        }
+        return (
+          <PharmacyHomeAddPayment
+            paymentDetails={homePaymentDetails || {}}
+            onClose={() => setActivePage('Home')}
+          />
+        )
       case 'SuperAdmin':
         if (activeBusiness === 'Admin') {
           return <SuperAdminDashboard />
@@ -480,14 +714,33 @@ function App() {
       case 'Dashboard':
       case 'Home':
         if (activeBusiness === 'Multi-Service Center') {
-          return <MSCDashboard />
+          return (
+            <>
+              <MSCDashboard onAddPayment={openHomeAddPayment} />
+              <MSCRemainders
+                onViewFullReport={() =>
+                  setActivePage('Home Customer Reminder Report')
+                }
+                onViewHistory={() =>
+                  setActivePage('Home Reminder View History')
+                }
+              />
+            </>
+          )
         }
         if (activeBusiness === 'Admin') {
           return (
             <>
               <AdminDashboard />
-              <AdminRemainders />
-              <AdminSales />
+              <AdminRemainders
+                onViewFullReport={() =>
+                  setActivePage('Home Customer Reminder Report')
+                }
+                onViewHistory={() =>
+                  setActivePage('Home Reminder View History')
+                }
+              />
+              <AdminSales onAddPayment={openHomeAddPayment} />
               <AdminShipment />
               <AdminSalseData />
             </>
@@ -497,8 +750,15 @@ function App() {
           return (
             <>
               <RestaurantDashboard />
-              <RestaurantRemainders />
-              <RestaurantSales />
+              <RestaurantRemainders
+                onViewFullReport={() =>
+                  setActivePage('Home Customer Reminder Report')
+                }
+                onViewHistory={() =>
+                  setActivePage('Home Reminder View History')
+                }
+              />
+              <RestaurantSales onAddPayment={openHomeAddPayment} />
               <RestaurantShipment />
               <RestaurantSalseData />
             </>
@@ -508,8 +768,15 @@ function App() {
           return (
             <>
               <SuperMarketDashboard />
-              <SuperMarketRemainders />
-              <SuperMarketSales />
+              <SuperMarketRemainders
+                onViewFullReport={() =>
+                  setActivePage('Home Customer Reminder Report')
+                }
+                onViewHistory={() =>
+                  setActivePage('Home Reminder View History')
+                }
+              />
+              <SuperMarketSales onAddPayment={openHomeAddPayment} />
               <SuperMarketShipment />
               <SuperMarketSalseData />
             </>
@@ -519,8 +786,15 @@ function App() {
           return (
             <>
               <ElectronicsDashboard />
-              <ElectronicsRemainders />
-              <ElectronicsSales />
+              <ElectronicsRemainders
+                onViewFullReport={() =>
+                  setActivePage('Home Customer Reminder Report')
+                }
+                onViewHistory={() =>
+                  setActivePage('Home Reminder View History')
+                }
+              />
+              <ElectronicsSales onAddPayment={openHomeAddPayment} />
               <ElectronicsShipment />
               <ElectronicsSalseData />
             </>
@@ -529,19 +803,82 @@ function App() {
         return (
           <>
             <Dashboard />
-            <Remainders />
-            <Sales />
+            <Remainders
+              onViewFullReport={() =>
+                setActivePage('Home Customer Reminder Report')
+              }
+              onViewHistory={() =>
+                setActivePage('Home Reminder View History')
+              }
+            />
+            <Sales onAddPayment={openHomeAddPayment} />
             <Shipment />
             <SalseData />
           </>
         )
       case 'User Management':
       case 'Users':
-        return <PharmacyUsers />
+        return (
+          <PharmacyUsers
+            onAddUser={() => openUserForm()}
+            onEditUser={openUserForm}
+            onViewUser={(user) => {
+              setUserFormContext({ mode: 'view', user })
+              setActivePage('View User')
+            }}
+            editedUsers={userUpdates.filter(
+              (entry) => entry.business === activeBusiness
+            )}
+          />
+        )
+      case 'Add User':
+      case 'Edit User':
+        return (
+          <PharmacyAddUser
+            initialValues={userFormContext?.initialValues || {}}
+            isEditing={userFormContext?.mode === 'edit'}
+            onBack={() => {
+              setUserFormContext(null)
+              setActivePage('Users')
+            }}
+            onSave={saveUserForm}
+          />
+        )
+      case 'View User':
+        return (
+          <PharmacyViewUser
+            user={userFormContext?.user || {}}
+            onBack={() => {
+              setUserFormContext(null)
+              setActivePage('Users')
+            }}
+          />
+        )
       case 'Roles':
         return <PharmacyRoles />
       case 'Sales Commission Agents':
-        return <PharmacySalesCommissionAgents />
+        return (
+          <PharmacySalesCommissionAgents
+            onAddAgent={() => openAgentForm()}
+            onEditAgent={openAgentForm}
+            editedAgents={agentUpdates.filter(
+              (entry) => entry.business === activeBusiness
+            )}
+          />
+        )
+      case 'Add Sales Commission Agent':
+      case 'Edit Sales Commission Agent':
+        return (
+          <PharmacyAddSalesCommissionAgent
+            initialValues={agentFormContext?.initialValues || {}}
+            isEditing={agentFormContext?.mode === 'edit'}
+            onBack={() => {
+              setAgentFormContext(null)
+              setActivePage('Sales Commission Agents')
+            }}
+            onSave={saveAgentForm}
+          />
+        )
       case 'Contacts':
       case 'Suppliers':
         return <PharmacySuppliers />
