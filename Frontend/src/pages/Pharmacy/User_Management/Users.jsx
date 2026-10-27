@@ -187,8 +187,26 @@ function UserModal({ user, readOnly = false, onClose, onSave }) {
   );
 }
 
-export default function Users() {
-  const [users, setUsers] = useState(() => getBusinessSampleUsers(initialUsers));
+export default function Users({
+  onAddUser,
+  onEditUser,
+  onViewUser,
+  editedUsers = [],
+}) {
+  const [users, setUsers] = useState(() => {
+    return editedUsers.reduce((currentUsers, editedUser) => {
+      const existingUser = currentUsers.some(
+        (user) => user.id === editedUser.id
+      );
+      return existingUser
+        ? currentUsers.map((user) =>
+            user.id === editedUser.id
+              ? { ...user, ...editedUser.data }
+              : user
+          )
+        : [...currentUsers, editedUser.data];
+    }, getBusinessSampleUsers(initialUsers));
+  });
   const [search, setSearch] = useState("");
   const [pageSize, setPageSize] = useState("25");
   const [page, setPage] = useState(1);
@@ -310,7 +328,9 @@ export default function Users() {
           </h2>
           <button
             type="button"
-            onClick={() => setAddingUser(true)}
+            onClick={() =>
+              onAddUser ? onAddUser() : setAddingUser(true)
+            }
             className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
           >
             <Plus size={16} />
@@ -488,7 +508,11 @@ export default function Users() {
                     <div className="flex flex-wrap items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => setEditingUser(user)}
+                        onClick={() =>
+                          onEditUser
+                            ? onEditUser(user)
+                            : setEditingUser(user)
+                        }
                         className="inline-flex h-[20px] items-center gap-1 rounded-md border border-[#716BFF] px-2 text-[11px] text-[#625BFF] transition hover:bg-[#F2F1FF]"
                       >
                         <Pencil size={11} />
@@ -496,7 +520,11 @@ export default function Users() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => setViewingUser(user)}
+                        onClick={() =>
+                          onViewUser
+                            ? onViewUser(user)
+                            : setViewingUser(user)
+                        }
                         className="inline-flex h-[20px] items-center gap-1 rounded-md border border-[#20BFE0] px-2 text-[11px] text-[#1680B5] transition hover:bg-[#EAFBFF]"
                       >
                         <Eye size={11} />

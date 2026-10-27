@@ -132,7 +132,7 @@ function ActionButton({ children, onClick, variant = "secondary", icon: Icon }) 
   );
 }
 
-export default function CustomerReminder() {
+export default function CustomerReminder({ onBack }) {
   const [reminders] = useState(initialReminders);
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
@@ -412,6 +412,16 @@ export default function CustomerReminder() {
           </div>
 
           <div className="no-print flex flex-wrap items-center gap-2">
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[#F2E8DE] bg-white px-3 py-2 text-xs font-semibold text-[#19366F] transition hover:bg-[#FFF1E5]"
+              >
+                <ChevronLeft size={14} />
+                Back to Dashboard
+              </button>
+            )}
             <ActionButton icon={FileSpreadsheet} onClick={exportExcel}>
               Export Excel
             </ActionButton>

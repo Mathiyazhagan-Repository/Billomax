@@ -36,7 +36,7 @@ const initialReminders = [
   },
 ];
 
-export default function Remainders() {
+export default function Remainders({ onViewFullReport, onViewHistory }) {
   const [reminders] = useState(initialReminders);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [showReport, setShowReport] = useState(false);
@@ -72,7 +72,11 @@ export default function Remainders() {
 
           <button
             type="button"
-            onClick={() => setShowReport(true)}
+            onClick={() =>
+              onViewFullReport
+                ? onViewFullReport()
+                : setShowReport(true)
+            }
             className="inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#FF772C] to-[#FF822E] px-3.5 text-[11px] font-semibold text-white shadow-[0_4px_10px_rgba(255,105,20,0.15)] transition hover:brightness-105 sm:text-[13px]"
           >
             View Full Report
@@ -144,7 +148,11 @@ export default function Remainders() {
                   <td className="border-t border-[#F6EEE6] px-3 py-2">
                     <button
                       type="button"
-                      onClick={() => setSelectedCustomer(item)}
+                      onClick={() =>
+                        onViewHistory
+                          ? onViewHistory(item)
+                          : setSelectedCustomer(item)
+                      }
                       className="inline-flex min-w-[120px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#FF8635] px-3 py-2 text-[11px] font-semibold text-[#FF772C] transition hover:bg-[#FFF0E4]"
                     >
                       <span>View History</span>

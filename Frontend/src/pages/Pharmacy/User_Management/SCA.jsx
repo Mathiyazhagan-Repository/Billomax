@@ -160,8 +160,25 @@ function AgentModal({ agent, onClose, onSave }) {
   );
 }
 
-export default function SCA() {
-  const [agents, setAgents] = useState(() => getBusinessSampleAgents(initialAgents));
+export default function SCA({
+  onAddAgent,
+  onEditAgent,
+  editedAgents = [],
+}) {
+  const [agents, setAgents] = useState(() =>
+    editedAgents.reduce((currentAgents, editedAgent) => {
+      const exists = currentAgents.some(
+        (agent) => agent.id === editedAgent.id
+      );
+      return exists
+        ? currentAgents.map((agent) =>
+            agent.id === editedAgent.id
+              ? { ...agent, ...editedAgent.data }
+              : agent
+          )
+        : [...currentAgents, editedAgent.data];
+    }, getBusinessSampleAgents(initialAgents))
+  );
   const [search, setSearch] = useState("");
   const [pageSize, setPageSize] = useState("25");
   const [page, setPage] = useState(1);
@@ -276,7 +293,9 @@ export default function SCA() {
         <div className="mb-3 flex justify-end">
           <button
             type="button"
-            onClick={() => setAddingAgent(true)}
+            onClick={() =>
+              onAddAgent ? onAddAgent() : setAddingAgent(true)
+            }
             className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
           >
             <Plus size={16} />
@@ -444,7 +463,11 @@ export default function SCA() {
                     <div className="flex flex-col items-start gap-1">
                       <button
                         type="button"
-                        onClick={() => setEditingAgent(agent)}
+                        onClick={() =>
+                          onEditAgent
+                            ? onEditAgent(agent)
+                            : setEditingAgent(agent)
+                        }
                         className="inline-flex h-[25px] items-center gap-1 rounded-md border border-[#716BFF] px-2 text-[11px] text-[#625BFF] transition hover:bg-[#F2F1FF]"
                       >
                         <Pencil size={12} />

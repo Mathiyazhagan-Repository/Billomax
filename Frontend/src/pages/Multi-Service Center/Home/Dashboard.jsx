@@ -191,7 +191,15 @@ function StatCard({ item }) {
   );
 }
 
-function PaymentDuePanel({ type, title, highlight, description, color, rows }) {
+function PaymentDuePanel({
+  type,
+  title,
+  highlight,
+  description,
+  color,
+  rows,
+  onAddPayment,
+}) {
   const [location, setLocation] = useState("");
   const [page, setPage] = useState(1);
   const [showColumns, setShowColumns] = useState(false);
@@ -397,7 +405,9 @@ function PaymentDuePanel({ type, title, highlight, description, color, rows }) {
                         <button
                           type="button"
                           onClick={() =>
-                            window.alert("Payment entry is not available yet.")
+                            onAddPayment
+                              ? onAddPayment(row)
+                              : window.alert("Payment entry is not available yet.")
                           }
                           className="inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-[#43D2B0] bg-[#F7FFFC] px-3.5 py-2.5 font-semibold text-[#4AB99F] transition hover:bg-[#E9FFF8]"
                         >
@@ -493,7 +503,7 @@ function PaymentDuePanel({ type, title, highlight, description, color, rows }) {
   );
 }
 
-export default function Dashboard() {
+export default function Dashboard({ onAddPayment }) {
   const [dateFilter, setDateFilter] = useState("all");
 
   return (
@@ -570,6 +580,7 @@ export default function Dashboard() {
           description="Suppliers with pending purchase payments."
           color="blue"
           rows={purchasePaymentRows}
+          onAddPayment={onAddPayment}
         />
       </section>
       <Sales showPaymentPanels={false} />
