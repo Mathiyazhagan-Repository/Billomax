@@ -25,7 +25,7 @@ import {
   X,
 } from "lucide-react";
 
-const initialShipments = [
+export const initialShipments = [
   {
     id: 1,
     date: "17/10/2024 10:18",

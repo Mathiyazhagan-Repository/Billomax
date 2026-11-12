@@ -19,12 +19,14 @@ const initialGroups = [
     id: 1,
     name: "health",
     calculationPercentage: "",
+    priceCalculationType: "Selling Price Group",
     sellingPriceGroup: "",
   },
   {
     id: 2,
     name: "pills",
     calculationPercentage: "50",
+    priceCalculationType: "Percentage",
     sellingPriceGroup: "--",
   },
 ];
@@ -32,7 +34,7 @@ const initialGroups = [
 const columns = [
   { key: "name", label: "Customer Group Name" },
   { key: "calculationPercentage", label: "Calculation Percentage (%)" },
-  { key: "sellingPriceGroup", label: "Selling Price Group" },
+  { key: "priceCalculationType", label: "Price Calculation Type" },
 ];
 
 function ExportButton({ icon: Icon, children, onClick }) {
@@ -52,7 +54,9 @@ function CustomerGroupModal({ group, onClose, onSave }) {
   const [form, setForm] = useState({
     name: group?.name ?? "",
     calculationPercentage: group?.calculationPercentage ?? "",
-    sellingPriceGroup: group?.sellingPriceGroup ?? "",
+    priceCalculationType:
+      group?.priceCalculationType ||
+      (group?.calculationPercentage ? "Percentage" : "Selling Price Group"),
   });
 
   const handleSubmit = (event) => {
@@ -61,7 +65,11 @@ function CustomerGroupModal({ group, onClose, onSave }) {
       id: group?.id ?? Date.now(),
       name: form.name.trim(),
       calculationPercentage: form.calculationPercentage,
-      sellingPriceGroup: form.sellingPriceGroup.trim(),
+      priceCalculationType: form.priceCalculationType,
+      sellingPriceGroup:
+        form.priceCalculationType === "Selling Price Group"
+          ? "Selling Price Group"
+          : "",
     });
   };
 
@@ -104,6 +112,23 @@ function CustomerGroupModal({ group, onClose, onSave }) {
             />
           </label>
           <label className="block text-xs font-semibold text-[#63768D]">
+            Price calculation type
+            <select
+              required
+              value={form.priceCalculationType}
+              onChange={(event) =>
+                setForm((current) => ({
+                  ...current,
+                  priceCalculationType: event.target.value,
+                }))
+              }
+              className="mt-1.5 h-9 w-full rounded-md border border-[#CFD7E2] bg-white px-3 text-xs font-normal text-[#283961] outline-none focus:border-[#FF964B] focus:ring-1 focus:ring-[#FF964B]/20"
+            >
+              <option value="Percentage">Percentage</option>
+              <option value="Selling Price Group">Selling Price Group</option>
+            </select>
+          </label>
+          <label className="block text-xs font-semibold text-[#63768D]">
             Calculation Percentage (%)
             <input
               type="number"
@@ -114,20 +139,6 @@ function CustomerGroupModal({ group, onClose, onSave }) {
                 setForm((current) => ({
                   ...current,
                   calculationPercentage: event.target.value,
-                }))
-              }
-              placeholder="Optional"
-              className="mt-1.5 h-9 w-full rounded-md border border-[#CFD7E2] bg-white px-3 text-xs font-normal text-[#283961] outline-none focus:border-[#FF964B] focus:ring-1 focus:ring-[#FF964B]/20"
-            />
-          </label>
-          <label className="block text-xs font-semibold text-[#63768D]">
-            Selling Price Group
-            <input
-              value={form.sellingPriceGroup}
-              onChange={(event) =>
-                setForm((current) => ({
-                  ...current,
-                  sellingPriceGroup: event.target.value,
                 }))
               }
               placeholder="Optional"
@@ -157,7 +168,14 @@ function CustomerGroupModal({ group, onClose, onSave }) {
 }
 
 export default function Customer_Groups() {
-  const [groups, setGroups] = useState(() => getBusinessSampleCustomerGroups(initialGroups));
+  const [groups, setGroups] = useState(() =>
+    getBusinessSampleCustomerGroups(initialGroups).map((group) => ({
+      ...group,
+      priceCalculationType:
+        group.priceCalculationType ||
+        (group.calculationPercentage ? "Percentage" : "Selling Price Group"),
+    }))
+  );
   const [search, setSearch] = useState("");
   const [pageSize, setPageSize] = useState("25");
   const [page, setPage] = useState(1);
@@ -392,9 +410,7 @@ export default function Customer_Groups() {
                         ? "27%"
                         : column.key === "calculationPercentage"
                           ? "30%"
-                          : column.key === "sellingPriceGroup"
-                            ? "20%"
-                            : "23%",
+                          : "20%",
                   }}
                 />
               ))}

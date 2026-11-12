@@ -278,8 +278,9 @@ function SupplierModal({
   );
 }
 
-export default function Suppliers() {
+export default function Suppliers({ onAddSupplier, addedSuppliers = [] }) {
   const [suppliers, setSuppliers] = useState(() => {
+    let loadedSuppliers;
     try {
       const stored = businessStorage.getItem(SUPPLIERS_KEY);
       if (stored) {
@@ -289,15 +290,26 @@ export default function Suppliers() {
           parsed.length === 0 &&
           businessStorage.getItem(SUPPLIER_SAMPLE_SEEDED_KEY) !== "true"
         ) {
-          return getBusinessSampleContacts("suppliers", initialSuppliers);
+          loadedSuppliers = getBusinessSampleContacts("suppliers", initialSuppliers);
+        } else {
+          loadedSuppliers = parsed;
         }
-        return parsed;
+      } else {
+        loadedSuppliers = getBusinessSampleContacts("suppliers", initialSuppliers);
       }
-      return getBusinessSampleContacts("suppliers", initialSuppliers);
     } catch (error) {
       console.error("Could not load saved suppliers:", error);
-      return getBusinessSampleContacts("suppliers", initialSuppliers);
+      loadedSuppliers = getBusinessSampleContacts("suppliers", initialSuppliers);
     }
+
+    return addedSuppliers.reduce((currentSuppliers, supplier) => {
+      const exists = currentSuppliers.some((item) => item.id === supplier.id);
+      return exists
+        ? currentSuppliers.map((item) =>
+            item.id === supplier.id ? { ...item, ...supplier } : item
+          )
+        : [...currentSuppliers, supplier];
+    }, loadedSuppliers);
   });
 
   useEffect(() => {
@@ -669,7 +681,11 @@ export default function Suppliers() {
             </button>
             <button
               type="button"
-              onClick={() => setAddingSupplier(true)}
+              onClick={() =>
+                onAddSupplier
+                  ? onAddSupplier()
+                  : setAddingSupplier(true)
+              }
               className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
             >
               <Plus size={16} />

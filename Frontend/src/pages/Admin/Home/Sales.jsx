@@ -21,8 +21,10 @@ import {
   ReceiptText,
   CirclePlus,
   Wallet,
+  Truck,
   X,
 } from "lucide-react";
+import { initialShipments } from "./Shipment.jsx";
 
 const salesPayments = [];
 
@@ -50,6 +52,14 @@ const stockItems = [
 ];
 
 const salesOrders = [];
+const stockExpiryItems = [
+  {
+    product: "IMAC (4520)",
+    location: "WDM - Billing Software",
+    stock: "5,000.00 Pc(s)",
+    expiresIn: "2024-10-10",
+  },
+];
 
 const exportRows = (rows, filename) => {
   if (!rows.length) {
@@ -258,6 +268,7 @@ function Panel({
   onPdf,
   rows = [],
   filename,
+  hideLocation = false,
 }) {
   const isOrange = color === "orange";
   const [showColumns, setShowColumns] = useState(false);
@@ -307,7 +318,9 @@ function Panel({
             </div>
           </div>
 
-          <LocationSelect value={location} onChange={setLocation} />
+          {!hideLocation && (
+            <LocationSelect value={location} onChange={setLocation} />
+          )}
         </div>
 
         {/* Export toolbar */}
@@ -405,11 +418,12 @@ function DataTable({ columns, rows, color, empty, rowKey }) {
   );
 }
 
-export default function Sales({ onAddPayment }) {
+export default function Sales({ onAddPayment, onViewShipments }) {
   const [salesLocation, setSalesLocation] = useState("");
   const [purchaseLocation, setPurchaseLocation] = useState("");
   const [stockLocation, setStockLocation] = useState("");
   const [ordersLocation, setOrdersLocation] = useState("");
+  const [shipmentsLocation, setShipmentsLocation] = useState("");
   const [paymentItem, setPaymentItem] = useState(null);
   const [paymentAmount, setPaymentAmount] = useState("300");
   const [paymentSaved, setPaymentSaved] = useState(false);
@@ -437,6 +451,10 @@ export default function Sales({ onAddPayment }) {
     Object.values(order).some((value) =>
       String(value).toLowerCase().includes(orderSearch.toLowerCase())
     )
+  );
+  const filteredShipments = initialShipments.filter(
+    (shipment) =>
+      !shipmentsLocation || shipment.location === shipmentsLocation
   );
 
   const handlePayment = () => {
@@ -601,7 +619,37 @@ export default function Sales({ onAddPayment }) {
           />
         </Panel>
 
-        {/* 4. Sales Order */}
+        {/* 4. Stock Expiry Alert */}
+        <Panel
+          title="Stock Expiry"
+          highlight="Alert"
+          description="Products approaching or past their expiry date."
+          icon={Package}
+          color="blue"
+          hideLocation
+          rows={stockExpiryItems}
+          filename="stock-expiry-alerts.csv"
+          onPdf={pdfNotice}
+        >
+          <DataTable
+            color="blue"
+            rows={stockExpiryItems}
+            rowKey="product"
+            columns={[
+              { key: "product", label: "PRODUCT" },
+              { key: "location", label: "LOCATION" },
+              { key: "stock", label: "STOCK LEFT" },
+              { key: "expiresIn", label: "EXPIRES IN" },
+            ]}
+            empty={{
+              type: "stock",
+              title: "No stock expiry alerts",
+              description: "There are no products approaching expiry.",
+            }}
+          />
+        </Panel>
+
+        {/* 5. Sales Order */}
         <Panel
           title="Sales Order"
           description="Manage and view all sales orders."
@@ -643,6 +691,46 @@ export default function Sales({ onAddPayment }) {
               description: "There are no sales orders at the moment.",
             }}
           />
+        </Panel>
+
+        {/* 6. Pending Shipments */}
+        <Panel
+          title="Pending"
+          highlight="Shipments"
+          description="Track orders currently being shipped."
+          icon={Truck}
+          color="orange"
+          location={shipmentsLocation}
+          setLocation={setShipmentsLocation}
+          rows={filteredShipments}
+          filename="pending-shipments.csv"
+          onPdf={pdfNotice}
+        >
+          <DataTable
+            color="orange"
+            rows={filteredShipments}
+            rowKey="id"
+            columns={[
+              { key: "date", label: "DATE" },
+              { key: "invoice", label: "INVOICE NO." },
+              { key: "customer", label: "CUSTOMER" },
+              { key: "shippingStatus", label: "SHIPPING STATUS" },
+            ]}
+            empty={{
+              type: "order",
+              title: "No pending shipments",
+              description: "There are no shipments to display.",
+            }}
+          />
+          {onViewShipments && (
+            <button
+              type="button"
+              onClick={onViewShipments}
+              className="mt-3 rounded-lg border border-[#FF7927] px-3 py-2 text-xs font-semibold text-[#FF650C] transition hover:bg-[#FFF1E5]"
+            >
+              View all shipments
+            </button>
+          )}
         </Panel>
       </div>
 

@@ -83,7 +83,11 @@ const businessThemes = {
   },
 };
 
-export default function Login({ onSelectBusiness }) {
+export default function Login({
+  onSelectBusiness,
+  onOpenPricing,
+  onOpenRegister,
+}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
@@ -123,15 +127,20 @@ export default function Login({ onSelectBusiness }) {
           </span>
         </a>
         <nav className="flex items-center gap-7 text-sm font-semibold">
-          <a href="#pricing" className="text-[#19366F] transition hover:text-[#F04A13]">
+          <button
+            type="button"
+            onClick={onOpenPricing}
+            className="text-[#19366F] transition hover:text-[#F04A13]"
+          >
             Pricing
-          </a>
-          <a
-            href="#register"
+          </button>
+          <button
+            type="button"
+            onClick={onOpenRegister}
             className="rounded-lg bg-[#FF711A] px-7 py-3 text-white shadow-sm transition hover:bg-[#F04A13]"
           >
             Register
-          </a>
+          </button>
         </nav>
       </header>
 

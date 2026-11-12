@@ -9,6 +9,8 @@ import RestaurantSidebar from './component/RestaurantSidebar.jsx'
 import SuperMarketSidebar from './component/SuperMarketSidebar.jsx'
 import TopNavBar from './component/TopNavBar.jsx'
 import Login from './pages/Vendor Login/Login.jsx'
+import Pricing from './pages/Vendor Login/Pricing.jsx'
+import Register from './pages/Vendor Login/Register.jsx'
 import AdminDashboard from './pages/Admin/Home/Dashboard.jsx'
 import AdminRemainders from './pages/Admin/Home/Remainders.jsx'
 import AdminSales from './pages/Admin/Home/Sales.jsx'
@@ -29,7 +31,6 @@ import AdminCustomerReminder from './pages/Admin/Reports/CustomerReminder.jsx'
 import AdminReminderViewHistory from './pages/Admin/Home/ReminderViewHistory.jsx'
 import AdminHomeAddPayment from './pages/Admin/Home/HomeAddPayment.jsx'
 import RestaurantDashboard from './pages/Restaurant/Home/Dashboard.jsx'
-import RestaurantRemainders from './pages/Restaurant/Home/Remainders.jsx'
 import RestaurantSales from './pages/Restaurant/Home/Sales.jsx'
 import RestaurantCustomerReminder from './pages/Restaurant/Reports/CustomerReminder.jsx'
 import RestaurantReminderViewHistory from './pages/Restaurant/Home/ReminderViewHistory.jsx'
@@ -44,7 +45,6 @@ import RestaurantOutletTime from './pages/Restaurant/Restaurant/OutletTime.jsx'
 import RestaurantLiveOrders from './pages/Restaurant/Restaurant/LiveOrders.jsx'
 import RestaurantBillingGSTSettings from './pages/Restaurant/Restaurant/BillingGSTSettings.jsx'
 import SuperMarketDashboard from './pages/SuperMarket/Home/Dashboard.jsx'
-import SuperMarketRemainders from './pages/SuperMarket/Home/Remainders.jsx'
 import SuperMarketSales from './pages/SuperMarket/Home/Sales.jsx'
 import SuperMarketCustomerReminder from './pages/SuperMarket/Reports/CustomerReminder.jsx'
 import SuperMarketReminderViewHistory from './pages/SuperMarket/Home/ReminderViewHistory.jsx'
@@ -52,7 +52,6 @@ import SuperMarketHomeAddPayment from './pages/SuperMarket/Home/HomeAddPayment.j
 import SuperMarketShipment from './pages/SuperMarket/Home/Shipment.jsx'
 import SuperMarketSalseData from './pages/SuperMarket/Home/SalseData.jsx'
 import ElectronicsDashboard from './pages/Electronics/Home/Dashboard.jsx'
-import ElectronicsRemainders from './pages/Electronics/Home/Remainders.jsx'
 import ElectronicsSales from './pages/Electronics/Home/Sales.jsx'
 import ElectronicsCustomerReminder from './pages/Electronics/Reports/CustomerReminder.jsx'
 import ElectronicsReminderViewHistory from './pages/Electronics/Home/ReminderViewHistory.jsx'
@@ -156,6 +155,7 @@ import SuperMarketListStockAdjustments from './pages/SuperMarket/StockAdjustment
 import SuperMarketAddStockAdjustment from './pages/SuperMarket/StockAdjustments/AddStockAdjustment.jsx'
 import Stocks from './pages/Pharmacy/Stocks/Stocks.jsx'
 import ModifyBill from './pages/Pharmacy/Modify Bill/ModifyBill.jsx'
+import EditBill from './pages/Pharmacy/Modify Bill/EditBill.jsx'
 import EWayBill from './pages/Pharmacy/E-WayBill/E-WayBill.jsx'
 import ListStockTransfers from './pages/Pharmacy/StockTransfers/ListStockTransfers.jsx'
 import AdminListStockTransfers from './pages/Admin/StockTransfers/ListStockTransfers.jsx'
@@ -177,6 +177,7 @@ import PharmacyAddSalesCommissionAgent from './pages/Pharmacy/User_Management/Ad
 import PharmacyRoles from './pages/Pharmacy/User_Management/Roles.jsx'
 import PharmacySalesCommissionAgents from './pages/Pharmacy/User_Management/SCA.jsx'
 import PharmacySuppliers from './pages/Pharmacy/Contacts/Suppliers.jsx'
+import PharmacyAddSuppliers from './pages/Pharmacy/Contacts/AddSuppliers.jsx'
 import PharmacyCustomers from './pages/Pharmacy/Contacts/Customers.jsx'
 import PharmacyCustomerGroups from './pages/Pharmacy/Contacts/Customer_Groups.jsx'
 import PharmacyImportContacts from './pages/Pharmacy/Contacts/Import_Contacts.jsx'
@@ -263,6 +264,8 @@ function App() {
   const [userUpdates, setUserUpdates] = useState([])
   const [agentFormContext, setAgentFormContext] = useState(null)
   const [agentUpdates, setAgentUpdates] = useState([])
+  const [supplierUpdates, setSupplierUpdates] = useState([])
+  const [customerUpdates, setCustomerUpdates] = useState([])
   const pageContentRef = useRef(null)
   const appFooterRef = useRef(null)
   const [stockTransferReturnPage, setStockTransferReturnPage] = useState(
@@ -304,7 +307,11 @@ function App() {
           ? 'Users'
           : ['Add Sales Commission Agent', 'Edit Sales Commission Agent'].includes(activePage)
             ? 'Sales Commission Agents'
-        : activePage
+            : activePage === 'Add Supplier'
+              ? 'Suppliers'
+              : activePage === 'Add Customer'
+                ? 'Customers'
+          : activePage
 
   const openWebsiteCreatePage = (returnPage) => {
     setWebsitePageEditContext(null)
@@ -542,6 +549,11 @@ function App() {
             onClose={() => setActivePage('Home')}
           />
         )
+      case 'Pending Shipments':
+        if (activeBusiness === 'Admin') {
+          return <AdminShipment />
+        }
+        return null
       case 'SuperAdmin':
         if (activeBusiness === 'Admin') {
           return <SuperAdminDashboard />
@@ -740,9 +752,11 @@ function App() {
                   setActivePage('Home Reminder View History')
                 }
               />
-              <AdminSales onAddPayment={openHomeAddPayment} />
-              <AdminShipment />
               <AdminSalseData />
+              <AdminSales
+                onAddPayment={openHomeAddPayment}
+                onViewShipments={() => setActivePage('Pending Shipments')}
+              />
             </>
           )
         }
@@ -750,14 +764,6 @@ function App() {
           return (
             <>
               <RestaurantDashboard />
-              <RestaurantRemainders
-                onViewFullReport={() =>
-                  setActivePage('Home Customer Reminder Report')
-                }
-                onViewHistory={() =>
-                  setActivePage('Home Reminder View History')
-                }
-              />
               <RestaurantSales onAddPayment={openHomeAddPayment} />
               <RestaurantShipment />
               <RestaurantSalseData />
@@ -768,14 +774,6 @@ function App() {
           return (
             <>
               <SuperMarketDashboard />
-              <SuperMarketRemainders
-                onViewFullReport={() =>
-                  setActivePage('Home Customer Reminder Report')
-                }
-                onViewHistory={() =>
-                  setActivePage('Home Reminder View History')
-                }
-              />
               <SuperMarketSales onAddPayment={openHomeAddPayment} />
               <SuperMarketShipment />
               <SuperMarketSalseData />
@@ -786,14 +784,6 @@ function App() {
           return (
             <>
               <ElectronicsDashboard />
-              <ElectronicsRemainders
-                onViewFullReport={() =>
-                  setActivePage('Home Customer Reminder Report')
-                }
-                onViewHistory={() =>
-                  setActivePage('Home Reminder View History')
-                }
-              />
               <ElectronicsSales onAddPayment={openHomeAddPayment} />
               <ElectronicsShipment />
               <ElectronicsSalseData />
@@ -881,9 +871,138 @@ function App() {
         )
       case 'Contacts':
       case 'Suppliers':
-        return <PharmacySuppliers />
+        return (
+          <PharmacySuppliers
+            onAddSupplier={() => setActivePage('Add Supplier')}
+            addedSuppliers={supplierUpdates
+              .filter((entry) => entry.business === activeBusiness)
+              .map((entry) => entry.data)}
+          />
+        )
+      case 'Add Supplier':
+        return (
+          <PharmacyAddSuppliers
+            onBack={() => setActivePage('Suppliers')}
+            onSave={async (form) => {
+              const fullName = [
+                form.prefix,
+                form.firstName,
+                form.middleName,
+                form.lastName,
+              ]
+                .map((part) => part.trim())
+                .filter(Boolean)
+                .join(' ')
+              const supplierId = `supplier-${Date.now()}`
+              const supplier = {
+                id: supplierId,
+                contactId: form.contactId,
+                businessName: form.businessName,
+                name: fullName,
+                email: form.email,
+                taxNumber: form.taxNumber,
+                payTerm: form.payTerm
+                  ? `${form.payTerm} ${form.payTermPeriod}`.trim()
+                  : '',
+                openingBalance: Number(form.openingBalance) || 0,
+                advanceBalance: 0,
+                addedOn: new Date().toLocaleDateString('en-GB'),
+                address: [
+                  form.addressLine1,
+                  form.addressLine2,
+                  form.city,
+                  form.state,
+                  form.country,
+                  form.postalCode,
+                ]
+                  .map((part) => part.trim())
+                  .filter(Boolean)
+                  .join(', '),
+                mobile: form.mobile,
+                purchaseDue: 0,
+                purchaseReturnDue: 0,
+                assignedTo: form.assignedTo || 'None',
+                status: 'Active',
+                customValues: {},
+              }
+              setSupplierUpdates((current) => [
+                ...current,
+                { business: activeBusiness, id: supplierId, data: supplier },
+              ])
+              setActivePage('Suppliers')
+            }}
+          />
+        )
       case 'Customers':
-        return <PharmacyCustomers />
+        return (
+          <PharmacyCustomers
+            onAddCustomer={() => setActivePage('Add Customer')}
+            addedCustomers={customerUpdates
+              .filter((entry) => entry.business === activeBusiness)
+              .map((entry) => entry.data)}
+          />
+        )
+      case 'Add Customer':
+        return (
+          <PharmacyAddSuppliers
+            initialValues={{ contactType: 'Customers' }}
+            onBack={() => setActivePage('Customers')}
+            onSave={async (form) => {
+              const fullName = [
+                form.prefix,
+                form.firstName,
+                form.middleName,
+                form.lastName,
+              ]
+                .map((part) => part.trim())
+                .filter(Boolean)
+                .join(' ')
+              const customerId = `customer-${Date.now()}`
+              const customer = {
+                id: customerId,
+                contactId: form.contactId,
+                businessName: form.businessName,
+                name: fullName,
+                email: form.email,
+                taxNumber: form.taxNumber,
+                creditLimit:
+                  form.creditLimit === ''
+                    ? null
+                    : Number(form.creditLimit),
+                payTerm: form.payTerm
+                  ? `${form.payTerm} ${form.payTermPeriod}`.trim()
+                  : '',
+                openingBalance: Number(form.openingBalance) || 0,
+                advanceBalance: 0,
+                addedOn: new Date().toLocaleDateString('en-GB'),
+                customerGroup: '',
+                address: [
+                  form.addressLine1,
+                  form.addressLine2,
+                  form.city,
+                  form.state,
+                  form.country,
+                  form.postalCode,
+                ]
+                  .map((part) => part.trim())
+                  .filter(Boolean)
+                  .join(', '),
+                mobile: form.mobile,
+                saleDue: 0,
+                saleReturnDue: 0,
+                lastSaleOn: '',
+                assignedTo: form.assignedTo || 'None',
+                status: 'Active',
+                customValues: {},
+              }
+              setCustomerUpdates((current) => [
+                ...current,
+                { business: activeBusiness, id: customerId, data: customer },
+              ])
+              setActivePage('Customers')
+            }}
+          />
+        )
       case 'Customer Groups':
         return <PharmacyCustomerGroups />
       case 'Import Contacts':
@@ -1054,7 +1173,13 @@ function App() {
       case 'Stocks (Expiry/Dump/Faulty)':
         return <Stocks onNavigate={setActivePage} />
       case 'Modify Bill':
-        return <ModifyBill />
+        return (
+          <ModifyBill
+            onEdit={() => setActivePage('Edit Bill')}
+          />
+        )
+      case 'Edit Bill':
+        return <EditBill onBack={() => setActivePage('Modify Bill')} />
       case 'E-Way Bill':
         return <EWayBill />
       case 'List Stock Adjustments':
@@ -1321,8 +1446,17 @@ function App() {
   }, [activePage, activeBusiness])
 
   if (!activeBusiness) {
+    if (activePage === 'Pricing') {
+      return <Pricing onBack={() => setActivePage('Home')} />
+    }
+    if (activePage === 'Register') {
+      return <Register onBack={() => setActivePage('Home')} />
+    }
+
     return (
       <Login
+        onOpenPricing={() => setActivePage('Pricing')}
+        onOpenRegister={() => setActivePage('Register')}
         onSelectBusiness={(business) => {
           if (
             business === 'Admin' ||

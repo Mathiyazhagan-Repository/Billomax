@@ -280,8 +280,9 @@ function CustomerModal({ customer, customFields, onClose, onSave }) {
   );
 }
 
-export default function Customers() {
+export default function Customers({ onAddCustomer, addedCustomers = [] }) {
   const [customers, setCustomers] = useState(() => {
+    let loadedCustomers;
     try {
       const stored = businessStorage.getItem(CUSTOMERS_KEY);
       if (stored) {
@@ -291,15 +292,30 @@ export default function Customers() {
           parsed.length === 0 &&
           businessStorage.getItem(CUSTOMER_SAMPLE_SEEDED_KEY) !== "true"
         ) {
-          return getBusinessSampleContacts("customers", initialCustomers);
+          loadedCustomers = getBusinessSampleContacts("customers", initialCustomers);
+        } else {
+          loadedCustomers = parsed;
         }
-        return parsed;
+      } else {
+        loadedCustomers = getBusinessSampleContacts("customers", initialCustomers);
       }
-      return getBusinessSampleContacts("customers", initialCustomers);
     } catch (error) {
       console.error("Could not load saved customers:", error);
-      return getBusinessSampleContacts("customers", initialCustomers);
+      loadedCustomers = getBusinessSampleContacts("customers", initialCustomers);
     }
+
+    return addedCustomers.reduce((currentCustomers, addedCustomer) => {
+      const exists = currentCustomers.some(
+        (customer) => customer.id === addedCustomer.id
+      );
+      return exists
+        ? currentCustomers.map((customer) =>
+            customer.id === addedCustomer.id
+              ? { ...customer, ...addedCustomer }
+              : customer
+          )
+        : [...currentCustomers, addedCustomer];
+    }, loadedCustomers);
   });
 
   useEffect(() => {
@@ -736,7 +752,11 @@ export default function Customers() {
             </button>
             <button
               type="button"
-              onClick={() => setAddingCustomer(true)}
+              onClick={() =>
+                onAddCustomer
+                  ? onAddCustomer()
+                  : setAddingCustomer(true)
+              }
               className="inline-flex h-[38px] shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-[#FF711A] to-[#F04A13] px-4 text-xs font-semibold text-white shadow-sm transition hover:brightness-105"
             >
               <Plus size={16} />

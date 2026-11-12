@@ -15,11 +15,6 @@ import {
   Search,
   ArrowUpDown,
   CheckCircle2,
-  Plus,
-  Pill,
-  UserRound,
-  TriangleAlert,
-  ArrowUp,
   Eye,
   PackageCheck,
   X,
@@ -298,8 +293,6 @@ export default function Shipment() {
     "shippingStatus",
     "paymentStatus",
   ]);
-  const [quickAction, setQuickAction] = useState("");
-
   const columns = [
     { key: "action", label: "ACTION" },
     { key: "date", label: "DATE" },
@@ -634,66 +627,6 @@ export default function Shipment() {
           page={page}
           setPage={setPage}
         />
-      </section>
-
-      {/* Pharmacy Quick Actions */}
-      <section className="relative overflow-hidden rounded-2xl border border-[#4194FF]/70 bg-gradient-to-br from-[#F4F9FF] to-white p-3.5 shadow-[0_6px_18px_rgba(43,120,220,0.05)]">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#50D7AE] to-[#36C69D] text-white">
-            <Plus size={22} strokeWidth={3} />
-          </div>
-
-          <h2 className="app-section-title text-[#102B51]">
-            Pharmacy{" "}
-            <span className="text-[#3183F5]">Quick Actions</span>
-          </h2>
-        </div>
-
-        <div className="mt-3 flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setQuickAction("Prescriptions")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#2E7DF1] px-4 text-xs font-bold text-white shadow-sm transition hover:bg-[#176BE0]"
-          >
-            <Pill size={16} />
-            Prescriptions
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setQuickAction("Doctors")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#9650F4] px-4 text-xs font-bold text-white shadow-sm transition hover:bg-[#8339E8]"
-          >
-            <UserRound size={17} fill="currentColor" />
-            Doctors
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setQuickAction("Batch Recalls")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[#F44750] px-4 text-xs font-bold text-white shadow-sm transition hover:bg-[#DF333D]"
-          >
-            <TriangleAlert size={16} fill="currentColor" />
-            Batch Recalls
-          </button>
-        </div>
-
-        {quickAction && (
-          <div className="mt-5 flex items-center justify-between rounded-xl border border-[#DFEAF8] bg-white p-4 text-sm text-[#244265]">
-            <span>
-              <strong>{quickAction}</strong> selected. Connect this action to
-              the corresponding pharmacy page.
-            </span>
-            <button
-              type="button"
-              onClick={() => setQuickAction("")}
-              aria-label="Dismiss"
-              className="ml-3 text-[#7186A2] hover:text-[#17365E]"
-            >
-              <X size={17} />
-            </button>
-          </div>
-        )}
       </section>
 
       {/* Scroll to top */}
