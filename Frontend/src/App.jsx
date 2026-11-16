@@ -1128,6 +1128,7 @@ function App() {
           return <MSCProfitLoss />
         }
         return <ProfitLoss />
+      case 'Sale Report':
       case 'Sales Report':
         if (activeBusiness === 'Multi-Service Center') {
           return <MSCSalesReport />
@@ -1143,6 +1144,7 @@ function App() {
           return <MSCTaxReport />
         }
         return <TaxReport />
+      case 'Supplier & Customer Report':
       case 'Customers & Suppliers Reports':
         if (activeBusiness === 'Multi-Service Center') {
           return <MSCCustomersSuppliersReports />
